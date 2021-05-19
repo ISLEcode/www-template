@@ -1,58 +1,84 @@
-*Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+<!--
+TODO HTTP support (https://stackoverflow.com/a/53489924)
+TODO Test HTTP/2 and SSL with sirv (https://www.npmjs.com/package/sirv-cli)
+-->
 
----
+# Svelte app
 
-# svelte app
+This is a customised project template for [Svelte]. It lives at https://github.com/ISLEcode/www-template and was forked from
+https://github.com/sveltejs/template to adjust to ISLE practices and, optionally, integrates with the ISLE [AIT framework][ait].
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+## Features
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+  - Makefile-based builds
+  - Typescript support
+  - Deploying to GitHub pages
 
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
+## Pre-requisites
+
+  - [Node.js] (latest version)
+  - Handy UNIX `make(1)` command
+  - YAML-based configuration files
+
+## Create a new project
+
+ISLE AIT developers can use the `git degit` command to use this template. We will be using YAML configuration files in lieu of
+JSON files; by precaution we will delete the auto-generated JSON files.
+
+``` {.sh .ksh}
+git degit ISLEcode/www-template my-app
+cd my-app
+rm package.json
 ```
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+_Note_: If you don't have an installed Apache HTTPD server, edit the `package.yaml` file and uncomment the `sirv-cli` development
+dependency.
 
+Other user's can use Rich Harris' [degit] utility to get a copy of this template. Since the AIT framework is not available the
+YAML configuration files should be removed.
+
+``` {.sh .ksh}
+npx degit ISLEcode/www-template my-app
+cd my-app
+rm package.yaml
+```
 
 ## Get started
 
-Install the dependencies...
+1.  Install the dependencies:
 
-```bash
-cd svelte-app
-npm install
-```
+    ```{.sh .ksh}
+    cd my-app
+    make configure
+    ```
 
 ...then start [Rollup](https://rollupjs.org):
 
-```bash
-npm run dev
+```{.sh .ksh}
+make dev
 ```
 
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
+Navigate to [localhost:5000](http://localhost:5000). You should see your app running.
+Edit a component file in `src`, save it, and reload the page to see your changes.
 
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
+By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv`
+commands in package.json to include the option `--host 0.0.0.0`.
 
 ## Building and running in production mode
 
 To create an optimised version of the app:
 
-```bash
-npm run build
+```{.sh .ksh}
+make build
 ```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
-
 
 ## Single-page app mode
 
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
+By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static
+fileservers, allowing you to deploy your app anywhere.
 
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
+If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You
+can make it so by editing the `"start"` command in package.json:.
 
 ```js
 "start": "sirv public --single"
@@ -60,15 +86,16 @@ If you're building a single-page app (SPA) with multiple routes, sirv needs to b
 
 ## Using TypeScript
 
-This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
+This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the
+template with:
 
-```bash
+```{.sh .ksh}
 node scripts/setupTypeScript.js
 ```
 
 Or remove the script via:
 
-```bash
+```{.sh .ksh}
 rm scripts/setupTypeScript.js
 ```
 
@@ -78,13 +105,13 @@ rm scripts/setupTypeScript.js
 
 Install `vercel` if you haven't already:
 
-```bash
+```{.sh .ksh}
 npm install -g vercel
 ```
 
 Then, from within your project folder:
 
-```bash
+```{.sh .ksh}
 cd public
 vercel deploy --name my-project
 ```
@@ -93,13 +120,19 @@ vercel deploy --name my-project
 
 Install `surge` if you haven't already:
 
-```bash
+```{.sh .ksh}
 npm install -g surge
 ```
 
 Then, from within your project folder:
 
-```bash
-npm run build
+```{.sh .ksh}
+make build
 surge public my-project.surge.sh
 ```
+
+  [ait]: https://github.com/ISLEcode/AIT
+  [node.js]: https://nodejs.org
+  [degit]: https://github.com/Rich-Harris/degit
+  [svelte]: https://svelte.dev
+
