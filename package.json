@@ -1,0 +1,28 @@
+{
+  "revision": "2021-05-19 (Wed) 06:36:21",
+  "name": "my-app",
+  "description": "ISLEcode Svelte template",
+  "version": "1.0.0",
+  "private": true,
+  "keywords": [
+    "svelte"
+  ],
+  "dependencies": null,
+  "devDependencies": {
+    "rollup": "^2.3.4",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "@rollup/plugin-typescript": "^8.0.0",
+    "svelte": "^3.37.0",
+    "svelte-check": "^1.0.46",
+    "svelte-preprocess": "^4.6.9",
+    "@tsconfig/svelte": "^1.0.10",
+    "typescript": "^4.0.3",
+    "tslib": "^2.0.1",
+    "sirv-cli": "^1.0.0"
+  }
+}
