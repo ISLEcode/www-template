@@ -1,4 +1,4 @@
-revision:    2021-05-19 (Wed) 06:36:21
+revision:    2021-05-20 (Thu) 08:23:11
 name:        my-app
 description: ISLEcode Svelte template
 version:     1.0.0
@@ -17,58 +17,98 @@ dependencies:
 #   '@sendgrid/mail':                            ^7.4.2     # SendGrid v3 API (https://sendgrid.com/docs/api-reference)
 
 devDependencies:
-#   '@babel/core':                               ^7.0.0     # Javascript compiler (https://babeljs.io/docs)
-#   '@babel/plugin-syntax-dynamic-import':       ^7.0.0     # - https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import
-#   '@babel/plugin-transform-object-assign':     ^7.12.13   # - https://babeljs.io/docs/en/babel-plugin-transform-object-assign
-#   '@babel/plugin-transform-runtime':           ^7.0.0     # - https://babeljs.io/docs/en/babel-plugin-transform-runtime
-#   '@babel/preset-env':                         ^7.13.12   # - https://babeljs.io/docs/en/babel-preset-env
-#   '@babel/preset-typescript':                  ^7.13.0    # - https://babeljs.io/docs/en/babel-preset-typescript
-#   '@babel/runtime':                            ^7.0.0     # - https://babeljs.io/docs/en/babel-runtime
-#   'bootstrap':                                 latest     # Bootstrap UI framework
-#   cssnano:                                     ^4.1.10    # CSS minifier for PostCSS (http://cssnano.co)
+
+    # Babel, Javascript transpiler
+    '@babel/core':                               ^7.0.0     # Javascript compiler (https://babeljs.io/docs)
+    '@babel/plugin-syntax-dynamic-import':       ^7.0.0     # - https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import
+    '@babel/plugin-transform-object-assign':     ^7.12.13   # - https://babeljs.io/docs/en/babel-plugin-transform-object-assign
+    '@babel/plugin-transform-runtime':           ^7.0.0     # - https://babeljs.io/docs/en/babel-plugin-transform-runtime
+    '@babel/preset-env':                         ^7.13.12   # - https://babeljs.io/docs/en/babel-preset-env
+    '@babel/preset-typescript':                  ^7.13.0    # - https://babeljs.io/docs/en/babel-preset-typescript
+    '@babel/runtime':                            ^7.0.0     # - https://babeljs.io/docs/en/babel-runtime
+
+    # Bootstrap, HTML5 UI framework
+    bootstrap4:                    npm:bootstrap@^4.0.0     # Bootstrap 4 UI framework
+    jquery:                                      ^3.0.0     # - jQuery (Bootstrap 4 dependency)
+    popper.js:                                   ^1.16.1    # - Popper (Bootstrap 4 dependency)
+    sveltestrap4:                npm:sveltestrap@^4.0.0     # Bootstrap 4 components (https://sveltestrap.js.org/)
+    bootstrap5:                    npm:bootstrap@^5.0.0     # Bootstrap 5 UI framework
+    sveltestrap5:                npm:sveltestrap@^5.0.0     # Bootstrap 5 components (https://sveltestrap.js.org/)
+
 #   github-buttons:                              ^2.15.0    # Ready made GitHub buttons (https://buttons.github.io)
 #   husky:                                       ^4.3.8     # Improve your commits (https://typicode.github.io/husky)
 #   lint-staged:                                 ^10.5.4    # Linter for Git staged files (https://github.com/okonet/lint-staged)
-#   mdsvex:                                      ^0.8.9     # Markdown Svelte preprocessor (https://github.com/pngwn/MDsveX)
-#   netlify-lambda:                              ^2.0.3
-#   npm-run-all:                                 ^4.1.5
-#   postcss:                                     ^8.2.8     # Transform CSS with Javascript (https://postcss.org)
-#   postcss-cli:                                 ^8.3.1     # - https://github.com/postcss/postcss-cli
-#   postcss-import:                              ^14.0.0    # - https://github.com/postcss/postcss-import
-#   postcss-load-config:                         ^3.0.1     # - https://github.com/postcss/postcss-load-config
-#   postcss-preset-env:                          ^6.7.0     # - https://github.com/csstools/postcss-preset-env
+#
+    # Markdown (CommonMark)
+    mdsvex:                                      ^0.8.9     # Markdown Svelte preprocessor (https://github.com/pngwn/MDsveX)
+    remark:                                      latest     # Parse and serialize Markdown (https://remark.js.org/)
+    remark-autolink-headings:                    ^6.0.1     # - https://github.com/remarkjs/remark-autolink-headings
+    remark-slug:                                 ^6.0.0     # - https://github.com/remarkjs/remark-slug
+
+    postcss:                                     ^8.2.8     # Transform CSS with Javascript (https://postcss.org)
+    postcss-cli:                                 ^8.3.1     # - https://github.com/postcss/postcss-cli
+    postcss-import:                              ^14.0.0    # - https://github.com/postcss/postcss-import
+    postcss-cssnext:                             ^3.1.0     # - https://cssnext.github.io/postcss
+    postcss-load-config:                         ^3.0.1     # - https://github.com/postcss/postcss-load-config
+    postcss-preset-env:                          ^6.7.0     # - https://github.com/csstools/postcss-preset-env
+    autoprefixer:                                ^10.2.5    # - https://github.com/postcss/autoprefixer
+    cssnano:                                     ^4.1.10    # - CSS minifier for PostCSS (http://cssnano.co)
+
 #   prettier:                                    ^2.2.1     # Opiniated code formatter (https://prettier.io)
 #   prettier-plugin-svelte:                      ^2.2.0     # - https://github.com/sveltejs/prettier-plugin-svelte
-#   remark:                                      latest     # Unified processor to parse and serialize Markdown
-#   remark-autolink-headings:                    ^6.0.1     # - https://github.com/remarkjs/remark-autolink-headings
-#   remark-slug:                                 ^6.0.0     # - https://github.com/remarkjs/remark-slug
+
     rollup:                                      ^2.3.4     # EcmaScript bundler (https://rollupjs.org)
-#   '@rollup/plugin-babel':                      ^5.0.0     # - https://github.com/rollup/plugins
-    '@rollup/plugin-commonjs':                   ^17.0.0    # - (idem)
-    '@rollup/plugin-node-resolve':               ^11.0.0    # - (idem)
-#   '@rollup/plugin-replace':                    ^2.4.0     # - (idem)
-    'rollup-plugin-css-only':                    ^3.1.0
-    'rollup-plugin-livereload':                  ^2.0.0
+                                                            # Rollup plugins (https://github.com/rollup/plugins)
+    '@rollup/plugin-babel':                      ^5.0.0     # - Compile your files with Babel
+    '@rollup/plugin-commonjs':                   ^17.0.0    # - Convert CommonJS modules to ES6
+    '@rollup/plugin-eslint':                     ^8.0.1     # - Verify entry point and all imported files with ESLint
+    '@rollup/plugin-graphql':                    ^1.0.0     # - Convert .gql/.graphql files to ES6 modules
+    '@rollup/plugin-json':                       ^4.1.0     # - Convert .json files to ES6 modules
+    '@rollup/plugin-node-resolve':               ^11.0.0    # - Locate and bundle third-party dependencies in node_modules
+    '@rollup/plugin-replace':                    ^2.4.0     # - Replace strings in files while bundling
+    '@rollup/plugin-typescript':                 ^8.0.0     # - Integration between Rollup and Typescript
+    '@rollup/plugin-url':                        ^5.0.0     # - Import files as data-URIs or ES Modules
+    '@rollup/plugin-yaml':                       ^3.0.0     # - Convert .yaml files to ES6 modules
+    'rollup-plugin-css-only':                    ^3.1.0     # - Bundle CSS (https://github.com/thgh/rollup-plugin-css-only)
+    'rollup-plugin-livereload':                  ^2.0.0     # - https://github.com/thgh/rollup-plugin-livereload
     rollup-plugin-svelte:                        ^7.0.0     # - https://github.com/sveltejs/rollup-plugin-svelte
     rollup-plugin-terser:                        ^7.0.0     # - https://github.com/TrySound/rollup-plugin-terser
-    '@rollup/plugin-typescript':                 ^8.0.0     # - https://github.com/rollup/plugins
-#   '@rollup/plugin-url':                        ^5.0.0     # - (idem)
-#   sass:                                        ^1.32.8    # SASS compiler (https://github.com/sass/dart-sass)
+
+    sass:                                        ^1.32.8    # SASS compiler (https://github.com/sass/dart-sass)
+
+    '@storybook/addon-actions':                  ^6.0.27
+    '@storybook/addon-knobs':                    ^6.0.27
+    '@storybook/addon-links':                    ^6.0.27
+    '@storybook/addon-options':                  ^5.3.21
+    '@storybook/addon-storysource':              ^6.0.27
+    '@storybook/addons':                         ^6.0.27
+    '@storybook/svelte':                         ^6.0.27
+
     svelte:                                      ^3.37.0    # Cybernetically enhanced apps (https://github.com/sveltejs/svelte)
     svelte-check:                                ^1.0.46    # - Svelte linter (https://github.com/sveltejs/language-tools)
+#   svelte-loader:                               ^2.13.6    # - Webpack loader (https://github.com/sveltejs/svelte-loader)
+    svelte-preprocess:                           ^4.6.9     # - Preprocessor (https://github.com/sveltejs/svelte-preprocess)
+    svelte-spa-router:                           ^3.0.4     # - UA router (https://github.com/ItalyPaleAle/svelte-spa-router)
+
+    pug:                                         ^3.0.2     # Pug (https://pugjs.org)
+
+#   '@sveltejs/kit':                             ^1.0.0-next.76
 #   '@sveltejs/adapter-static':                  ^1.0.0-next.8
 #   '@sveltejs/adapter-netlify':                 ^1.0.0-next.4
-#   '@sveltejs/kit':                             ^1.0.0-next.76
-    svelte-preprocess:                           ^4.6.9     # - Preprocessor (https://github.com/sveltejs/svelte-preprocess)
+
 #   tailwindcss:                                 ^2.0.4
-    '@tsconfig/svelte':                          ^1.0.10    # Base Svelte Typescript config (https://github.com/tsconfig/bases)
+#
     typescript:                                  ^4.0.3     # Typescript compiler (https://github.com/Microsoft/TypeScript)
+    '@tsconfig/svelte':                          ^1.0.10    # Base Svelte Typescript config (https://github.com/tsconfig/bases)
     tslib:                                       ^2.0.1     # - Typescript runtime library (https://github.com/Microsoft/tslib)
 #   '@types/aws-lambda':                         ^8.10.73   # - AWS Lambda (https://github.com/DefinitelyTyped/DefinitelyTyped)
 #   '@types/compression':                        ^1.7.0     # - Compression (https://github.com/DefinitelyTyped/DefinitelyTyped)
 #   '@types/node':                               ^14.11.1   # - NodeJS (https://github.com/DefinitelyTyped/DefinitelyTyped)
 #   '@types/polka':                              ^0.5.1     # - Micro web server (https://github.com/lukeed/polka)
+#
 #   unist-util-visit:                            ^2.0.3     # Visit nodes (https://github.com/syntax-tree/unist-util-visit)
+
 #   vite:                                        ^2.1.5     # Web dev build tool (https://github.com/vitejs/vite)
+#
     sirv-cli:                                    ^1.0.0     # Serving static files (https://github.com/lukeed/sirv)
 

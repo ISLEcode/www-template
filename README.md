@@ -11,8 +11,21 @@ https://github.com/sveltejs/template to adjust to ISLE practices and, optionally
 ## Features
 
   - Makefile-based builds
-  - Typescript support
-  - Deploying to GitHub pages
+  - Bootstrap 5 <sup>(a)</sup>
+  - SASS/PostCSS <sup>(b)</sup>
+  - Pug <sup>(c)</sup>
+  - Typescript
+  - GitHub pages
+
+<sup>(a)</sup> It is intended that this template supports (simultaneously) Bootstrap versions 4 and 5. In the meantime we are
+focusing on Bootstrap 5. We will rapidly retrofit the template to support Bootstrap 4; note that the Bootstrap 4 and associated
+Node packages are already included.
+
+<sup>(b)</sup> LESS and Stylus can also be easily adopted since they are already handled by Svelte's preprocessor. We are using
+SASS as this is the Bootstrap team's choice, and Bootstrap is our primary UI framework.
+
+<sup>(c)</sup> Pug support is currently experimental not so much for the language itself, or its integration -- Svelte handles it
+through its pre-processor, but rather because of its combined use with Markdown.
 
 ## Pre-requisites
 
@@ -20,12 +33,41 @@ https://github.com/sveltejs/template to adjust to ISLE practices and, optionally
   - Handy UNIX `make(1)` command
   - YAML-based configuration files
 
+## Filesystem layout
+
+The essential top-level components:
+
+```
+├─ docs/ (auto-built)   GitHub pages directory for target build
+├─ src/                 Source files that need to be `compiled`
+├─ www/                 Static files that are used as-is
+├─ Makefile             The `make(1)` rules for this project
+├─ README.md            Brief overview of this project
+├─ package.yaml         The `npm(1)` configuration file
+├─ rollup.config.js     The `rollup(1)` configuration file
+└─ tsconfig.yaml        The `ts(1)` configuration file
+```
+
+The `www` and `docs` directories follow the same base layout:
+
+```
+www (→ docs)
+├─ zip/                 A zip-full directory of static assets
+│  ├─ vendor/           Third party dependencies
+│  └─ app/              Application static/generated media components
+│     ├─ css/           Stylesheets
+│     ├─ fonts/         Fonts and typography-related resources
+│     ├─ img/           Images and graphical resources
+│     └─ js/            Browser-compatible Javascript files
+└─ index.html           The applications `entry` point
+```
+
 ## Create a new project
 
 ISLE AIT developers can use the `git degit` command to use this template. We will be using YAML configuration files in lieu of
 JSON files; by precaution we will delete the auto-generated JSON files.
 
-``` {.sh .ksh}
+```  .sh
 git degit ISLEcode/www-template my-app
 cd my-app
 rm package.json
@@ -37,7 +79,7 @@ dependency.
 Other user's can use Rich Harris' [degit] utility to get a copy of this template. Since the AIT framework is not available the
 YAML configuration files should be removed.
 
-``` {.sh .ksh}
+```  .sh
 npx degit ISLEcode/www-template my-app
 cd my-app
 rm package.yaml
@@ -47,14 +89,14 @@ rm package.yaml
 
 1.  Install the dependencies:
 
-    ```{.sh .ksh}
+    ``` .sh
     cd my-app
     make configure
     ```
 
 ...then start [Rollup](https://rollupjs.org):
 
-```{.sh .ksh}
+``` .sh
 make dev
 ```
 
@@ -68,20 +110,20 @@ commands in package.json to include the option `--host 0.0.0.0`.
 
 To create an optimised version of the app:
 
-```{.sh .ksh}
-make build
+``` .sh
+make prod
 ```
 
 ## Single-page app mode
 
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static
+By default, sirv will only respond to requests that match files in `docs`. This is to maximise compatibility with static
 fileservers, allowing you to deploy your app anywhere.
 
 If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You
 can make it so by editing the `"start"` command in package.json:.
 
 ```js
-"start": "sirv public --single"
+"start": "sirv docs --single"
 ```
 
 ## Using TypeScript
@@ -89,13 +131,13 @@ can make it so by editing the `"start"` command in package.json:.
 This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the
 template with:
 
-```{.sh .ksh}
+``` .sh
 node scripts/setupTypeScript.js
 ```
 
 Or remove the script via:
 
-```{.sh .ksh}
+``` .sh
 rm scripts/setupTypeScript.js
 ```
 
@@ -105,14 +147,14 @@ rm scripts/setupTypeScript.js
 
 Install `vercel` if you haven't already:
 
-```{.sh .ksh}
+``` .sh
 npm install -g vercel
 ```
 
 Then, from within your project folder:
 
-```{.sh .ksh}
-cd public
+``` .sh
+cd docs
 vercel deploy --name my-project
 ```
 
@@ -120,15 +162,15 @@ vercel deploy --name my-project
 
 Install `surge` if you haven't already:
 
-```{.sh .ksh}
+``` .sh
 npm install -g surge
 ```
 
 Then, from within your project folder:
 
-```{.sh .ksh}
-make build
-surge public my-project.surge.sh
+``` .sh
+make prod
+surge docs my-project.surge.sh
 ```
 
   [ait]: https://github.com/ISLEcode/AIT

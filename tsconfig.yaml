@@ -1,6 +1,7 @@
-revision                              : 2021-05-19 (Wed) 06:35:30
-extends                               : '@tsconfig/svelte/tsconfig.json'
-compilerOptions                       :
+# Cf. https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+revision                              : 2021-05-19 (Wed) 14:14:07
+extends                               : '@tsconfig/svelte/tsconfig.json' # Cf. https://www.npmjs.com/package/@tsconfig/svelte
+#ompilerOptions                       :
 #   moduleResolution                  : node
 #   module                            : es2020
 #   lib                               : [ es2020 ]
@@ -15,13 +16,13 @@ compilerOptions                       :
 #   skipLibCheck                      : true
 #   forceConsistentCasingInFileNames  : true    # Why make short names while you make them terribly long!
 #   baseUrl                           : .
-    allowJs                           : true
-    checkJs                           : true
+#   allowJs                           : true
+#   checkJs                           : true
 #   paths                             :
 #       '$app/*'                      : [ .svelte/dev/runtime/app/*, .svelte/build/runtime/app/* ]
 #       '$service-worker'             : [ .svelte/build/runtime/service-worker ]
 #       '$lib/*'                      : [ src/lib/* ]
 include                               : [ src/**/*.d.ts, src/**/*.js, src/**/*.ts, src/**/*.svelte ]
-exclude                               : [ node_modules/*, __sapper__/*, public/* ]
+exclude                               : [ node_modules/*, __sapper__/*, docs/* ]
 
 # __END__

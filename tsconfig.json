@@ -1,1 +1,0 @@
-{"revision":"2021-05-19 (Wed) 07:09:57","extends":"@tsconfig/svelte/tsconfig.json","include":["src/**/*.d.ts","src/**/*.js","src/**/*.ts","src/**/*.svelte"],"exclude":["node_modules/*","__sapper__/*","public/*"]}
