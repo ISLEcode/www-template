@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.83.1">
+    <title>Grid Template · Bootstrap v5.0</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/grid/">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img { font-size: 1.125rem; text-anchor: middle; user-select: none; -webkit-user-select: none; -moz-user-select: none; }
+      @media (min-width: 768px) { .bd-placeholder-img-lg { font-size: 3.5rem; }}
+    </style>
+
+    <link href="grid.css" rel="stylesheet">
+
+  </head>
+  <body class="py-4">
+    <main>
+
+      <section class="container">
+        <form class="g-3 needs-validation" novalidate>
+          <nav>
+            <div class="nav nav-tabs" id="account-nav" role="tablist">
+              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+                  role="tab" aria-controls="nav-home" aria-selected="true">Client</button>
+              <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
+                  role="tab" aria-controls="nav-profile" aria-selected="false">Voiture</button>
+            </div>
+          </nav>
+          <div class="tab-content" id="account-navContent">
+            <!-- @{ Client -->
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <p class="mt-2"></p>
+              <div class="row">
+                <!-- @{ User name and password -->
+                <div class="col-md-6">
+                  <div class="row">
+                    <!-- @{ User name -->
+                    <div class="col-md-6">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" aria-describedby="hisUIDHelp"
+                          id="hisUID" placeholder="Nom d'utilisateur" required>
+                        <label for="hisUID" class="form-label">Utilisateur</label>
+                        <!--<div id="hisUIDHelp" class="form-text"></div>-->
+                        <div class="valid-feedback">Champ validé</div>
+                        <div class="invalid-feedback">Merci de saisir votre nom d'utilisateur</div>
+                      </div>
+                    </div><!-- @} -->
+                    <!-- @{ Password -->
+                    <div class="col-md-6">
+                      <div class="form-floating mb-3">
+                        <input type="password" class="form-control" aria-describedby="hisUPWHelp"
+                          id="hisUPW" placeholder="Mot de passe" required>
+                        <label for="hisUPW" class="form-label">Mot de passe</label>
+                        <!--<div id="hisUPWHelp" class="form-text"></div>-->
+                        <div class="valid-feedback">Champ validé</div>
+                        <div class="invalid-feedback">Merci de saisir votre mot de passe</div>
+                      </div>
+                    </div><!-- @} -->
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Organisation's name -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisCompanyHelp"
+                      id="hisCompany" placeholder="Votre nom" required>
+                    <label for="hisCompany" class="form-label">Société</label>
+                    <!--<div id="hisCompanyHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre nom</div>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="isProfessional">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Compte professionnel</label>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Name -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisNameHelp"
+                      id="hisName" placeholder="Votre nom" required>
+                    <label for="hisName" class="form-label">Nom</label>
+                    <!--<div id="hisNameHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre nom</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Surname -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisSurnameHelp"
+                      id="hisSurname" placeholder="Votre prénom">
+                    <label for="hisSurname" class="form-label">Prénom</label>
+                    <!--<div id="hisSurnameHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre prénom</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Snail mail -->
+                <div class="col-md-6">
+                  <!-- @{ First line -->
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisAddress1Help"
+                      id="hisAddress1" placeholder="Votre numéro de téléphone fixe" required>
+                    <label for="hisAddress1" class="form-label">Adresse postale</label>
+                    <!--<div id="hisAddress1Help" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre adresse postale</div>
+                  </div><!-- @} -->
+                  <!-- @{ Second line -->
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisAddress2Help"
+                      id="hisAddress2" placeholder="Votre numéro de téléphone mobile">
+                    <label for="hisAddress2" class="form-label">Complément d'adresse</label>
+                    <!--<div id="hisAddress2Help" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre complément d'adresse</div>
+                  </div><!-- @} -->
+                  <!-- @{ Postal code and locality -->
+                  <div class="row">
+                    <!-- @{ Postal code -->
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" aria-describedby="hisPostCodeHelp"
+                          id="hisPostCode" placeholder="Votre courriel" required>
+                        <label for="hisPostCode" class="form-label">NPA</label>
+                        <!--<div id="hisPostCodeHelp" class="form-text"></div>-->
+                        <div class="valid-feedback">Champ validé</div>
+                        <div class="invalid-feedback">Merci de saisir votre code postal</div>
+                      </div>
+                    </div><!-- @} -->
+                    <!-- @{ Locality -->
+                    <div class="col-md-9">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" aria-describedby="hisLocationHelp"
+                          id="hisLocation" placeholder="Votre courriel" required>
+                        <label for="hisLocation" class="form-label">Lieu</label>
+                        <!--<div id="hisLocationHelp" class="form-text"></div>-->
+                        <div class="valid-feedback">Champ validé</div>
+                        <div class="invalid-feedback">Merci de saisir votre le lieu associé à votre adresse postale</div>
+                      </div>
+                    </div><!-- @} -->
+                  </div><!-- @} -->
+                </div><!-- @} -->
+                <!-- @{ Contemporary mail -->
+                <div class="col-md-6">
+                  <!-- @{ Fixed phone number -->
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisPhoneHelp"
+                      id="hisPhone" placeholder="Votre numéro de téléphone fixe" required>
+                    <label for="hisPhone" class="form-label">Numéro de téléphone fixe</label>
+                    <!--<div id="hisPhoneHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre numéro de téléphone fixe</div>
+                  </div><!-- @} -->
+                  <!-- @{ Mobile phone number -->
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisMobileHelp"
+                      id="hisMobile" placeholder="Votre numéro de téléphone mobile" required>
+                    <label for="hisMobile" class="form-label">Numéro de téléphone mobile</label>
+                    <!--<div id="hisMobileHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre numéro de téléphone mobile</div>
+                  </div><!-- @} -->
+                  <!-- @{ Email address -->
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisEmailHelp"
+                      id="hisEmail" placeholder="Votre courriel" required>
+                    <label for="hisEmail" class="form-label">Courriel</label>
+                    <!--<div id="hisEmailHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre courriel</div>
+                  </div><!-- @} -->
+                </div><!-- @} -->
+                <!-- @{ Birth date -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisBirthdayHelp"
+                      id="hisBirthday" placeholder="Votre date de naissance" required>
+                    <label for="hisBirthday" class="form-label">Date de naissance</label>
+                    <!--<div id="hisBirthdayHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre date de naissance</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Birth place -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisBirthPlaceHelp"
+                      id="hisBirthPlace" placeholder="Votre lieu de naissance" required>
+                    <label for="hisBirthPlace" class="form-label">Lieu de naissance</label>
+                    <!--<div id="hisBirthPlaceHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre lieu de naissance</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Driver's license number -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="hisLicenseIDHelp"
+                      id="hisLicenseID" placeholder="Votre numéro de permis de conduire" required>
+                    <label for="hisLicenseID" class="form-label">Numéro de permis de conduire</label>
+                    <!--<div id="hisLicenseIDHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre numéro de permis de conduire</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Driver's license -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input type="file" class="form-control" aria-describedby="hisLicenseHelp" id="hisLicense" required>
+                    <label for="hisLicense" class="form-label">Copie du permis de conduire</label>
+                    <!--<div id="hisLicenseHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de joindre une copie de votre permis de conduire</div>
+                  </div>
+                </div><!-- @} -->
+              </div>
+            </div><!-- @} -->
+            <!-- @{ Cars -->
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <h6 class="mt-3">Véhicule #1</h6>
+              <div class="row">
+                <!-- @{ Brand -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="car1BrandHelp"
+                      id="car1Brand" placeholder="Marque du véhicule #1" required>
+                    <label for="car1Brand" class="form-label">Marque</label>
+                    <!--<div id="car1BrandHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir la marque du véhicule #1</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Model -->
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="car1ModelHelp"
+                      id="car1Model" placeholder="Modèle du véhicule #1" required>
+                    <label for="car1Model" class="form-label">Modèle</label>
+                    <!--<div id="car1ModelHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir le modèle du véhicule #1</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Year -->
+                <div class="col-md-2">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="car1ModelHelp"
+                      id="car1Model" placeholder="Année du véhicule #1" required>
+                    <label for="car1Model" class="form-label">Année</label>
+                    <!--<div id="car1ModelHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir l'année du véhicule #1</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Kilometers -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="car1ModelHelp"
+                      id="car1Model" placeholder="Kilométrage du véhicule #1" required>
+                    <label for="car1Model" class="form-label">Kilométrage</label>
+                    <!--<div id="car1ModelHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir le kilométrage du véhicule #1</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ ID -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="car1IDHelp"
+                      id="car1ID" placeholder="Numéro des plaques du véhicule #1" required>
+                    <label for="car1ID" class="form-label">Plaques</label>
+                    <!--<div id="car1IDHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de saisir votre numéro des plaques du véhicule #1</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Registration card -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input type="file" class="form-control" aria-describedby="car1RegistrationHelp" id="car1Registration" required>
+                    <label for="car1Registration" class="form-label">Copie de la carte grise</label>
+                    <!--<div id="car1RegistrationHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de joindre une copie de la carte grise</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Insurer -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" aria-describedby="car1InsurerHelp"
+                      id="car1Insurer" placeholder="Assureur du véhicule #1" required>
+                    <label for="car1Insurer" class="form-label">Assureur</label>
+                    <!--<div id="car1InsurerHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de nommer l'assureur du véhicule #1</div>
+                  </div>
+                </div><!-- @} -->
+                <!-- @{ Insurance -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input type="file" class="form-control" aria-describedby="car1InsuranceHelp" id="car1Insurance" required>
+                    <label for="car1Insurance" class="form-label">Certificat d'assurance</label>
+                    <!--<div id="car1InsuranceHelp" class="form-text"></div>-->
+                    <div class="valid-feedback">Champ validé</div>
+                    <div class="invalid-feedback">Merci de joindre une copie du certificat d'assurance</div>
+                  </div>
+                </div><!-- @} -->
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 305.3 177.1" style="enable-background:new 0 0 305.3 177.1;" xml:space="preserve">
+                  <style type="text/css">
+                    .st0{clip-path:url(#SVGID_2_);fill:none;stroke:#9C9B9B;stroke-width:0.55;}
+                    .st1{clip-path:url(#SVGID_2_);fill:#FFFFFF;}
+                  </style>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_1_" width="305.3" height="177.1"/>
+                    </defs>
+                    <clipPath id="SVGID_2_">
+                      <use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+                    </clipPath>
+                    <path class="st0" d="M3.7,102.1l4.1-6.3c0,0,2.8-10.7,8.5-18.2c0,0,4.7-4.4,12.1-8.2c0,0,28.6-11.5,62.1-22.8c0,0,8.2-3.9,11.3-8
+                      c0,0,24.5-21.2,40.1-29.7c0,0,16.9-7.2,28.6-7.4c0,0,34.2-3.3,73.4,1.1c0,0,25,3.6,32.4,9.6l19,17.9c0,0,5.2,1.4,7.4,4.7
+                      c0,0,3,12.4,1.9,22.3c0,0-2.1,14.7-5.8,20.5c0,0,3-7.7,2.8-12.9c0,0-0.7-6.5-4.7-3.7c0,0-4.5,3.2-8.5,14.3c0,0-6.3,16.6-9.4,20.4
+                      c0,0-39.3,26.1-70.4,42.2c0,0,5.6-17.6,4.3-26.4c0,0-1.9-16.1-16.8-11.3c0,0-9.8,3.2-19,16.5c0,0-10.6,14.7-14.9,39.9
+                      c0,0-2.9,13.5-6.3,16.9c0,0-4-0.3-10.2-2.2c0,0-36.6,3.9-49.8,1.7c0,0-60.8-7.2-83.3-33.1c0,0-11.3-15.4-11-27.1
+                      C1.9,112.6-1.1,106.4,3.7,102.1z"/>
+                    <path class="st0" d="M71.8,133.1c0,0,27.4,5.9,56.9,3c0,0,4.4-1,4.4,1.2c0,0,0,4.3-3,4.7c0,0-30.2,4.4-60.9-2.6c0,0-7.6-1-6.5-3
+                      C62.7,136.4,64.1,131.4,71.8,133.1z"/>
+                    <path class="st0" d="M7.8,95.9c0,0-0.8,6,8.2,10.4c0,0,0.6-14.6,2.5-22.8c0,0,0.8-7.9,5.2-11.3"/>
+                    <path class="st0" d="M72.3,123.7c0,0,15-16.2,27.1-18.3c0,0,27.2-4.1,48.4-5.6c0,0-8.2,6.3-12.8,16.8c0,0-3.7,8.8-6.6,9.6
+                      C128.4,126.2,112.1,130.4,72.3,123.7z"/>
+                    <path class="st0" d="M17.9,92.9c0,0,30.5,6.7,66.1,18.3c0,0-10.2,8.1-12.9,11.8c0,0-38.9,1.4-54-15.8
+                      C17,107.2,16.8,100.5,17.9,92.9z"/>
+                    <path class="st0" d="M3.7,102.1c0,0-2.1,4.4,1.1,6.9l5.1,4.5l0.1,4.5c0,0,0.1,2.2-1.4,0.8c0,0-6.2-5-6.7-6.3"/>
+                    <path class="st0" d="M130.6,124.4c0,0,11.8,0,35.8-7.6h7.6l4.1-1.4"/>
+                    <path class="st0" d="M207.4,147.5c-4.1,18.1-15.2,31-24.8,28.8c-9.7-2.2-14.2-18.6-10.2-36.7c4.1-18.1,15.2-31,24.8-28.8
+                      C206.9,113,211.4,129.5,207.4,147.5z"/>
+                    <path class="st0" d="M202.5,147.4c-3.2,14.1-11.4,24.3-18.4,22.7c-6.9-1.6-9.9-14.3-6.7-28.4c3.2-14.1,11.4-24.3,18.4-22.7
+                      C202.7,120.5,205.7,133.3,202.5,147.4z"/>
+                    <path class="st0" d="M186.5,176.5c0,0-20.2,2.8-27.7-7.5"/>
+                    <path class="st0" d="M187.5,105.3c0,0,5.2-0.7,11.6,3.2c0,0,6.2,5,7.8,13.3"/>
+                    <path class="st0" d="M147.8,99.8c0,0,17.5-13.5,54.7-28.5c0,0,2.9-0.7,4.8-2.9c0,0,1.5-2.9,1.4-6.5c0,0,3-1.2,4.4-4.4
+                      c0,0,8.9-29.8,15.8-41.7c0,0-44.7-8.8-86.5-6.2c0,0-24.1,13.3-49.1,37.8c0,0,93.6,15.3,114.3,14.6"/>
+                    <path class="st0" d="M227.1,15.5c0,0,3.4-11.3,27.9-11"/>
+                    <path class="st0" d="M288.5,74.2c3-8.7,6.6-13.8,6.6-13.8c1.4-0.7-0.4-6.2-0.4-6.2l-0.4-7.3c-1.1-5.9-5.6-8.1-5.6-8.1
+                      c1-5.9-2.9-12.4-2.9-12.4c-8.4-12.8-18.4-16.7-18.4-16.7c-23.4-6.6-34.8,7.2-34.8,7.2c-15.9,32.6-14.8,48.6-14.8,48.6
+                      s8.8,15.6,4.5,37.7c0,0-3.4,21.2-5.6,26.4"/>
+                    <path class="st0" d="M300.6,61l1.2-1.1l-0.4-1.4c0,0,2.3-0.7,2.3-5.8l1.2-2.1"/>
+                    <path class="st0" d="M210.4,132.5c0,0,33.5-16.8,71.1-41"/>
+                    <path class="st0" d="M251.9,7.8c0,0,9.9,20.5,10.6,38.5c0,0,1.2,0.7,1,1.5c0,0,7.8,3.6,4.3,33c0,0-1.8,12.7-5.1,22.4"/>
+                    <path class="st0" d="M252,50.6l6.8-2.9l1.3-0.6c-1.5-19-8.5-36.7-8.5-36.7c-14.3,0.8-18.3,10.9-18.3,10.9
+                      C222.3,47,220.7,61,220.7,61c-1.1,4.7,3.4,2.1,3.4,2.1c4.5-3.2,13.9-4.3,13.9-4.3c2.6,0.3,11.3-1.1,11.3-1.1
+                      c3.1-0.4,2.6-4.8,2.2-6.7c0-0.1,0-0.2-0.1-0.3c-0.1-0.4-0.2-0.7-0.2-0.7c-0.3-3.3-5.5-4.3-5.5-4.3c-9.8-1.9-12.1-0.4-12.1-0.4
+                      c-3.6,1.4-4.4,5.6-4.4,5.6c-0.3-5.5-2.1-11.7-2.1-11.7s5.1-14.6,7.1-17.7c0,0,4-9.5,16.6-9.9"/>
+                    <path class="st0" d="M255.1,10.2c0,0,9.2,19.4,9.8,35.1l16.1-6c0,0-1.2-14.4-4.9-21.2C276.2,18.1,270.4,8.8,255.1,10.2z"/>
+                    <path class="st0" d="M278.2,19.7c0,0,4.8,13.6,4.1,19.1l5.4-1.7C287.8,37,288.6,29.1,278.2,19.7z"/>
+                    <path class="st0" d="M260.4,64.6c0,0,6.1-0.6,5.7-2.7l1.3-0.6c0,0,0.7,1.8,0,2.4c-0.6,0.5-0.5,0.7-0.5,0.7s-0.2,1.5-6.1,2.8
+                      C260.9,67.2,259.1,66.5,260.4,64.6z"/>
+                    <path class="st0" d="M260.9,67.2c0,0,0.1,3.6,2.3,2.3c0,0,1.9-0.6,1.9-3.5"/>
+                    <path class="st0" d="M260.9,64.5c0,0-0.6-4,1.3-4.6c0,0,2.2-1.2,2.4,0.8l0.4,2.7"/>
+                    <path class="st0" d="M288.6,50.9c0,0,3.8-0.5,3.6-1.6l-0.2-0.4l0.9-0.5c0,0,0.5,0.6,0.3,1.1l-0.2,0.1c0,0,0.6,2-4.1,2.4
+                      C288.9,52.1,288.1,52.2,288.6,50.9z"/>
+                    <path class="st0" d="M288.9,52.1c0,0-0.2,4.3,1.4,3.5c0,0,1.7-0.1,1.6-4.1"/>
+                    <path class="st0" d="M288.9,50.7c0,0-0.1-3.3,1.3-3.3c0,0,1.4-0.8,1.6,2.5"/>
+                    <path class="st0" d="M268.3,80.6c0,0,0,1.3-0.2,2.3c0,0,11.8-5.8,19-10.4c0,0,0.5-1.1-0.1-2C286.9,70.6,268.5,81.1,268.3,80.6z"/>
+                    <path class="st0" d="M266.9,81.4c0,0-24.6,12.6-43.9,20.9l-0.3,1.9c0,0,20.1-8.4,43.9-20.7C266.6,83.6,267,82,266.9,81.4z"/>
+                    <path class="st0" d="M296.9,88.6c-1.2,8.6-4.3,15.3-6.9,14.9c-2.5-0.4-3.6-7.6-2.4-16.2c1.2-8.6,4.3-15.3,6.9-14.9
+                      C297.1,72.7,298.2,80,296.9,88.6z"/>
+                    <path class="st0" d="M298.2,88.3c-1.8,11.1-5.9,19.7-9,19.2c-3.2-0.5-4.3-10-2.5-21.1c1.8-11.1,5.9-19.7,9-19.2
+                      C298.9,67.8,300,77.2,298.2,88.3z"/>
+                    <path class="st0" d="M296.6,67.6c0,0-1.7-1.7-3.8-1.5"/>
+                    <path class="st0" d="M290,107.5c0,0-9.2,1.8-13.8-0.7c0,0-2.5-1.9-3.6-6.9"/>
+                    <path class="st0" d="M234,22.2c0,0,4.9-0.2,5.4,1.4c0,0,5.7,10.7,1.7,12.6c0,0-6.7,1-12.7-0.3"/>
+                    <path class="st0" d="M239.9,36.3c0,0,8.9,1.1,9.5,4.9c0,0,1,3.9,1,6.9"/>
+                    <path class="st0" d="M260.1,22.7c0,0,7.8,0.2,8.2,1.6c0,0,1.5,4.5,1.2,8.3l-1.4,2.1c0,0,9,0.5,10.2,2.3l1.6,2.6"/>
+                    <path class="st0" d="M255.5,22.4c0,0-1,0.1-1.2,1c0,0-1.5,3.8-0.1,9.8c0,0-3.6-0.8-11.8-1.5"/>
+                    <path class="st0" d="M269.3,28.3c0,0,7.4,0.4,10.3,1.3"/>
+                    <path class="st0" d="M253.5,27.5c0,0-5.4-0.5-12.3,0"/>
+                    <path class="st0" d="M281.3,29.9c0,0,2.7,0.5,3.9,1c0,0,0.3-1.2-1.3-4.7"/>
+                    <path class="st0" d="M141.7,11.6c0,0,26.1-2.4,79.1,5.2c0,0,3.4,0.3,2.5,4.1c0,0-11.6,36-18.7,36.5c0,0-66.8-3.8-98.9-11
+                      c0,0-5.2-1.4-4.1-3.2C101.6,43.3,125.8,21.1,141.7,11.6z"/>
+                    <path class="st0" d="M102.4,44.9l11.7-0.8c0,0,1.2-0.5,1.6-1c0,0,22.8-6.8,30.2-3.8c0,0,5.7,2,7.8,9.2c0,0,14.7,1.1,52.7,8.2"/>
+                    <path class="st0" d="M140.6,38.3c0,0,3.7-8.1,13-3.9c0,0,9,3.4,11.6,15.2"/>
+                    <path class="st0" d="M143.2,38.5c0,0,2.8-5.3,9.4-1.9c0,0,5.2,2.6,6.8,6.4l-3.4,1.7c0,0-1.1-3.9-6.5-3.3"/>
+                    <line class="st0" x1="143.9" y1="37.6" x2="151.8" y2="36.2"/>
+                    <path class="st0" d="M154.3,34.6c0,0,4-12,11.5-23.1"/>
+                    <line class="st0" x1="140.7" y1="38.1" x2="136.6" y2="38.8"/>
+                    <path class="st0" d="M115.7,43.1c0,0-5.9,0.5-0.7-4c0,0,20.1-18.8,38.9-27.8"/>
+                    <path class="st0" d="M188.4,21.2L177,21.4c0,0-3.5,1.3-3.7,4.2c0,0-1.4,7.4,1.6,6.8l13.7,1.3C188.7,33.6,194.4,32.2,188.4,21.2z"/>
+                    <path class="st0" d="M174.5,32.4c0,0-5.4,0.7-6.2,2.9l-4.6,9.5"/>
+                    <path class="st0" d="M188.7,33.6c0,0,6,1.2,6.6,3.6l1.1,17.4"/>
+                    <path class="st0" d="M207.5,21.1c0,0,1.9-4.9,4.1-5.5"/>
+                    <path class="st0" d="M110.1,31.5c0,0-6.6-1.1-7.6,2.3c0,0-1.1,2.3-0.8,4.7"/>
+                    <path class="st0" d="M195.9,31.1c0,0,0.1-8.1,3-10.5l11.7,0.8c0,0,3.6,5.7,2,10c0,0,2.5-0.3,7.2-0.5"/>
+                    <path class="st0" d="M195.8,31c0.2,0-3.3,0.8-3.5,1.6l-1.3,1.6"/>
+                    <path class="st0" d="M172.2,12c-6.1,8.4-9.6,22.5-9.6,22.5l11.2-2.1"/>
+                    <path class="st0" d="M189.1,22.5c0,0,1.2-5.7,4.1-9"/>
+                    <path class="st0" d="M26.5,76c0,0,10.4-11,45.4-23.1"/>
+                    <path class="st0" d="M207.5,63.1c0,0-46.8,12.1-84.2,28.1"/>
+                    <path class="st0" d="M107.1,113.1c0,3.6-2.3,6.6-5.1,6.6c-2.8,0-5.1-3-5.1-6.6c0-3.6,2.3-6.6,5.1-6.6
+                      C104.8,106.5,107.1,109.5,107.1,113.1z"/>
+                    <ellipse class="st0" cx="118.7" cy="112.8" rx="7.1" ry="8.2"/>
+                    <path class="st0" d="M11.2,89c-0.5,3.2,0,6,1.1,6.2c1.1,0.2,2.4-2.3,2.9-5.5c0.5-3.2,0-6-1.1-6.2C13,83.3,11.6,85.8,11.2,89z"/>
+                    <path class="st0" d="M137.6,107.6c0.4,1.9-0.3,3.6-1.5,3.8c-1.2,0.2-2.5-1.1-2.8-3c-0.4-1.9,0.3-3.6,1.5-3.8
+                      C136,104.4,137.2,105.7,137.6,107.6z"/>
+                    <path class="st0" d="M133,118.3c0,1.1-0.7,1.9-1.6,1.9c-0.9,0-1.6-0.9-1.6-1.9c0-1.1,0.7-1.9,1.6-1.9
+                      C132.3,116.4,133,117.3,133,118.3z"/>
+                    <path class="st0" d="M15,121.8c0,0,7.9,5.4,39.4,13.7c0,0,1.6,0.5,1.6,1.3l1.2,12.1c0,0,0.1,1-1.4,0.8c0,0-25.1-6.7-39.9-15.1
+                      c0,0-0.7-0.3-1.1-1.6l-1.2-10.8C13.6,122.2,13.6,121.1,15,121.8z"/>
+                    <path class="st0" d="M70.9,154.5c0,3.6-2.3,6.6-5.1,6.6c-2.8,0-5.1-3-5.1-6.6c0-3.6,2.3-6.6,5.1-6.6
+                      C68.6,147.9,70.9,150.8,70.9,154.5z"/>
+                    <path class="st0" d="M11,134.5c0,3.1-1,5.6-2.3,5.6c-1.3,0-2.3-2.5-2.3-5.6c0-3.1,1-5.6,2.3-5.6C10,128.9,11,131.4,11,134.5z"/>
+                    <polyline class="st1" points="6.2,142.4 0,132.7 5.9,128.9 12.1,138.7  "/>
+                    <polyline class="st1" points="7.8,131.7 5.8,132.7 4.8,130.8 6.7,129.7   "/>
+                    <path class="st0" d="M69.7,158.2c0,0,44.8,9.6,92.9-2.8"/>
+                    <path class="st0" d="M60.9,156.6c0,0-37.3-8.7-49.9-22.1"/>
+                  </g>
+                  </svg>
+                </div>
+                <div class="col-md-6">
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 332.5 192.4" style="enable-background:new 0 0 332.5 192.4;" xml:space="preserve">
+                  <style type="text/css">
+                    .st0{clip-path:url(#SVGID_2_);}
+                    .st1{clip-path:url(#SVGID_4_);fill:none;stroke:#9C9B9B;stroke-width:0.55;}
+                    .st2{clip-path:url(#SVGID_4_);fill:#FFFFFF;}
+                  </style>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_1_" width="332.5" height="192.4"/>
+                    </defs>
+                    <clipPath id="SVGID_2_">
+                      <use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+                    </clipPath>
+                    <g class="st0">
+                      <defs>
+                        <rect id="SVGID_3_" x="-0.7" y="3.5" width="306.1" height="175.2"/>
+                      </defs>
+                      <clipPath id="SVGID_4_">
+                        <use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+                      </clipPath>
+                      <path class="st1" d="M33.7,54.9l-20.9,6.2c0,0-4.6,8.6-2.6,25.5c0,0-0.7,0.7-0.4,2.6L4.8,99.8c0,0-2.9,2.8-0.9,8.2
+                        c0,0,0.7,19.6,18.5,31.5H26c0,0,11.7,8.8,49.7,20.5c0,0,4,1.3,7.5,3.1c0,0,2.2,2.4,8.1,3.3c0,0,17.4,5.7,57.6-4.2
+                        c0,0,11.7-2.4,11.7-4.8c0,0,12.3-39.1,29-50.8c0,0,26.6-18.5,18,23.8c0,0,0.7,2.7,0.2,4.6c0,0,53.4-29.3,74.1-44.2
+                        c0,0,5.1-20.5,12.5-31c0,0,11.9-17.8,8.2,15c0,0,4.2-9.9,2-26.2c0,0,0-3.3-2.4-4.6c0,0-4.2-2.8-9.7-4c0,0-3.1-1.1-3.7-1.6
+                        c0,0-13.8-4.2-15.6-3.5c0,0-20.2-22.7-39.8-25.9c0,0-39.6-6.2-63.1-5.3c0,0-34.8-0.2-55.9,6c0,0-12.3,3.7-24,10.1
+                        C90.4,20,37.9,53.6,33.7,54.9z"/>
+                      <path class="st1" d="M99.2,15.8c43.3-7.9,79.8,8.6,79.8,8.6c-1.6-0.9-40.1,40.5-40.1,40.5c-8.6,9.3-27.5,15.4-27.5,15.4
+                        c-1.1,0.4-2.1,1-3,1.8c-3.2,2.7-5.2,7-5.2,7c-17.1,33-22,32.5-22,32.5c-26.4-0.7-57-16.1-57-16.1c-11.6-4.8-11.2-44.4-11.2-44.4"
+                        />
+                      <path class="st1" d="M35.2,54.1c0,0,1.1,10.8,92.8,18.7"/>
+                      <path class="st1" d="M20.2,72.8c0,0,19.2,2,60.3,15c0,0-8.8,23.5-14.7,21.4c0,0-14.7-2.7-28.4-7.5c0,0-12.3-4-13.4-8.1
+                        C24,93.7,20,78.9,20.2,72.8z"/>
+                      <path class="st1" d="M20.7,78.3c0,0,5.1,6.4,57.4,14.7"/>
+                      <path class="st1" d="M90.4,20c0,0,18.9-2,82.9,8.6h0.4"/>
+                      <path class="st1" d="M111.1,80.5c0,0,12.9,0,42.3,32.6c0,0,4.4,5.1,7.4,3.9l9.8-2.8c0,0,6.2-0.7,9.4-1.5l4.2-1.3"/>
+                      <path class="st1" d="M88.5,113.7c0,0,24.4,5.3,26.2,1.8c0,0,7.3,1.6,35.9-5.3"/>
+                      <path class="st1" d="M87.1,115.7c0,0,28.5,8.4,66.3-2.6"/>
+                      <path class="st1" d="M9.9,89.2c0,0,1.8,3.7,6.8,5.6c0,0-3.7,8.9-1.7,11.6c0,0,12.7,9.7,51.7,18.3c0,0,11.2,2.9,14.9-3.1"/>
+                      <path class="st1" d="M4.8,99.8c0,0-2.9,3.8,8.4,9.3c0,0,27.5,14.1,75.5,23.1c0,0,23.1,5.1,52.6-3.1l3.1,3.7
+                        c0,0-27.3,11.7-56.8,5.1c0,0-61.1-12.1-83.8-29.9"/>
+                      <path class="st1" d="M88.7,132.2c0,0-2.4,2.9-1.1,5.7"/>
+                      <path class="st1" d="M171.7,101.9c-0.3,5.4-3.5,9.5-6.9,9.3c-3.5-0.2-6-4.8-5.7-10.1c0.3-5.4,3.5-9.5,6.9-9.3
+                        S172,96.6,171.7,101.9z"/>
+                      <path class="st1" d="M244.7,110.4c7.3-18.4,5.7-38.5,5.7-38.5c-0.2-13.2-8.2-18-8.2-18c-0.2-0.9-1.3-1.5-1.3-1.5
+                        c-3.7-16.2-17.6-39.7-17.6-39.7s-22.9,2.2-27.1,12.9c0,0-12.1,23-10.1,29.8l2.2,10.3c0,0,0.9,1.8,3.3,4c0,0,5.9,11.8,6.4,21.2
+                        c0,0,1.3,3.7,3.7,7.5c0,0,17.6,2.8,9.4,30.4"/>
+                      <path class="st1" d="M207.5,130.6c0,0,44.5-23.5,73.3-42.2h1.5"/>
+                      <path class="st1" d="M202.4,147.4c-3,13.1-10.8,22.5-17.4,21c-6.6-1.5-9.5-13.4-6.5-26.5c3-13.1,10.8-22.5,17.4-21
+                        C202.5,122.4,205.4,134.3,202.4,147.4z"/>
+                      <path class="st1" d="M300.3,81.9c-1.1,8.5-4.3,15.1-7.2,14.8c-2.9-0.4-4.4-7.6-3.3-16.1c1.1-8.5,4.3-15.1,7.2-14.8
+                        C299.9,66.2,301.4,73.4,300.3,81.9z"/>
+                      <path class="st1" d="M217.1,103.1c0,0,30.1-13,31.9-14.3c0,0,0.2,1.6-0.2,2.2c0,0-13.8,7.1-31.5,14.5
+                        C217.2,105.5,216.1,104.7,217.1,103.1z"/>
+                      <path class="st1" d="M251,87.5c0,0,16.7-6.8,33.2-14.9c0,0,0,1.4-0.5,2c0,0-11,5.9-32.8,15.2C250.8,89.9,251.3,88.7,251,87.5z"/>
+                      <path class="st1" d="M222.6,16c0,0,11.6,21.1,15,37.2c0,0-26.4,7-30.2,7.7c0,0-4.6-16.1-10.3-27.7C197.1,33.2,201.7,17.5,222.6,16
+                        z"/>
+                      <path class="st1" d="M195.6,36c0,0,6.2,14.1,9.7,25.3c0,0-3.9,1.5-12.8,3.7c0,0-4.8-9.7-2.6-16.7C189.9,48.3,193.4,39.5,195.6,36z
+                        "/>
+                      <path class="st1" d="M227.7,15.3c0,0,12.3,20.4,16.7,36.3l26.4-6.4c0,0-1.1-7.7-3.9-13.4c0,0-8.4-8.4-15.6-12.3
+                        C251.3,19.5,246.6,14.9,227.7,15.3z"/>
+                      <path class="st1" d="M273.2,35.1c0,0-2.1,1.8-0.7,7c0,0,0.7,4,3.4,3.6l6.1,0c0,0,4.2,8.4,4.2,13.8c0,0,0.4,13.2-5.3,29"/>
+                      <path class="st1" d="M279.4,36c0,0,4.8,1.8,5.1,4.2c0,0,1.8,4.2-1.2,5.3l-1.3,0.2"/>
+                      <path class="st1" d="M273.5,35.4c0,0-2.1,1.8-0.7,6.7c0,0,1.1,3.4,2.8,3.2l5.1-0.3c0,0,2.1,0,2.1-2.3c0,0-0.1-4.7-1.2-4.9
+                        C281.5,37.7,279.8,36,273.5,35.4z"/>
+                      <path class="st1" d="M223.3,12.7c0,0,15.7-2.1,24.7,3c0,0,13.3,7.7,24.9,19.7"/>
+                      <path class="st1" d="M201.9,80.6c0,0-0.4,2.3,0.5,3.4l3.2-1c0,0,6.3-0.7,9.6-3c0,0,0.7-1.4-0.4-2.9c0,0-2.6,1.9-9.5,2.5
+                        L201.9,80.6z"/>
+                      <path class="st1" d="M205.3,79.6c0,0,0.8,2.5,0.3,3.4"/>
+                      <path class="st1" d="M205.7,79.6c0,0-0.7-4.1,3-5.4c0,0,3.6-1.3,4,3.9"/>
+                      <path class="st1" d="M206.3,82.9c0,0,0.8,4.5,3.6,2.9c0,0,3.2-0.6,3.3-4.7"/>
+                      <path class="st1" d="M252.2,65.5l2.3-0.7c0,0,2.6,0.5,5.9-1.6c0,0,1.2,1.4-0.3,3.2c0,0-2.2,1.1-5.1,1.5l-2.6,0.4
+                        C252.5,68.2,251.2,67.1,252.2,65.5z"/>
+                      <path class="st1" d="M254.7,67.8c0,0,0.3,3.2,2.5,2.5c0,0,1.9-0.1,2.1-3.7"/>
+                      <path class="st1" d="M259.1,63.4l0,0.4c-0.1-4-2.7-3-2.7-3c-2.1,0.3-1.8,4.1-1.8,4.1"/>
+                      <line class="st1" x1="259.1" y1="63.5" x2="259.1" y2="63.9"/>
+                      <path class="st1" d="M302.5,75c0,0,0-17-8.1-15.4"/>
+                      <path class="st1" d="M276.1,94.8c0,0,1.7,6.9,8.6,7.1c0,0,4.1,0.5,7.8,0"/>
+                      <path class="st1" d="M197.4,34.1c0,0,1.6-3.4,3.7-4.5l12.3,1.5c0,0,6.3,3.5,4.4,12.6c0,0-2.5,2.1-5.7,1.9L202,44.8"/>
+                      <path class="st1" d="M213.4,31c0,0-1.5,0.4-1.1,2.1l-0.2,9.6c0,0,0.2,2.4,0.9,2.8c0,0,5.7,0.5,9.6,4.1c0,0,1.4,1.2,1.2,7.2"/>
+                      <path class="st1" d="M222.4,49.4c0,0-1.8,0.3-2.1,2l-0.2,6.3"/>
+                      <path class="st1" d="M219.2,47.2c0,0,0.4-11.4,11.5-14.5"/>
+                      <path class="st1" d="M236.9,32.5c0,0,13.9,4.8,7.9,19"/>
+                      <path class="st1" d="M221.1,48.5c0,0,0.3-5.4,1.8-6.7c0,0,2.9,0.5,6.4,3.4c0,0,1,5.4-0.1,10.2"/>
+                      <path class="st1" d="M223.8,55.1c0,0,0.3,1.2,1.6,1.3"/>
+                      <path class="st1" d="M235.8,46.9c0,0-1.9,2.1-3.9,7.8"/>
+                      <path class="st1" d="M199.2,44.5c0,0-3.3-0.6-4.9,0.2c0,0-4.6,0.6-1.8,20.3"/>
+                      <path class="st1" d="M196,36.9c0,0-2.6,6.9,0.6,7.4"/>
+                      <path class="st1" d="M220.4,50.6c0,0-2.8-2-7.6-2.8"/>
+                      <line class="st1" x1="215.7" y1="44.7" x2="215.7" y2="45.9"/>
+                      <path class="st1" d="M231.4,34.5c0,0-4.4,1.2-6.5,4.4c0,0,2.8,2.9,5,4.1c0,0,2.4,1.1,5.4,1.7"/>
+                      <path class="st1" d="M238,34.9c0,0,7.1,4.1,6.3,9.9c0,0-0.6,0.5-1.9,0.5"/>
+                      <path class="st1" d="M243.2,47.6l0.6,0.4c0,0,0.2,0.5-0.2,0.9"/>
+                      <path class="st1" d="M227.8,41.4c0,0,2.2-2.7,5.2-2.7"/>
+                      <path class="st1" d="M226.9,43.3c0,0-1.7,5.1,2.8,7"/>
+                      <path class="st1" d="M233.6,50.7c0,0,2.1-0.2,2.9-1.6"/>
+                      <path class="st1" d="M239.2,33.6c0,0,22.6,2.8,30.3,5.9"/>
+                      <path class="st1" d="M230.7,32.7c0,0-8.2-1-16.8-1.4"/>
+                      <path class="st1" d="M254.5,64.9c0,0,0.7,1.2,0.2,2.9"/>
+                      <path class="st1" d="M252.6,49.5c0,0,0.4-3.8,2.8-4.4l9.1,0.8c0,0-0.5,0.5-0.2,0.7"/>
+                      <path class="st1" d="M264.4,43.2c0,0.5-1,1-2.2,1c-1.2,0-2.2-0.4-2.2-1c0-0.5,1-1,2.2-1C263.4,42.2,264.4,42.7,264.4,43.2z"/>
+                      <line class="st1" x1="199.9" y1="30.4" x2="198.3" y2="30.4"/>
+                      <path class="st1" d="M91.2,21.7c13.1-0.3,59.4,6.2,59.4,6.2c6.9,1.2,3.6,3.6,3.6,3.6c-6.5,5.4-28.5,27.8-28.5,27.8
+                        c-9.2,11-25.9,8.2-25.9,8.2c-34.2-3.6-52-9.6-52-9.6s-6.6-2.6-5.2-4.3"/>
+                      <path class="st1" d="M150,27.8c0,0-4,4.3-1,8.1"/>
+                      <path class="st1" d="M129.8,55c-7.3-0.7-14-2.6-14-2.6c1-0.3,1.4-1.1,1.4-1.1l0.4-7.7c0.7-5.5-3.4-7.6-3.4-7.6l-14.4-2.2
+                        c0,0-8.5,9.1-4.8,14.4l-7.7-1.4l-31.1,5.9"/>
+                      <path class="st1" d="M99.7,33.8c0,0,0.8-9.4,5.4-11.4"/>
+                      <path class="st1" d="M117.6,41.5l17.5-2.3c0,0-0.4-8,1.4-13.2"/>
+                      <path class="st1" d="M141.6,26.7c0,0-2.2,7.1-0.1,11.7l5.9-0.6"/>
+                      <path class="st1" d="M207.4,135.3c0,0,1.8-25.7-20.2-26.8"/>
+                      <path class="st1" d="M154,161c0,0,1.1,8,4.7,10.4c0,0,7.1,4.8,21,6.3"/>
+                      <path class="st1" d="M205.2,150.4c-4.6,17.7-15.6,30.2-24.4,27.9c-8.8-2.3-12.2-18.5-7.6-36.2c4.6-17.7,15.6-30.2,24.4-27.9
+                        C206.5,116.4,209.9,132.7,205.2,150.4z"/>
+                      <path class="st1" d="M301.7,83.7c-1.8,10.7-6.3,18.8-10.2,18.2c-3.9-0.6-5.6-9.8-3.8-20.5c1.8-10.7,6.3-18.8,10.2-18.2
+                        C301.7,63.8,303.5,73,301.7,83.7z"/>
+                      <path class="st1" d="M180.6,23.1c0,0,12.6-9.6,32.2-12.4c0,0,10.2-1.6,25-0.5"/>
+                      <ellipse class="st1" cx="109.9" cy="105.4" rx="10.2" ry="10.1"/>
+                      <path class="st1" d="M114,105.4c0,2.5-2,4.5-4.5,4.5c-2.5,0-4.5-2-4.5-4.5c0-2.5,2-4.5,4.5-4.5C112,100.9,114,102.9,114,105.4z"/>
+                      <path class="st1" d="M9.9,79.5c0,1.9,0.3,3.4,0.6,3.4c0.3,0,0.6-1.5,0.6-3.4c0-1.9-0.3-3.4-0.6-3.4C10.2,76.1,9.9,77.6,9.9,79.5z"
+                        />
+                      <path class="st1" d="M10.1,72.5c0,0,1.5-1.5,2.2,3c0,0,0.8,4.9,0.4,8.7c0,0-0.6,4-2.4,2.4"/>
+                      <path class="st1" d="M6.2,104.7c0,0-1.5,2.6-0.8,4.4"/>
+                      <path class="st1" d="M30.7,83.4l35.1,8.5c0,0,1.9,0.3,1.6,2.9L66,105c0,0-0.3,1.4-1.8,0.8l-36.4-10c0,0-1.2-0.6-1.2-2l1.3-9.4
+                        C27.9,84.4,28,82.5,30.7,83.4z"/>
+                      <path class="st1" d="M302.5,58l1-1.4v-1.6c0,0,1.3-1.4,1.4-2.2"/>
+                      <path class="st1" d="M285,43.5c0,0,8.9-1.8,14.8-0.5"/>
+                      <path class="st1" d="M109.9,84l-6.3,9.4c0,0,12.4,4.4,24.5,0.3C128,93.7,118.7,87.1,109.9,84z"/>
+                      <path class="st1" d="M10.3,70.2c0,0,0.2,0.9,2,2l-0.1-9.7"/>
+                      <path class="st1" d="M163,150.3c-14.6,4.7-39.1,10.2-39.1,10.2c-18.7,3.3-43.4-2.8-43.4-2.8c2.3,0.3-32.7-6.7-70.1-30.5"/>
+                      <path class="st2" d="M210.8,38.3c0,4,0.9,7.2,2.1,7.2c1.2,0,2.1-3.2,2.1-7.2c0-4-0.9-7.2-2.1-7.2C211.8,31,210.8,34.3,210.8,38.3"
+                        />
+                      <path class="st1" d="M73.9,143.8c0,0,8.2,2.8,14.3,2.9c0,0,4.4,0.2-0.1,3.4c0,0-6.3,0.4-14.8-3C73.4,147.1,71,145,73.9,143.8z"/>
+                      <path class="st1" d="M1.3,111.5c0,0,5,4.2,9.3,5.9c0,0,3,1.4-1,2.4c0,0-4.5-1.4-9.6-6.1C0.1,113.6-1,111.5,1.3,111.5z"/>
+                      <polyline class="st2" points="1.4,120.7 5.9,119.7 3.9,110.6 -0.7,111.6    "/>
+                      <polyline class="st2" points="5.4,118.3 5.8,118.2 5.6,117.4 5.2,117.5     "/>
+                    </g>
+                  </g>
+                  </svg>
+                </div>
+              </div>
+            </div><!-- @} -->
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+    </main>
+    <!--
+
+
+        <li> Service simple (choix multiple avec vehicule de remplacement)
+                <li>Date de 1ere mise en circulation (calendar)
+                <li>Date d'immatriculation
+    -->
+
+
+
+  </body>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document .querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array .prototype .slice .call (forms) .forEach (function (form) {
+        form .addEventListener ('submit', function (event) {
+            if (!form.checkValidity()) { event .preventDefault (); event .stopPropagation () }
+            form .classList .add ('was-validated')
+        }, false)
+    })
+})()
+  </script>
+</html>
+
+<!-- vim: set fdm=marker fmr=@{,@} ts=2 sts=2 sw=2 : -->

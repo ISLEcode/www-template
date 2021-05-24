@@ -95,7 +95,8 @@ export default [
     build ('bundle',     'src/main.ts'),
     build ('markdown',   'src/markdown.ts'),
     build ('router',     'src/router.ts'),
-    build ('typescript', 'src/typescript.ts')
+    build ('typescript', 'src/typescript.ts'),
+    build ('bootstrap5', 'src/samples/bs5/index.ts')
 ];
 
 // __END__

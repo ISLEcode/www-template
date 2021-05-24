@@ -8,7 +8,6 @@ export let name: string;
 h1 { color: $primary-colour; }
 </style>
 
-
 <Row>
   <Col>
     <h1>Hello {name}!</h1>
