@@ -1,0 +1,200 @@
+#! /bin/ksh
+
+typeset -A meta
+integer change=0
+
+function add_meta {
+    typeset -l key="${1// /}"; typeset name= value="$2"
+
+    case $key in
+        title)              name=Title              ;; #
+        author|playmate)    name=Artist             ;; # Playmates
+        album)              name=Album              ;; # `Yet another corny collection`
+        artist)             name=AlbumArtist        ;; # `Femina`
+        by-album)           name=SortAlbum          ;; #
+        by-albumartist)     name=SortAlbumArtist    ;; #
+        by-artist)          name=SortArtist         ;; #
+        by-show)            name=SortShow           ;; #
+        cast)               name=Cast               ;; # Original file name
+        comment)            name=Comment            ;; #
+        desc)               name=Description        ;; #
+        directors)          name=Directors          ;; #
+        tvepisode)          name=TVEpisode          ;; #
+        episodeid)          name=TVEpisodeID        ;; #
+        tags|genre)         name=Genre              ;; # Comma separated list of tags
+        long)               name=LongDescription    ;; #
+        producers)          name=Producers          ;; # Producers of the video, if known
+        screenwriters)      name=Screenwriters      ;; #
+        season)             name=TVSeason           ;; #
+        from|show)          name=TVShow             ;; #
+        origin)             name=TVNetworkName      ;; #
+        track)              name=TrackNumber        ;; #
+    esac
+
+    [[ -n $name ]] || return
+    meta[$name]="$value"
+    change=1
+
+}
+
+typeset usage=$'[-]
+[m:meta?]:[KEY=VALUE]
+[+METADATA FIELDS?]{
+[album?Maps to \bAlbum\b.]
+[artist?Maps to \bAlbumArtist\b.]
+[cast?Maps to \bCast\b.]
+[comment?Maps to \bComment\b.]
+[desc*ription?Maps to \bDescription\b.]
+[directors?Maps to \bDirectors\b.]
+[genre?Maps to \bGenre\b.]
+[long*description?Maps to \bLongDescription\b.]
+[producers?Maps to \bProducers\b.]
+[screenwriters?Maps to \bScreenwriters\b.]
+[sortalbum?Maps to \bSortAlbum\b.]
+[sortalbumartist?Maps to \bSortAlbumArtist\b.]
+[sortartist?Maps to \bSortArtist\b.]
+[sortshow?Maps to \bSortShow\b.]
+[episode?Maps to \bTVEpisode\b.]
+[episodeid?Maps to \bTVEpisodeID\b.]
+[season?Maps to \bTVSeason\b.]
+[show?Maps to \bTVShow\b.]
+[title?Maps to \bTitle\b.]
+[track?Maps to \bTrackNumber\b.]
+}'
+
+while getopts "$usage" opt; do case $opt in
+    m)  add_meta "${OPTARG%=*}" "${OPTARG##*=}" ;;
+esac; done; (( OPTIND > 1 )) && shift $(( OPTIND - 1 )); OPTIND=1
+
+typeset cmd='exiftool -quiet -overwrite_original'; for key in ${!meta[@]}; do cmd+=" -$key=\"${meta[$key]}\""; done
+
+for file in "$@"; do
+
+    [[ -f $file && $file == *.mp4 ]] || continue
+
+    if (( change == 1 )); then
+        print "$cmd $file"
+        eval "$cmd $file"
+    fi
+
+    typeset -A info
+
+    IFS=':' exiftool $file | while read line; do
+
+        typeset key="${line%%:*}" value="${line#*:}"
+        key="${key// /}" value="${value## }"
+
+        info[$key]="$value"
+
+    done
+
+    print "\E[1mVideo $file\E[0m:"
+    print '  \E[2;4mGeneral tags\E[0m'                                                                  # VLC field/custom use
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Title'             "${info[Title]}"                    # Title
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Playmate(s)'       "${info[Artist]}"                   # Author
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Date'              "${info[ContentCreateDate]}"        # /Import date
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Rating'            "${info[ContentRating]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Genre'             "${info[Genre]}"                    # Genre
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Album'             "${info[Album]}"                    # Album
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Album artist'      "${info[AlbumArtist]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Downloaded'        "${info[PurchaseDate]}"             # /Compression date
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Brief'             "${info[Description]}"              # Description
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Description'       "${info[LongDescription]}"
+
+    print '\n  \E[2;4mGeneral video tags\E[0m'
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'MediaType'         "${info[MediaType]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Directors'         "${info[Directors]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Producers'         "${info[Producers]}"                # /Copyright holder
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Cast'              "${info[Cast]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Screenwriters'     "${info[Screenwriters]}"
+
+    print '\n  \E[2;4mTelevision tags\E[0m'
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Original name'     "${info[TVShow]}"                   # /Original file name
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Online origin'     "${info[TVNetworkName]}"            # /Online origin
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'TV episode ID'     "${info[TVEpisodeID]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'TV season'         "${info[TVSeason]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'TV Episode'        "${info[TVEpisode]}"
+
+    print '\n  \E[2;4mSorting\E[0m'
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Sort name'         "${info[SortName]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Sort artist'       "${info[SortArtist]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Sort album artist' "${info[SortAlbumArtist]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Sort album'        "${info[SortAlbum]}"
+    printf '\E[2m  - %-20s : \E[0;32m%s\E[0m\n' 'Sort show'         "${info[SortShow]}"
+
+    # Currently unused:
+    # - AudioBitsPerSample              : 16
+    # - AudioChannels                   : 2
+    # - AudioFormat                     : mp4a
+    # - AudioSampleRate                 : 44100
+    # - AvgBitrate                      : 527 kbps
+    # - Balance                         : 0
+    # - BitDepth                        : 24
+    # - CompatibleBrands                : isom, iso2, avc1, mp41
+    # - CompressorID                    : avc1
+    # - CreateDate                      : 0000:00:00 00:00:00
+    # - CurrentTime                     : 0 s
+    # - Directory                       : ../lib/videos
+    # - Duration                        : 0:02:08
+    # - Encoder                         : Lavf57.25.100
+    # - ExifToolVersionNumber           : 11.77
+    # - FileAccessDate/Time             : 2021:01:30 17:59:13+01:00
+    # - FileInodeChangeDate/Time        : 2021:01:30 17:59:14+01:00
+    # - FileModificationDate/Time       : 2021:01:30 17:59:13+01:00
+    # - FileName                        : 5cd3-c476.mp4
+    # - FilePermissions                 : rw-r--r--
+    # - FileSize                        : 8.2 MB
+    # - FileType                        : MP4
+    # - FileTypeExtension               : mp4
+    # - GraphicsMode                    : srcCopy
+    # - HandlerDescription              : SoundHandler
+    # - HandlerType                     : Metadata
+    # - HandlerVendorID                 : Apple
+    # - ImageHeight                     : 480
+    # - ImageSize                       : 640x480
+    # - ImageWidth                      : 640
+    # - MIMEType                        : video/mp4
+    # - MajorBrand                      : MP4  Base Media v1 [IS0 14496-12:2003]
+    # - MatrixStructure                 : 1 0 0 0 1 0 0 0 1
+    # - MediaCreateDate                 : 0000:00:00 00:00:00
+    # - MediaDuration                   : 0:02:08
+    # - MediaHeaderVersion              : 0
+    # - MediaLanguageCode               : eng
+    # - MediaModifyDate                 : 0000:00:00 00:00:00
+    # - MediaTimeScale                  : 44100
+    # - Megapixels                      : 0.307
+    # - MinorVersion                    : 0.2.0
+    # - ModifyDate                      : 2021:01:30 16:59:13
+    # - MovieDataOffset                 : 147804
+    # - MovieDataSize                   : 8405300
+    # - MovieHeaderVersion              : 0
+    # - NextTrackID                     : 3
+    # - OpColor                         : 0 0 0
+    # - PosterTime                      : 0 s
+    # - PreferredRate                   : 1
+    # - PreferredVolume                 : 100.00%
+    # - PreviewDuration                 : 0 s
+    # - PreviewTime                     : 0 s
+    # - Rotation                        : 0
+    # - SelectionDuration               : 0 s
+    # - SelectionTime                   : 0 s
+    # - SourceImageHeight               : 480
+    # - SourceImageWidth                : 640
+    # - TimeScale                       : 1000
+    # - TrackCreateDate                 : 0000:00:00 00:00:00
+    # - TrackDuration                   : 0:02:07
+    # - TrackHeaderVersion              : 0
+    # - TrackID                         : 1
+    # - TrackLayer                      : 0
+    # - TrackModifyDate                 : 0000:00:00 00:00:00
+    # - TrackNumber                     : 12 of 0
+    # - TrackVolume                     : 0.00%
+    # - VideoFrameRate                  : 29.97
+    # - XResolution                     : 72
+    # - YResolution                     : 72
+
+    unset info
+
+done
+
+

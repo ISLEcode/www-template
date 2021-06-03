@@ -1,0 +1,263 @@
+revision  : 2020-11-16 (Mon) 14:44:21
+title     : Swiss QR-bill and ISO 20022 payments glossary
+source    : https://www.paymentstandards.ch/en/shared/know-how/glossary.html
+glossary  :
+
+  - name  : bc-number
+    term  : BC number
+    desc  : See IID
+
+  - name  : bdd
+    term  : BDD
+    desc  : 'BDD (Business Direct Debit) is the process offered by the Swiss banks for the processing of direct debits without
+            right of objection. It is suitable for companies that predominantly collect large amounts in francs or euro in the
+            business customer sector. The business model here is generally based on the delivery-verses-payment principle.'
+
+  - name  : bic
+    term  : BIC
+    desc  : 'The Business Identifier Code (BIC) is a SWIFT 8- or 11-digit code (ISO 9362) used to identify unequivocally both
+            participating financial and non-financial institutions.'
+
+  - name  : camt
+    term  : camt
+    desc  : 'Camt (Cash Management) denotes XML messages used between bank/PostFinance and customer, according to the definitions
+            of the ISO 20022 standard. The «Cash Management Messages» are specified as follows: Bank-to-Customer Account Report
+            (camt.052), Bank-to-Customer Statement (camt.053) und Bank-to-Customer Debit/Credit Notification (camt.054).'
+
+  - name  : camt.052
+    term  : camt.052
+    desc  : 'The ISO 20022 message camt.052 for intraday account statements (turnover, transactions) can be delivered at regular
+            intervals (every hour or every two hours) or daily at a maximum of three set times. Each camt.052 message contains
+            all the entries since the last ordinary account statement. Note: Not all of the financial institutions are offering
+            these messages for intraday account statements (camt.052).'
+
+  - name  : camt.053
+    term  : camt.053
+    desc  : 'The XML message "Bank-to-Customer Statement" (camt.053) is used by financial institutions for providing electronic
+            account information to their customers. It represents the ISO 20022 standard for account statements and is delivered
+            by default via the Bank Transaction Codes (BTC) published by ISO.'
+
+  - name  : camt.054
+    term  : camt.054
+    desc  : 'Debit and credit notifications are covered in the ISO 20022 standard by camt.054 messages. Delivery of notifications
+            is usually done via incoming and outgoing payments on an event-driven basis (e.g. following a payment order). Not all
+            of the financial institutions are offering these messages for debit and credit notifications (camt.054).'
+
+  - name  : creditor reference
+    term  : Creditor Reference
+    desc  : Creditor Reference according to the ISO 11649 standard.
+
+  - name  : customer references
+    term  : Customer references
+    desc  : For payments with structured reference, the two following reference types are used: QR reference, and creditor
+            reference.
+
+  - name  : debit-direct
+    term  : Debit Direct
+    desc  : 'Debit Direct is the current direct debit scheme of PostFinance. With Debit Direct the debtor can authorize the biller
+            to debit the amount due directly from his account.'
+
+  - name  : dta
+    term  : DTA
+    desc  : "The Swiss banks used to offer their customers the electronic transmission of payments in a standardized DTA (German
+            for « Datenträgeraustausch ») format as a means of executing paperless payments. The DTA standard was withdrawn from
+            the market on 30 June 2018. As from 1 July 2018, the DTA standard is eliminated. The document « DTA -- Standards and
+            Formats » has been be discontinued and removed from SIX Interbank Clearing's website."
+
+  - name  : eca
+    term  : ECA
+    desc  : 'Electronic credit advice of PostFinance resulting from slip-based electronic payment transactions.'
+
+  - name  : epo
+    term  : EPO
+    desc  : 'Electronic payment order in proprietary format or ISO 20022 standard of PostFinance.'
+
+  - name  : iid
+    term  : IID
+    desc  : 'The institution identification (IID) serves in Switzerland & Liechtenstein for the identification of institutions
+            participating in the SIC & euroSIC system.'
+
+  - name  : is
+    term  : IS
+    desc  : 'An IS (inpayment slip) refers to the red payment slip used in Switzerland, with which money can be transferred to an
+            account.'
+
+  - name  : isr
+    term  : ISR
+    desc  : 'An ISR (inpayment slip with reference number) refers to the orange payment slip in Switzerland with which money can
+            be transferred to an account. It contains a machine-readable encoding line that contains a participant number and
+            reference number. The participant number ensures the crediting to the corresponding Post account. The reference number
+            enables the creditor to identify the invoice recipient. In this way, the payment process can be handled entirely
+            electronically, from the invoicing date to the booking of the amount at the creditor.'
+
+  - name  : iban
+    term  : IBAN
+    desc  : 'The International Bank Account Number (IBAN) is the international standard for the presentation of account numbers.
+            In order to rationalize cross-border payments, the ISO (International Organization for Standardization) and the ECBS
+            (European Committee for Banking Standards) have created the IBAN. It simplifies the recording, transmission and
+            processing of payment data.'
+
+  - name  : iso
+    term  : International Organization for Standardization (ISO)
+    desc  : 'ISO is the largest worldwide organization that develops international standards. Specifically, it is a network of
+            162 national standardization organizations around the world, which elaborates international standards in various
+            areas.'
+
+  - name  : iso-20022
+    term  : ISO 20022 Standard
+    desc  : 'The objective of this International Organization for Standardization (ISO) standard is to accomplish a global
+            convergence of existing and new message standards from various segments of the financial industry. ISO 20022 not only
+            includes payment transaction and account reporting messages, but also covers other areas, including securities
+            trading, foreign trade and treasury.'
+
+  - name  : lsv+
+    term  : LSV⁺
+    desc  : 'LSV⁺ is the process offered by the Swiss banks for the processing of direct debits with right of objection. It is
+            suitable for companies that regularly collect amounts in francs or euro and which seek to offer their customers a
+            simple and convenient mode of payment. LSV⁺ is used for both company and private customer business sectors and offers
+            the best possible consumer protection through the right of objection.'
+
+  - name  : pacs
+    term  : pacs
+    desc  : 'pacs (Payments Clearing and Settlement) denotes XML messages used between banks, which is defined in the ISO 20022
+            standard.'
+
+  - name  : pain
+    term  : pain
+    desc  : 'pain (Payments Initiation) denotes XML messages used between customer and bank, which is defined in the ISO 20022
+            standard.'
+
+  - name  : pain.001
+    term  : pain.001
+    desc  : 'The Customer Credit Transfer Initiation (pain.001) XML message is used for the electronic commissioning of payment
+            orders by the customer to the payment submitting financial institution.'
+
+  - name  : pain.002
+    term  : pain.002
+    desc  : 'The XML message Customer Payment Status Report (pain.002) is used by the financial institution to inform customers
+            about the status of pain.001 credit transfer orders or pain.008 collection orders that have been submitted.'
+
+  - name  : pain.008
+    term  : pain.008
+    desc  : 'The Customer Direct Debit Initiation (pain.008) XML message is used for the electronic commissioning of collection
+            orders by customers to the financial institution.'
+
+  - name  : qr-code
+    term  : QR code
+    desc  : 'The Quick Response Code (QR code) is a two-dimensional barcode. It consists of a square matrix of black and white
+            dots that represent encoded binary data. Special markings in three of the four corners indicate the orientation.'
+
+  - name  : sepa
+    term  : SEPA
+    desc  : 'Single Euro Payments Area. SEPA is the area of the EU/EEA member states plus Switzerland, where citizens, companies
+            and other economic actors will be able to make and receive payments in euro, whether between or within national
+            boundaries under the same basic conditions, rights and obligations, regardless of their location.'
+
+  - name  : sepa-credit-transfer-scheme
+    term  : SEPA Credit Transfer Scheme
+    desc  : 'The SEPA Credit Transfer Scheme is the payments scheme for making euro credit transfers across SEPA, as set out in
+            the respective rulebook.'
+
+  - name  : sepa-direct-debit-scheme
+    term  : SEPA Direct Debit Scheme
+    desc  : 'The SEPA Direct Debit Scheme is a pan-European direct debit system that enables merchants to collect euro payments
+            from accounts in participating countries.'
+
+  - name  : stp-rate
+    term  : STP rate
+    desc  : "An STP transaction occurs when, after being generated and routed through all involved payment systems, it can be
+            processed by the creditor's financial institution without manual intervention."
+
+  - name  : xml
+    term  : XML
+    desc  : 'Extensible Markup Language (XML) is a markup language for the representation of arbitrary data structures. The ISO
+            20022 standard messages for the data exchange between customers and banks are based on XML.'
+
+  - name  : qrbill
+    term  : QR-bill
+    desc  : |
+            A « QR-bill » is understood to mean a bill with a payment part and receipt integrated in the form, and a bill with a
+            separately enclosed payment part and receipt. The following figure serves a sketch of two possible designs of a
+            QR-bill with payment part, intended to improved comprehension of the subsequent definitions.
+
+            ![Schematic depiction of a QR-bill with integrated payment part/receipt and with payment part/receipt as an
+            enclosure](glossary-01.png)
+
+  - name  :
+    term  : Payment part with Swiss QR code and receipt
+    desc  : The payment part of the QR-bill with receipt contains the information that is required to execute the payment in the
+            form of a QR code and also as readable information. The receipt must be on the left of the payment part, regardless of
+            whether it is integrated in the bill or on a separate sheet of paper. The payment part is in DIN-A6 landscape format
+            (148 mm x 105 mm). The receipt to the left of the payment part measures 62 mm x 105 mm, so the two together measure
+            210 mm x 105 mm.
+
+  - name  :
+    term  : QR Code according to ISO 18004
+    desc  : |
+            The QR Code is a two-dimensional barcode, in accordance with ISO 18004, based on the development of the company DENSO
+            WAVE INCORPORATED. « QR Code » is a registered trademark of DENSO WAVE INCORPORATED.
+
+            The QR Code standard stipulates versions for the coding of various data volumes (from Version 1 to Version 40) with
+            correspondingly different storage capacities in the form of modules. The respective codeable data volume depends, on
+            the one hand, on the error correction level chosen, and on the other, on the data to be encoded (numeric,
+            alphanumeric, binary, Kanji).
+
+            A fixed number of modules is allocated to each version.
+
+  - name  : module
+    term  : module
+    desc  : As per ISO 18004, a module designates the smallest information carrier in the QR Code, comparable with a data bit. In
+            the QR Code the modules correspond to the white and black dots of the code.
+
+  - name  : error correction level
+    term  : error correction level
+    desc  : According to ISO 18004, the QR Code has the ability to restore the data contained in the code if the code is damaged
+            (e.g. through dirt, folding, imprinting). The standard includes four error correction levels corresponding to
+            different restoration capacities (L = approx. 7%, M = approx. 15%, Q = approx. 25%, H = approx. 30%). The higher the
+            error correction level that is chosen, the lower the codeable data volume.
+
+  - name  : swiss-qrcode
+    term  : Swiss QR Code
+    desc  : |
+            The Swiss QR Code complies with the specifications in this document and enables payments to be triggered by financial
+            institutions across all payment channels and at post office counters (at branches and branches of a partner company).
+            It is marked with a Swiss cross in the middle.
+
+            ![Swiss QR Code](glossary-002.png)
+
+  - name  : dpi
+    term  : DPI
+    desc  : The printer and scanner resolution are customarily specified in Dots per Inch (DPI).
+
+  - name  : iid
+    term  : IID
+    desc  : The IID (institution identification) is used in Switzerland and Liechtenstein to identify financial institutions as
+            participants in the Swiss RTGS systems. Every institution is assigned at least one IID.
+
+  - name  : qr-iid
+    term  : QR-IID
+    desc  : The QR-IID is derived from the institutional identification (IID). QR-IIDs consist exclusively of numbers from 30000
+            to 31999. IBANs (QR-IBANs) based on these QRIIDs are used only for the new procedure with a QR reference in the
+            QR-bill.
+
+  - name  : iban
+    term  : IBAN
+    desc  : The IBAN is the internationally standardised representation of a bank account number in accordance with the ISO 13616
+            standard.
+
+  - name  : qr-iban
+    term  : QR-IBAN
+    desc  : For payments with a structured QR reference, the QR-IBAN must be used to indicate the account to be credited. The
+            formal structure of the QR-IBAN corresponds to the rules stipulated in ISO 13616 standard for IBAN. The payment
+            scheme with reference is recognized through a special financial institution identification (QR-IID). The values 30000
+            .. 31999 are exclusively reserved for the QR-IID. Each legally independent financial institution participating in the
+            scheme is assigned one QR-IID. The QR-IBAN contains the QR-IID of the account-keeping financial institution for
+            identification of the scheme. Detailed information about the QR-IID and QR-IBAN can be found in the « Technical
+            information on the QR-IID and QR-IBAN » document. The latest version can be downloaded at <www.paymentstandards.ch>.
+
+  - name  : qr reference
+    term  : QR reference
+    desc  : The structure of the QR reference corresponds to that of the ISR reference (26 numerical characters followed by a
+            Modulo 10 recursive check digit, and can be used by the biller as a structured reference.
+
+# vim: digraph fdm=indent spelllang=en-UK sw=4 syn=yaml

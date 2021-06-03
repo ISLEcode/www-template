@@ -1,0 +1,551 @@
+The most recent version of this document can be found at www.PaymentStandards.CH.
+
+1.1
+
+Introduction to the QR-bill
+
+The payment slips used in Switzerland go back over a hundred years and are used 100 million times a year.
+The increasing regulatory requirements for payment traffic make some system modifications necessary, in particular a review of data management. Payment traffic must also take account of digital structural changes in business and society, without forgetting those groups of the population who make payments over the post office counter or by post.
+The QR-bill is replacing the existing multiplicity of payment slips in Switzerland and so is helping to increase efficiency and simplify payment traffic, at the same time offering a way of dealing with the challenges presented by digitalisation and regulation.
+The following illustration shows a schematic basic process in the Swiss payment traffic based on a QR-bill. Its purpose is to outline synchronized scopes of application of various Implementation Guidelines and business rules:
+
+Figure 1:
+
+Basic process
+
+This basic process is intended for basic understanding and does not represent any complete presentation of all possible constellations. There are also other use cases which vary slightly from it (e.g. where the payer and the debtor are different; the
+
+
+Introduction
+
+payment part with receipt is used for a donation; debtor is unknown when the payment is set up). We will not go into those any further here.
+The basic process comprises the following steps: the biller generates a QR-bill with a payment part and receipt and sends it to the bill recipient. It is usually sent on paper or digitally as a PDF document. The bill recipient (who in this case is also the debtor) can now trigger the payment using various payment channels, for example:  M-banking  E-banking  Paper payment instruction sent to their bank  Cash inpayment at post office counter (branches and branches with a partner
+company)  Entering a payment order in their institution's own infrastructure (e.g. ERP
+software) The data contained in the QR-code serves as an aid in filling in the data so that no manual entries are required. Alternatively, data can be entered manually based on the textual information.
+Complying with the requirements stated in this document will ensure that payments sent via any payment channel can be executed reliably.
+In addition to various Swiss Implementation Guidelines governing customer-bank data exchange based on the ISO 20022 standard (e.g. for credit transfers, cash management), the following documents are also relevant to QR-bills:  Style Guide QR-bill (summary of layout rules from this document)  Processing rules for QR-bills (Business Rules)  Technical information about the QR-IID and QR-IBAN  Bank Master (list of IIDs and QR IIDs of banks)
+The «~Processing rules for QR-bills» describe the relevant technical processing stages. The «~Technical information on the QR-IID and QR-IBAN» provides detailed information about the use of the QR-IBAN based on a QR-IID.
+
+1.2
+
+Change ownership
+
+The document «~Swiss Implementation Guidelines QR-bill» can only be changed by
+SIX Interbank Clearing Ltd Pfingstweidstrasse 110 P.O. Box CH-8021 Zurich
+and contains the recommendations of the Swiss financial institutions. Future changes and updates will be made by Interbank Clearing Ltd, which expressly reserves the right to amend, supplement or delete any part or all of it.
+The latest version of this document can be downloaded at www.PaymentStandards.CH.
+
+Version 2.1 ­ 30.09.2019
+
+Page 7 of 57
+
+Introduction
+
+Swiss Implementation Guidelines QR-bill
+
+1.3
+
+Versioning of the Swiss Implementation Guidelines QR-bill
+
+The main versions place the versioning counter in the first position. (Version 1.0; Version 2.0). Main versions can either have an impact on the data structure, the content or on the design recommendations, and generally require technical adaptations.
+Subversions (Version 1.1; Version 1.11) generally do not require any technical adaptations.
+The version must be depicted in the data structure (for details see 4.3 «~Data structure», «~Version» element).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Annex C
+
+Swiss Implementation Guidelines QR-bill
+
+Annex C: Depiction of the customer reference in the ISO 20022 pain.001 payment message
+The above-listed options for the provision of a customer reference are to be delivered when generating a pain.001 payment message as follows:
+Scheme with structured reference without additional information
+
+Figure 19:
+
+pain.001 ­ Scheme with structured reference without additional information
+
+QR element/Content
+Reference
+QR reference (presupposes the use of the QR-IBAN) or Creditor Reference (ISO 11649; presupposes the use of an IBAN)
+
+pain.001 element RmtInf/Strd/CdtrRefInf/Ref
+
+pain.001 element content
+Structured reference (QRR, SCOR)
+
+Table 13:
+
+Structured reference in pain.001
+
+
+Annex C
+
+Scheme with structured reference with additional information
+
+Figure 20: pain.001 ­ Scheme with structured reference with additional information
+
+QR element/Content
+Reference
+QR reference (presupposes the use of the QR-IBAN) or Creditor Reference (ISO 11649; presupposes the use of an IBAN)
+Unstructured message
+
+pain.001 element RmtInf/Strd/CdtrRefInf/Ref
+RmtInf/Strd/AddtlRmtInf
+
+pain.001 element content Structured reference (QRR, SCOR)
+Messages
+
+Table 14:
+
+Structured reference with additional information in pain.001
+
+Version 2.1 ­ 30.09.2019
+
+Page 47 of 57
+
+Annex C
+
+Scheme with message
+
+Swiss Implementation Guidelines QR-bill
+
+Figure 21: pain.001 ­ Scheme with message
+
+QR element/Content Unstructured message
+
+pain.001 element RmtInf/Ustrd
+
+pain.001 element content Messages
+
+Table 15:
+
+Biller's additional information in pain.001
+
+
+Annex D
+
+Annex D: Multilingual glossary
+
+Terms for use in the payment part of a QR-bill
+
+German
+
+French
+
+Heading
+
+Zahlteil
+
+Section paiement
+
+Empfangsschein
+
+Récépissé
+
+Name of field
+
+Konto / Zahlbar an
+
+Compte / Payable à
+
+Referenz
+
+Référence
+
+Zusätzliche Informationen
+
+Informations supplémentaires
+
+Zahlbar durch
+
+Payable par
+
+Zahlbar durch (Name/Adresse)
+
+Payable par (nom/adresse)
+
+Währung
+
+Monnaie
+
+Betrag
+
+Montant
+
+Annahmestelle
+
+Point de dépôt
+
+Hints
+
+Vor der Einzahlung abzutrennen
+
+A détacher avant le versement
+
+Ultimate Creditor (Future Use)
+
+Zugunsten
+
+En faveur de
+
+Italian
+Sezione pagamento Ricevuta
+Conto / Pagabile a Riferimento Informazioni supplementari Pagabile da Pagabile da (nome/indirizzo) Valuta Importo Punto di accettazione
+Da staccare prima del versamento
+A favore di
+
+Table 16:
+
+Multilingual headings in the payment part
+
+General terms of the QR-bill
+
+English
+Payment part Receipt
+Account / Payable to Reference Additional information
+Payable by Payable by (name/address) Currency Amount Acceptance point
+Separate before paying in
+In favour of
+
+German QR-Rechnung QR-Referenz QR-IID QR-IBAN Rechnungsinformationen Alternative Verfahren
+Table 17:
+
+French QR-facture Référence QR QR-IID QR-IBAN Informations de facture Procédures alternatives
+General terms
+
+English QR-bill QR reference QR-IID QR-IBAN Billing information Alternative procedures
+
+Version 2.1 ­ 30.09.2019
+
+Page 49 of 57
+
+Annex E
+
+Swiss Implementation Guidelines QR-bill
+
+Annex E: Guidelines for syntax definitions in the «~Billing information» and «~Alternative procedures» fields in the QR-bill
+
+The field «~Billing information» supports automation of debtor's accounts payable. A user group interested in using the field, e.g. a business sector, may add here the information of creditor on the invoice, such as VAT number, VAT amount, date on which the service was provided, etc. The definition of structure and data content is, with few restrictions, at the discretion of the relevant user group.
+The «~Alternative procedures» field contains information necessary to convert a QR-bill into another procedure (e.g. eBill: Requires an e-mail address of the debtor). The definition of structure and data content is, with few restrictions, at the discretion of the relevant service provider.
+Target groups
+This guide is dedicated to invoice senders and recipients as well as their industry associations which want to use the «~Billing information» field in the QR-bill. The description of the «~Alternative procedures» field is dedicated to service providers in the Swiss payment traffic which convert the QR-bills into a form wished by their customers.
+
+Purpose
+This guide describes the process for defining, implementing and invalidating syntax definitions for the «~Billing information» and «~Alternative procedures» fields.
+
+Delimitation
+The specifications of relevant fields are to be found in the main section of the Implementation Guidelines for the QR-bill (cf. Chapter 4.4). This process description is limited to the presentation of the syntax definition life cycle.
+
+Syntax definition life cycle
+
+Tasks to be carried out by the interested users (groups).
+
+1. Creating and implementing
+
+# Process step 1 Start
+
+Pertaining to the field «~Billing information»
+User group: Identification of needs and coordination within the user group (e.g. business sector)
+
+Pertaining to the field «~Alternative procedures» Service provider: Clarification of customer needs
+
+
+Annex E
+
+2 Determination of the document owner
+3 Identification of necessary information
+4 Creation of syntax or guidance
+5 Validation of syntax
+6 Implementation and publication
+
+To be determined by the user group (normally it is an industry association providing central services to its members)
+
+Service provider which offers the alternative procedure
+
+Document owner:
+
+Determination of contents, scope and technical structure of information which are necessary in addition to the data already available in the database of the QR code.
+
+Definition by the document owner, if need be with support of SIX.
+
+Contact: billing-payments.pm@six-group.com
+
+Document owner:
+
+Making contact with SIX. Contact: billing-payments.pm@six-group.com
+
+SIX:
+
+Review of compliance with technical guidelines (field length, character set, etc.)
+
+Document owner:
+
+Implementation and providing information to the user group
+
+SIX:
+
+Information and link on PaymentStandards.ch
+
+Table 18:
+
+Process for implementing the «~Billing information» and «~Alternative procedures» fields
+
+2. Version changes
+
+# Process step 1 Creation of syntax or
+guidance draft 2 Validation of syntax
+3 Implementation and publication
+
+Pertaining to the field
+
+Pertaining to the field
+
+«~Billing information»
+
+«~Alternative procedures»
+
+By the document owner, if need be with support of SIX.
+
+Contact: billing-payments.pm@six-group.com
+
+Document owner:
+
+Making contact with SIX. Contact: billing-payments.pm@six-group.com
+
+SIX:
+
+Review of compliance with technical guidelines (field length, character set, etc.)
+
+Document owner:
+
+Implementation and providing information to the user group
+
+SIX:
+
+Information and link on PaymentStandards.ch
+
+Table 19:
+
+Process for version changes of the «~Billing information» and «~Alternative procedures» fields
+
+Version 2.1 ­ 30.09.2019
+
+Page 51 of 57
+
+Annex E
+
+Swiss Implementation Guidelines QR-bill
+
+3. Invalidation
+
+# Process step
+1 Invalidation and providing information
+
+Pertaining to the field
+
+Pertaining to the field
+
+«~Billing information»
+
+«~Alternative procedures»
+
+Document owner:
+
+Invalidation and providing information to the user group
+
+SIX:
+
+Removing the link from PaymentStandards.ch
+
+Table 20:
+
+Process for invalidating the «~Billing information» and «~Alternative procedures» fields
+
+Notes:
+ Applicable Syntax definitions for billing information as well as for alternative procedures are available on www.PaymentStandards.CH.
+ At the time of publication of these Implementation Guidelines, only Swico has published «~Recommendations on the structure of information from the invoice sender for QR-bills».
+Example: Syntax definition for the Billing Information of Swico (as of 30 September 2019)
+
+Syntax definition of Swico (Version 1.2) for filling in the «~Billing information» field in the Swiss QR code and QR-bill payment part. This description corresponds to the current state as of the implementation date of Implementation Guidelines in Version 2.1 and has been included only as an example. It has to be taken into account that it may not represent the most current version. The latest version can be found at www.swico.ch.
+
+Area Separator Prefix
+Voucher number Voucher date Customer reference VAT number
+VAT date
+VAT details
+
+Tag What
+
+// S1
+/10/
+
+Organisation identifier
+Bill number
+
+Examples of values // S1
+/10/10201409
+
+Comments
+Fix «~//» Fixed for syntax defini-tion by Swico in Version 1.x Free text
+
+/11/ /20/
+
+Voucher date Customer reference
+
+/11/190512 /20/140.000-53
+
+12.05.2019 Free text
+
+/30/
+/31/ /32/
+
+UID number
+
+/30/106017086
+
+Date or start and end date of the service
+Rate for calcula-tion or list of rates with
+
+/31/180508 /31/181001190131 /32/7.7 /32/8:1000;2.5:51.8
+
+UID CHE-106.017.086 without the CHE prefix, separator and without MWST/TVA/IVA/VAT suffix
+08.05.2018 01.10.2018 bis 31.01.2019
+7.7% for the total amount
+8.0% on 1000.00, 2.5% on 51.80
+
+
+Annex E
+
+Area
+
+Tag
+
+VAT import tax /33/
+
+Conditions
+
+/40/
+
+What
+correspond-ing net amounts Pure VAT amount or a list of pure VAT amounts and respective rates for import
+Conditions or list of conditions
+
+Examples of values
+0;7.7:250
+
+Comments and 7.7% on 250.00
+
+/33/7.7:16.15 /33/7.7:48.37;2.5:12 .4
+/40/0:30 /40/2:10;0:60 /40/3:15;0.5:45;0:90
+
+16.15 pure VAT (7.7% rate) where goods are imported 48.37 pure VAT (7.7% rate) and 12.40 pure VAT (2.5% rate) where goods are imported with many rates
+0% discount for 30 days (payable within 30 days from the voucher date) 2% discount for 10 days, 0% for 60 days 3% discount for 15 days, 0.5% for 45 days, 0% for 90 days
+
+Table 21:
+
+Data elements in the field Billing information, example of Swico
+
+Rules The separators // are prescribed by SIX. They are intended to identify the beginning of billing information (structured information for the invoice sender) when it is printed on the visible part. The /nn/ tags must be filled in in ascending order. Each tag may only be given once. A tag with no data can be omitted. A tag with no data is the equivalent of an omitted tag. The length of the value for any tag is not directly limited. The «~Unstructured message» and «~Structured information from the biller» fields must not contain more than 140 characters in total. Field content may not contain the characters «~/» and «\»; these must be replaced by «\/» and «\\» (Escape). An amount or a percentage with decimal places must use the character «~.» (full stop) as the separator. Numbers smaller than 1 are presented with a leading zero (e.g. «~0.~»). Dates are formatted as YYMMDD (year, month, day). Fields including more than one data element in a list use the character «~;» (semicolon) as a separator.
+
+Table 22:
+
+Rules for the field Billing information, example of Swico
+
+Information such as amount and currency is contained in dedicated fields in the data set of the QR code, so it is not sent in the «~Billing information ».
+Fields /11/  The voucher date is the same as the date of the invoice; it is used as the reference date for
+the terms and conditions.  Together with the field /40/0:n, a maturity date of the invoice can be calculated (payable
+within n days after the voucher date). /20/  The customer reference is a reference sent by the customer and is used to identify the bill.
+
+Version 2.1 ­ 30.09.2019
+
+Page 53 of 57
+
+Annex E
+
+Swiss Implementation Guidelines QR-bill
+
+/30/  The VAT number is the same as the numerical UID of the service provider (without the CHE prefix, separator and VAT suffix).
+ The VAT number can be used by the bill recipient to identify the biller unambiguously. All billers who have a UID should enter it here, even if the other VAT fields are omitted.
+ For a bill with more than one VAT number, the first should be entered.
+/31/  The VAT date can either be the date on which the service was provided or the start and end date of the service (e.g. for a subscription).
+ If the document refers to several services with different dates of delivery, the /31/ field must be omitted (enter manually).
+/32/  The VAT details refer to the invoiced amount, excluding any discount.  VAT details contain either: ­ a single percentage that is to be applied to the whole invoiced amount or ­ a list of the VAT amounts, defined by a percentage rate and a net amount; the colon «~:» is used as the separator.  The net amount is the net price (excluding VAT) on which the VAT is calculated.  If a list is given, the total of the net amounts and the VAT calculated on them must correspond to the amount in the QR Code.
+/33/  Where goods are imported, the import tax can be entered in this field. The amount is the VAT amount.
+ The rate serves correct recording of VAT in the accounts.  This makes it easier for the bill recipient to record the VAT in the case of an import.
+/40/  The terms and conditions may refer to a discount or list of discounts.  The voucher date /11/ counts as the reference date.  Each discount is defined by a percentage and a deadline (in days); the colon «~:» is used as the separator.  The indication with a percentage rate equal to zero defines the default payment date of the invoice (e.g. «~0:~» for 30 days net). Attention: when this day is used, at least the default payment date of the invoice should be indicated. Without this indication, the payment software will not be able to suggest any date for the payment.
+
+Table 23:
+
+Description of the field Billing information, example of Swico
+
+Examples
+Example 1
+//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30
+/10/ Invoice number 10201409 /11/ Invoice date 12.05.2019 /20/ Customer reference 1400.000-53 /30/ VAT number CHE-106.017.086 MWST /31/ VAT date on which the service was provided 08.05.2018 /32/ VAT rate on the total invoice amount 7.7% /40/ 2% discount for 10 days, payment date of 30 days
+
+
+Annex E
+
+Example 2
+//S1/10/10104/11/180228/30/395856455/31/180226180227/32/3.7:400.19;7.7:553.39;0:14/40/0:30
+/10/ Invoice number 10104 /11/ Invoice date 28.02.2018 /30/ VAT number CHE-395.856.455 MWST /31/ VAT date on which the service was provided from 26.02.2018 until 27.02.2018 /32/ VAT rate 3.7% on 400.19 net (415.00 gross)
+VAT rate 7.7% on 553.39 net (596.00 gross) VAT rate 0% on 14.00 net (14.00 gross) The VAT details yield a total amount for the invoice equal to (400.19+14.81) + (553.39+42.61) + (14.00+0.00) = 1025.00 /40/ payment date of 30 days Example 3
+//S1/10/4031202511/11/180107/20/61257233.4/30/105493567/32/8:49.82/33/2.5:14.85/40/0:30
+/10/ Invoice number 4031202511 /11/ Invoice date 07.01.2018 /20/ Customer reference 61257233.4 /30/ VAT number CHE-105.493.567 MWST /32/ VAT rate 8% on 49.82 net (53.80 gross) /33/ Pure VAT for import of 14.85, VAT rate 2.5%
+The VAT details yield a total amount for the invoice equal to (49.82+3.98) + (14.85) = 68.65 /40/ payment date of 30 days Example 4
+//S1/10/X.66711\/8824/11/200712/20/MW-2020-04/30/107978798/32/2.5:117.22/40/3:5;1.5:20;1:40;0:60
+/10/ Invoice number X.66711/8824 /11/ Invoice date 12.07.2020 /20/ Customer reference MW-2020-04 /30/ VAT number CHE-107.978.798 MWST /32/ VAT rate 2.5% on 117.22 net (120.15 gross)
+The VAT details yield a total amount for the invoice equal to (117.22+2.93) = 120.15 /40/ 3.0% discount for 5 days
+1.5% discount for 20 days 1.0% discount for 40 days payment date of 60 days
+
+Table 24:
+
+Billing information Swico, examples
+
+Version 2.1 ­ 30.09.2019
+
+Page 55 of 57
+
+Annex F
+
+Swiss Implementation Guidelines QR-bill
+
+Annex F: Index of tables and figures
+
+Index of Tables
+
+Table 1: Table 2: Table 3: Table 4: Table 5: Table 6: Table 7: Table 8: Table 9: Table 10: Table 11: Table 12: Table 13: Table 14: Table 15: Table 16: Table 17: Table 18:
+Table 19:
+Table 20:
+Table 21: Table 22: Table 23: Table 24:
+
+Reference documents ..................................................................................................................... 8 Links to the relevant Internet pages............................................................................................. 8 Headings of the payment part in the information section...................................................... 17 Headings of the payment part in the information section ...................................................... 19 Status of the elements .................................................................................................................. 24 Characters permitted .................................................................................................................... 24 Swiss QR Code data elements ..................................................................................................... 30 Examples of how to use address information...........................................................................31 Abbreviations used in the examples........................................................................................... 37 Data for QR code, example 1 ....................................................................................................... 39 Data for QR code, example 2 ....................................................................................................... 41 Data for QR code, example 3 ....................................................................................................... 43 Structured reference in pain.001................................................................................................. 46 Structured reference with additional information in pain.001 ............................................... 47 Biller's additional information in pain.001.................................................................................48 Multilingual headings in the payment part ............................................................................... 49 General terms ................................................................................................................................ 49 Process for implementing the «~Billing information» and «~Alternative procedures» fields ................................................................................................................................................ 51 Process for version changes of the «~Billing information» and «~Alternative procedures» fields ......................................................................................................................... 51 Process for invalidating the «~Billing information» and «~Alternative procedures» fields ................................................................................................................................................ 52 Data elements in the field Billing information, example of Swico ......................................... 53 Rules for the field Billing information, example of Swico ........................................................ 53 Description of the field Billing information, example of Swico...............................................54 Billing information Swico, examples........................................................................................... 55
+
+
+Annex F
+
+Index of figures
+
+Figure 1: Figure 2:
+Figure 3: Figure 4: Figure 5: Figure 6: Figure 7: Figure 8: Figure 9: Figure 10: Figure 11: Figure 12: Figure 13: Figure 14: Figure 15: Figure 16: Figure 17: Figure 18: Figure 19: Figure 20: Figure 21:
+
+Basic process ....................................................................................................................................6 Schematic depiction of a QR-bill with integrated payment part/receipt and with payment part/receipt as an enclosure ..........................................................................................................9 Swiss QR Code ................................................................................................................................10 Schematic illustration of the payment part of a QR-bill ...........................................................15 Schematic depiction of the amount section ..............................................................................16 Schematic depiction of the information section .......................................................................17 Schematic depiction of the receipt for the payment part of a QR-bill ...................................18 Schematic depiction of the information section on the receipt of a QR-bill .........................19 Schematic depiction of the receipt of a QR-bill .........................................................................20 Data group with technical element name and technical name for the payment part ........24 Scaling of the Swiss QR Code to fixed sizes ...............................................................................34 Swiss QR Code with Swiss cross as recognition feature (not true to scale) ..........................35 Example of a QR-bill (schematic, not true to scale) ..................................................................37 Payment part, example 1 (schematic, not true to scale) .........................................................39 Payment part, example 2 (schematic, not true to scale) .........................................................41 Payment part, example 3 (schematic, not true to scale) .........................................................43 Check digit matrix..........................................................................................................................44 Check digit calculation example ..................................................................................................45 pain.001 ­ Scheme with structured reference without additional information ...................46 pain.001 ­ Scheme with structured reference with additional information .........................47 pain.001 ­ Scheme with message................................................................................................48
+
+Version 2.1 ­ 30.09.2019
+
+Page 57 of 57
+
+

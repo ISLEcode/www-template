@@ -1,0 +1,55 @@
+import { writable } from 'svelte/store';
+
+const local = (key, startValue) => {
+    const  { subscribe, set, update } = writable (startValue);
+    return { subscribe, set, update, useLocalStorage: () => {
+        const json = localStorage.getItem(key);
+        if (json) set (JSON .parse (json));
+        subscribe(current => { localStorage .setItem(key, JSON .stringify (current)) });
+    }};
+}
+
+export const user        = local ('user',        {});
+export const menu        = local ('menu',        []);
+export const current     = local ('current',     {});
+export const stables     = local ('stables',     []);
+export const cart        = local ('cart',        { total: 0, vat: 0, products: [], customer: {} });
+export const userCourses = local ('userCourses', { noGo: '' });
+export const userCards   = local ('userCards',   {});
+export const breadcrumb  = writable ([]);
+
+export let postData = async function (url, serv = 1, token = null, data = null, method = null) {
+
+    serv = serv == 1 ? 'primarybackendurl' : 'mybackendurl';
+    if (!method) method = data ? 'POST' : 'GET'
+
+    const result = await fetch (`https://${serv}/${url}`, {
+        method:  method,
+        mode:    'cors',
+        cache:   'default',
+        headers: {
+            'content-type':    'application/json',
+            'authorization':   'Basic ZDduZXR3b3JrQGlzbGUucGx1czo1MS1CdXllci1Db25zdGl0dXRpb25hbGlzaW5nLUdiOw==',
+            'x-rapidapi-key':  '2563d18dbamsh51b47e3376f345ap19de7cjsnb2a91b6382c6',
+            'x-rapidapi-host': 'd7sms.p.rapidapi.com',
+                    ...(token ? { Authorization: `Bearer ${token}` } : undefined)
+        },
+        body:    data ? JSON.stringify(data) : null,
+    })
+
+    try {
+        if (result.headers.get('TokenValid') < 5) {
+            This needs to fetch something from primary backend and then update $user.token and $user.refreshToken. How can
+            do that?
+        }
+        return result;
+        /*
+        console.log(result.headers.get('TokenValid'));
+        const json = await result.json()
+        return json
+        */
+    }
+
+    catch (err) { return result.status }
+
+}

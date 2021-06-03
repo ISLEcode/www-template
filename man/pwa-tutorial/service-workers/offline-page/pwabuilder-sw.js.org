@@ -1,0 +1,169 @@
+//! @revision 2021-01-13 (Wed) 11:07:32
+//! @brief    x
+//! @also https://www.pwabuilder.com/serviceworker
+
+importScripts ('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+const HTML_CACHE   = 'html';
+const JS_CACHE     = 'javascript';
+const STYLE_CACHE  = 'stylesheets';
+const IMAGE_CACHE  = 'images';
+const FONT_CACHE   = 'fonts';
+const SYNC_CACHE   = 'pwabuilder-offline';
+const QUEUE_NAME   = 'bgSyncQueue';
+const CACHE_FIRST  = 'pwabuilder-precache';
+const CACHE_MEDIA  = "pwabuilder-offline";
+const CACHE_BACKUP = "pwabuilder-offline-page";
+// TODO: replace the following with the correct offline fallback page i.e.: const offlineFallbackPage = "offline.html";
+const offlineFallbackPage = "ToDo-replace-this-name.html";
+
+const CACHE_OFFLINE = "pwabuilder-offline";
+    const CACHE_STATIC = "pwabuilder-page";
+
+    // TODO: replace the following with the correct offline fallback page i.e.: const offlineFallbackPage = "offline.html";
+    const offlineFallbackPage = "ToDo-replace-this-name.html";
+
+function sw_advanced_caching () {
+//! @brief Advanced caching service worker
+//! Use this service worker to improve the performance of your app, and make it work offline. The advanced caching service worker
+//! allows you to configure files and routes that are cached in different manners (pre-cache, server first, cache first, etc.).
+
+    workbox .routing .registerRoute (({event}) => event .request .destination === 'document',
+        new workbox .strategies .NetworkFirst
+            ({ cacheName: HTML_CACHE, plugins: [ new workbox .expiration .ExpirationPlugin ({ maxEntries: 10 })] }));
+
+    workbox .routing .registerRoute (({event}) => event .request .destination === 'script',
+        new workbox .strategies .StaleWhileRevalidate
+            ({ cacheName: JS_CACHE, plugins: [ new workbox .expiration .ExpirationPlugin ({ maxEntries: 15 })] }));
+
+    workbox .routing .registerRoute (({event}) => event .request .destination === 'style',
+        new workbox .strategies .StaleWhileRevalidate
+            ({ cacheName: STYLE_CACHE plugins: [ new workbox .expiration .ExpirationPlugin ({ maxEntries: 15 })] }));
+
+    workbox .routing .registerRoute (({event}) => event .request .destination === 'image',
+        new workbox .strategies .StaleWhileRevalidate
+            ({ cacheName: IMAGE_CACHE, plugins: [ new workbox .expiration .ExpirationPlugin ({ maxEntries: 15 })] }));
+
+    workbox .routing .registerRoute (({event}) => event .request .destination === 'font',
+        new workbox .strategies .StaleWhileRevalidate
+            ({ cacheName: FONT_CACHE, plugins: [ new workbox .expiration .ExpirationPlugin ({ maxEntries: 15 })] }));
+
+}
+
+function sw_bacground_sync () {
+//! @brief Background synt service worker that makes an offline copy of assets
+//! Use this service worker to implement background sync for your app, ensuring that crucial requests made while the app is
+//! offline can be replayed when the user comes back online.
+
+    // Retry for max of 24 Hours (specified in minutes)
+    const bgSyncPlugin = new workbox .backgroundSync .Plugin (QUEUE_NAME, { maxRetentionTime: 24 * 60 });
+
+    workbox .routing .registerRoute (
+        new RegExp('/*'),
+        new workbox .strategies .StaleWhileRevalidate ({ cacheName: SYNC_CACHE, plugins: [ bgSyncPlugin ] }));
+
+}
+
+function sw_cache_first () {
+//! @brief Cache-first network service worker
+//! Use this service worker to pre-cache content.
+
+    workbox .routing .registerRoute (
+        new RegExp('/*'),
+        new workbox .strategies .CacheFirst ({ cacheName: CACHE_FIRST }));
+
+}
+
+function sw_cached_media () {
+//! @brief Cached media service worker
+//! Use this service worker to play back audio and video to the user that has been cached for offline play.
+
+    workbox .loadModule ('workbox-cacheable-response');
+    workbox .loadModule ('workbox-range-requests');
+
+    workbox .routing .registerRoute (/.*\.mp4/,
+        new workbox .strategies .CacheFirst ({ cacheName: CACHE_MEDIA, plugins: [
+            new workbox.cacheableResponse.CacheableResponsePlugin({statuses: [200]}),
+            new workbox.rangeRequests.RangeRequestsPlugin() ] }));
+
+}
+
+function sw_offline_backup() {
+//! @brief Combined offline service worker (offline page + offline copy of pages)
+//! A copy of each pages is stored in the cache as your visitors view them. This allows a visitor to load any previously viewed
+//! page while they are offline. This then adds the "offline page" that allows you to customize the message and experience if
+//! the app is offline, and the page is not in the cache.
+
+    self .addEventListener ("message", (event) => { if (event .data && event .data .type === "SKIP_WAITING") self .skipWaiting(); });
+
+    self .addEventListener ('install', async (event) => { event
+        .waitUntil (caches .open(CACHE_BACKUP) .then((cache) => cache .add(offlineFallbackPage))); });
+
+    if (workbox .navigationPreload .isSupported()) workbox .navigationPreload .enable();
+
+    workbox .routing .registerRoute (new RegExp('/*'),
+        new workbox .strategies .StaleWhileRevalidate ({ cacheName: CACHE_BACKUP }));
+
+    self .addEventListener ('fetch', (event) => {
+        if (event .request .mode != 'navigate') return;
+        event.respondWith ((async () => {
+            try {
+                const preloadResp = await event .preloadResponse;
+                if (preloadResp) return preloadResp;
+                const networkResp = await fetch (event .request);
+                return networkResp;
+            }
+            catch (error) {
+                const cache = await caches .open (CACHE_BACKUP);
+                const cachedResp = await cache .match (offlineFallbackPage);
+                return cachedResp;
+            }
+        })());
+    });
+
+}
+
+function sw_offline_copy () {
+//! @brief Offline copy of assets service worker
+//! A solution that expands the offline capabilities of your app. A copy of each pages is stored in the cache as your visitors
+//! view them. This allows a visitor to load any previously viewed page while they are offline.
+
+    workbox .routing .registerRoute (new RegExp('/*'),
+        new workbox .strategies .StaleWhileRevalidate ({ cacheName: CACHE_OFFLINE }));
+
+}
+
+function sw_offline_page () {
+    // This is the "Offline page" service worker
+    //
+    // Simple but elegant solution pulls a file from your web server called "offline.html" (make sure that file is actually there) and
+    // serves the file whenever a network connection can not be made.
+
+    self .addEventListener ('install',
+    async (event) => { event .waitUntil (caches  .open (CACHE_STATIC)  .then ((cache) => cache  .add (offlineFallbackPage))); });
+
+    if (workbox .navigationPreload .isSupported ()) workbox .navigationPreload .enable();
+
+    self .addEventListener ('fetch', (event) => {
+        if (event .request .mode != 'navigate') return;
+        event.respondWith ((async () => {
+            try {
+                const preloadResp = await event .preloadResponse;
+                if (preloadResp) return preloadResp;
+                const networkResp = await fetch (event .request);
+                return networkResp;
+            }
+            catch (error) {
+                const cache = await caches .open (CACHE_STATIC);
+                const cachedResp = await cache .match (offlineFallbackPage);
+                return cachedResp;
+            }
+        })());
+    });
+
+}
+
+    self .addEventListener ('message',
+        (event) => { if (event .data && event .data .type === 'SKIP_WAITING') self .skipWaiting(); });
+
+// vim: fdm=marker fmr={,}

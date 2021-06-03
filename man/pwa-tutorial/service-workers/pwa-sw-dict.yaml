@@ -1,0 +1,224 @@
+revision  : 2020-12-22 (Tue) 00:24:06
+brief     : PWA service workers (based on PWAbuilder's scripts and on Workbox)
+contents  :
+  - name  : Offline page                             # id = 1
+    desc  : This simple but elegant solution pulls a file from your web server called "offline.html" (make sure that file is
+            actually there) and serves the file whenever a network connection can not be made.
+    html  : |-
+            <script type="module">
+            import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+            const el = document .createElement('pwa-update');
+            document .body .appendChild (el);
+            </script>
+    main  : |-
+            importScripts ('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+            const CACHE = "pwabuilder-page";
+
+            const offlineFallbackPage = "ToDo-replace-this-name.html"; // TODO
+
+            self .addEventListener ('message',
+                (event) => { if (event .data && event .data .type === 'SKIP_WAITING') self .skipWaiting () });
+
+            self .addEventListener ('install', async
+                (event) => { event .waitUntil (caches.open (CACHE) .then ((cache) => cache .add (offlineFallbackPage))) });
+
+            if (workbox .navigationPreload .isSupported ()) workbox .navigationPreload .enable ();
+
+            self.addEventListener ('fetch',
+                (event) => { if (event .request .mode === 'navigate') event .respondWith ((async () => {
+                    try {
+                        const preloadResp = await event .preloadResponse;
+                        if (preloadResp) return preloadResp;
+                        const networkResp = await fetch (event.request);
+                        return networkResp;
+                    }
+
+                    catch (error) {
+                        const cache = await caches.open(CACHE);
+                        const cachedResp = await cache.match(offlineFallbackPage);
+                        return cachedResp;
+                    }
+
+                })())
+            });
+
+  - name  : Offline copy of pages                    # id = 2
+    desc  : A solution that expands the offline capabilities of your app. A copy of each pages is stored in the cache as your
+            visitors view them. This allows a visitor to load any previously viewed page while they are offline.
+    init  : |-
+            <script type="module">
+            import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+            const el = document .createElement ('pwa-update');
+            document.body.appendChild(el);
+            </script>
+    main  : |-
+            const CACHE = 'pwabuilder-offline';
+
+            importScripts ('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+            self .addEventListener ('message',
+                (event) => { if (event .data && event .data .type === 'SKIP_WAITING') self.skipWaiting() });
+
+            workbox .routing .registerRoute (new RegExp ('/*'), new workbox .strategies
+                .StaleWhileRevalidate ({ cacheName: CACHE }));
+
+  - name  : Offline copy with backup offline page    # id = 3
+    desc  : A copy of each pages is stored in the cache as your visitors view them. This allows a visitor to load any previously
+            viewed page while they are offline. This then adds the "offline page" that allows you to customize the message and
+            experience if the app is offline, and the page is not in the cache.
+    init  : |-
+            <script type="module">
+            import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+            const el = document .createElement ('pwa-update');
+            document .body .appendChild (el);
+            </script>
+    main  : |-
+            const CACHE = 'pwabuilder-offline-page';
+
+            importScripts ('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+            const offlineFallbackPage = 'ToDo-replace-this-name.html';
+
+            self .addEventListener ('message',
+                (event) => { if (event .data && event .data .type === 'SKIP_WAITING') self .skipWaiting() });
+
+            self .addEventListener ('install',
+                async (event) => { event .waitUntil (caches.open (CACHE) .then ((cache) => cache .add (offlineFallbackPage))) });
+
+            if (workbox .navigationPreload .isSupported ()) workbox.navigationPreload.enable();
+
+            workbox .routing .registerRoute (new RegExp ('/*'), new workbox .strategies
+            .StaleWhileRevalidate ({ cacheName: CACHE }));
+
+            self .addEventListener ('fetch', (event) => { if (event .request .mode === 'navigate') { event .respondWith ((async () => {
+                try {
+                    const preloadResp = await event.preloadResponse;
+                    if (preloadResp) return preloadResp;
+                    const networkResp = await fetch (event .request);
+                    return networkResp;
+                  }
+                  catch (error) {
+                    const cache = await caches .open (CACHE);
+                    const cachedResp = await cache .match (offlineFallbackPage);
+                    return cachedResp;
+                  }
+            })()) }});
+
+  - name  : Cache-first network                      # id = 4
+    desc  : Use this service worker to pre-cache content.
+    init  : |-
+            <script type="module">
+            import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+            const el = document.createElement('pwa-update');
+            document.body.appendChild(el);
+            </script>
+    main  : |-
+            const CACHE = 'pwabuilder-precache';
+
+            importScripts ('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+            self .addEventListener ('message',
+                (event) => { if (event .data && event .data .type === 'SKIP_WAITING') self.skipWaiting() });
+
+            workbox .routing .registerRoute (new RegExp('/*'), new workbox .strategies .CacheFirst ({ cacheName: CACHE }));
+
+  - name  : Advanced caching                         # id = 5
+    desc  : Use this service worker to improve the performance of your app, and make it work offline. The advanced caching
+            service worker allows you to configure files and routes that are cached in different manners (pre-cache, server
+            first, cache first, etc.).
+    init  : |-
+            <script type="module">
+            import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+            const el = document.createElement('pwa-update');
+            document.body.appendChild(el);
+            </script>
+    main  : |-
+            importScripts ('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+            const HTML_CACHE  = 'html';
+            const JS_CACHE    = 'javascript';
+            const STYLE_CACHE = 'stylesheets';
+            const IMAGE_CACHE = 'images';
+            const FONT_CACHE  = 'fonts';
+
+            self .addEventListener ('message',
+                (event) => { if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting () });
+
+            workbox .routing .registerRoute (({event}) => event .request .destination === 'document', new workbox .strategies
+            .NetworkFirst ({ cacheName: HTML_CACHE,
+                plugins: [ new workbox.expiration.ExpirationPlugin ({ maxEntries: 10 }) ]}));
+
+            workbox .routing .registerRoute (({event}) => event .request .destination === 'script', new workbox .strategies
+            .StaleWhileRevalidate ({ cacheName: JS_CACHE,
+                plugins: [ new workbox .expiration .ExpirationPlugin ({ maxEntries: 15 }) ]}));
+
+            workbox .routing .registerRoute (({event}) => event .request .destination === 'style', new workbox .strategies
+            .StaleWhileRevalidate ({ cacheName: STYLE_CACHE,
+                plugins: [ new workbox .expiration .ExpirationPlugin ({ maxEntries: 15 }) ]}));
+
+            workbox .routing .registerRoute (({event}) => event .request .destination === 'image', new workbox .strategies
+            .StaleWhileRevalidate ({ cacheName: IMAGE_CACHE,
+                plugins: [ new workbox .expiration .ExpirationPlugin ({ maxEntries: 15 }) ]}));
+
+            workbox .routing .registerRoute (({event}) => event .request .destination === 'font', new workbox .strategies
+            .StaleWhileRevalidate ({ cacheName: FONT_CACHE,
+                plugins: [ new workbox .expiration .ExpirationPlugin ({ maxEntries: 15 }) ]}));
+
+  - name  : Background sync                          # id = 6
+    desc  : Use this service worker to implement background sync for your app, ensuring that crucial requests made while the app
+            is offline can be replayed when the user comes back online.
+    init  : |-
+            <script type="module">
+            import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+            const el = document.createElement('pwa-update');
+            document.body.appendChild(el);
+            </script>
+    main  : |-
+            const CACHE = 'pwabuilder-offline';
+            const QUEUE_NAME = 'bgSyncQueue';
+
+            importScripts ('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+            self .addEventListener ('message',
+                (event) => { if (event .data && event .data .type === 'SKIP_WAITING') self .skipWaiting () });
+
+            const bgSyncPlugin = new workbox .backgroundSync .Plugin (QUEUE_NAME, { maxRetentionTime: 24 * 60 });
+
+            workbox .routing .registerRoute (new RegExp ('/*'), new workbox .strategies
+                .StaleWhileRevalidate ({ cacheName: CACHE, plugins: [ bgSyncPlugin ] }));
+
+  - name  : Serving Cached media                     # id = 7
+    desc  : Use this service worker to play back audio and video to the user that has been cached for offline play.
+    init  : |-
+            <script type="module">
+            import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+            const el = document.createElement('pwa-update');
+            document.body.appendChild(el);
+            </script>
+    main  : |-
+            const CACHE = "pwabuilder-offline";
+
+            importScripts ('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+            self .addEventListener ('message',
+                (event) => { if (event .data && event .data .type === 'SKIP_WAITING') self .skipWaiting () });
+
+            workbox .loadModule ('workbox-cacheable-response');
+            workbox .loadModule ('workbox-range-requests');
+
+            workbox .routing .registerRoute (/.*\.mp4/, new workbox .strategies .CacheFirst ({
+                cacheName: CACHE,
+                plugins: [
+                    new workbox .cacheableResponse .CacheableResponsePlugin ({statuses: [200]}),
+                    new workbox .rangeRequests .RangeRequestsPlugin (),
+                ]
+            }));
+
+# vim: sw=4

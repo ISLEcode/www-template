@@ -1,0 +1,248 @@
+revision  : 2020-12-15 (Tue) 09:10:05
+title     : YOUR_TITLE_HERE
+readme    : OPTIONAL_README_CONTENTS
+contents  :
+
+  - name  : In general
+    level : 1
+    body  : The database of the Swiss QR Code is oriented upon the Swiss Implementation Guidelines for Credit Transfers for the
+            ISO 20022 «~Customer Credit Transfer Initiation» message (pain.001).
+
+  - name  : Technical specifications
+    level : 1
+
+  - name  : Character set
+    level : 2
+    body  : |-
+            According to the Swiss standard, in the Swiss QR Code, for reasons of compatibility with the Swiss Implementation
+            Guidelines for Credit Transfers for the ISO 20022 «~Customer Credit Transfer Initiation» message (pain.001) [3], only
+            the Latin character set is permitted. UTF-8 should be used for encoding.
+
+            For certain fields, additional restrictions apply regarding characters e.g. only alphanumerical values are possible
+            for the IBAN.
+
+  - name  : Field lengths
+    level : 2
+    body  : The field lengths specified represent maximum lengths for the individual elements. It is not permitted to fill in the
+            elements with blanks up to the maximum length.
+
+  - name  : Separator element
+    level : 2
+    bosy  : |-
+            The individual elements in the Swiss QR Code according to the Swiss standard are separated from one another with a
+            carriage return (CR + LF).
+
+            The carriage return is eliminated after the final element.
+
+            Note: Instead of the characters CR + LF, the LF character can be used alone (see also the FAQ at
+            www.PaymentStandards.CH/FAQ)
+
+  - name  : Delivery of the data elements
+    level : 2
+    body  : |-
+            All data elements must be present. If there is no content for a data element, then at least one carriage return (CR +
+            LF or LF) must take place.
+
+            The sole exceptions to this are additional data elements marked with «~A» (alternative scheme). These may be omitted
+            if they are not being used.
+
+            The last data element delivered may not be completed with a concluding carriage return (CR + LF or LF).
+
+  - name  : Data groups
+    level : 2
+    body  : |-
+            The data groups highlighted in light blue in Table 5 «~Status of the elements~» serve solely for depiction of the
+            technical context and the definition of common rules.
+
+            Such data groups may not be delivered in the Swiss QR Code.
+
+            If a data group is used, in those marked with «~optional~», all sub-elements marked as «~dependent» must be filled.
+
+  - name  : Data structure
+    level : 1
+    body  : Table 7 «~Swiss QR Code data elements» specifies all elements relevant for the Swiss QR Code.
+
+  - name  : Depiction conventions
+    level : 2
+    body  : |-
+            The following depiction conventions apply for this document.
+
+            Table 7 «~Swiss QR Code data elements» about the data structure contains the following columns and information:
+
+            1.  Data structure
+
+                Logical data structure, defined data groups (name of the data group always in the blue fields) which logically
+                belong to one another
+
+            2.  Element name
+
+                Technical element name
+
+            3.  St.
+
+                 Status. The following status values (information about usage) are possible for the individual elements:
+
+            4.  General definition
+
+                Technical definitions and terms
+
+            5.  Field definition
+
+                Technical field definitions
+
+                  ---------------------------------------------------------------------------------------------------------------
+                  St    Designation     Description
+                  ----- --------------- -----------------------------------------------------------------------------------------
+                  M     Mandatory       Field must mandatorily be delivered filled.
+
+                  D     Dependent       Field must mandatorily be filled if the superordinate optional data group is filled.
+
+                  O     Optional        Field must mandatorily be delivered, but not necessarily filled (can be empty).
+
+                  A     Additional      Field does not necessarily have to be delivered.
+
+                  X     Do not fill in  Field must not be filled in but must be sent (intended «~for future use», so the field
+                                        separator needs to be sent).
+                  ---------------------------------------------------------------------------------------------------------------
+
+  - TODO  :
+            Coloring in the tables
+            Data elements that contain at least one sub-element represent so-called data groups and are colored light blue.
+            Depiction of the logical structure in the tables
+            To be able to recognize where in the logical structure of the Swiss QR Code an element is positioned, the nesting depth is indicated with a «~+» sign placed in front of the «~Data structure» column. For example, the IBAN in the «~Creditor information» is shown as follows: QRCH +CdtrInf ++IBAN
+            Depiction of deviations in naming in the payment part/receipt
+            A name is listed in the table for individual data groups that differ from the field names, which is to be used as a designation in the payment part/receipt. This designation is listed in the tables in italics and in blue beneath the designation of the data group:
+
+            Ultimate Creditor Payable by
+
+            Figure 10:
+
+            Data group with technical element name and technical name for the payment part
+
+            Permitted characters in the field definitions
+
+            Details about the «~Field definitions» column in Table 7:
+
+            Characters general numeric alphanumeric decimal
+
+            Field definitions Character set as stipulated in part 4.2.1 0­9 A­Z a-z 0­9 0­9 plus decimal separator «~.»
+
+            Table 6:
+
+            Characters permitted
+
+            4.3.3
+
+            Data elements in the QR-bill
+            Element Name
+
+            QR Elements
+            Data Structure
+
+            4.4
+            4.4.1
+
+            Technical specifications
+            The mapping of the data in the Swiss QR Code in the ISO 20022 pain.001 message is described in the Swiss «~Implementation Guidelines for Credit Transfers» (pain.001) [3].
+
+            Use of address information
+
+            The address of the parties involved ­ for example that of the creditor ­ may be sent either structured (separately) or as combined address fields (two pieces of data in each field).
+            Structured address fields: The elements «~Street or address line ~», «~Building number or address line ~», «~Postal code», «~Town» and «~Country» should be filled in. For a P.O. Box, the «~Street or address line ~» element should be used.
+            Combined address fields: The elements «~Street or address line ~», «~Building number or address line ~» and «~Country» should be filled in. For a P.O. Box, the «~Street or address line ~» element should be used.
+
+            Address type
+
+            Beispiel: Strukturiert
+            «~S»
+
+            Name
+            Street or address line 1
+
+            Pia-Maria RutschmannSchnyder
+            Grosse Marktgasse
+
+            Building number or address line 2
+            Postal code
+
+            28 9400
+
+            Town
+
+            Rorschach
+
+            Country
+
+            CH
+
+            Beispiel: Kombiniert «~K»
+            Pia-Maria RutschmannSchnyder Grosse Marktgasse 28
+            9400 Rorschach
+
+            Bemerkungen
+            «~S» - Structured address «~K» - Combined address
+            «~S» - Street/P.O. Box «~K» - Street and building number of P.O. Box «~S» - Building number «~K» - Postal code and town
+
+            «~S» - Postal code «~K» - Do not fill in «~S» - Town «~K» - Do not fill in CH
+
+            Table 8:
+
+            Examples of how to use address information
+
+            Version 2.1 ­ 30.09.2019
+
+            Page 31 of 57
+
+            Swiss QR Code database
+
+            Swiss Implementation Guidelines QR-bill
+
+            4.4.2
+
+            Customer references
+            Structured reference as «~payment reference»
+            The two following types of structured references can be delivered in the «~Reference» element:
+             Use of the QR reference (QRR)
+            The QR reference (see paragraph 2.12.1) enables the creditor to compare their invoices and the incoming payments automatically. In its structure, it equates to the ISR reference (27 characters, numerical; check digit calculated by Modulo 10 recursive; 27th digit of the reference; see Annex B «~Check digit generation by Modulo 10 recursive»).
+            Use of the QR reference presupposes that a QR-IBAN has been used. The QR-IBAN identifies the payment across all payment channels as one which must have a QR reference delivered with it. An IBAN must therefore not be used.
+             Use of the Creditor Reference (SCOR)
+            The internationally used Creditor Reference (ISO 11649) also enables the creditor to compare their invoices and incoming payments automatically.
+            Use of the Creditor Reference (ISO 11649) presupposes that an IBAN has been used. A QR-IBAN must not be used.
+
+            4.4.3 Page 32 of 57
+
+            Additional information
+            The two elements «~Unstructured message» and «~Billing information» are available for additional information. The number of characters in the two fields together must not exceed 140 characters:  Unstructured messages can be used to give the payment purpose or for
+            additional textual information about payments with a structured reference. Unstructured references are printed on the payment part under the heading «~Additional information».  The element «~Billing information»contains coded information of the biller for the bill recipient. This information may be used for automating accounts payable processes, for instance. The data is not forwarded with the payment but it is printed on the payment part. The coding of the element always begins with «~//» (slash slash) followed by the double-digit, abbreviated name of the proposed version of the «~Structured information for the bill issuer» that is being used
+            Regarding the «~Billing information» element: Swiss financial institutions do not prescribe the structure of this information, to allow for the individual needs of the different sectors. A flexible solution has therefore been defined which allows for the use in parallel of different ways of coding this information. For this purpose, the first two characters are reserved as the code for the rule defining how the remaining characters of this field should be interpreted. For more information on coding, see www.PaymentStandards.CH.
+            So that the relevant «~Billing information» can be identified, SIX is prescribing a twodigit coding system. This and the Structural recommendations (syntax) must be agreed with SIX before it is used (process cf. Annex E). Billing data must not include any personal data.
+            Version 2.1 ­ 30.09.2019
+
+            Swiss Implementation Guidelines QR-bill
+
+            Swiss QR Code database
+
+            Applicable structural recommendations for Billing information are available on www.PaymentStandards.CH.
+
+            4.4.4
+
+            Alternative schemes
+            Since only ca. 90 caracters can be displayed on the payment part in «~Alternative schemes», the following rules are to be followed in order to ensure the of data protection while filling this element:
+             First the (abbreviated) name of the alternative procedure must be coded (e.g. eBill).The next character must contain the subelement separator that is used (e.g. «~/»).
+             Subsequently, the the data that may include personal data should be coded so that they are displayed on the payment part.
+             An unlimited number of sub-elements can be delivered within the permitted field length of the element.
+            The data in the alternative scheme element is only interpreted and used by the corresponding scheme.
+            It solely serves the debtor for the easy use of this scheme.
+            For current information about alternative procedures, please see www.PaymentStandards.CH/alternative-schemes.
+
+            Version 2.1 ­ 30.09.2019
+
+            Page 33 of 57
+
+            Parameters for generating the Swiss QR Code
+
+            Swiss Implementation Guidelines QR-bill
+
+            5
+
+# __END__

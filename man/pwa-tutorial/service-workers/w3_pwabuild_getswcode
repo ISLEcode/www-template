@@ -1,0 +1,63 @@
+#! /bin/ksh
+
+function w3_pwabuild_getswcode {
+typeset -S url=https://github.com/pwa-builder/pwabuilder-serviceworkers
+typeset -S usage=$'[-]
+[+NAME?w3 pwabuild-getswcode - Collect PWAbuilder\'s predefined service workers.]
+[o:output?Output results to \vFILE\v rather than \vSTDOUT\v.]:[FILE]'
+
+    typeset output
+
+    # Process command line options
+    while getopts "$usage" opt; do case $opt in
+    o) output=$OPTARG ;;
+    esac; done
+
+    # Don't overwrite target if it exists
+    [[ -n $output && -f $output ]] &&
+    { print -u2 -f '\E[31merror\E[0m %s: file exists; cannot overwrite.' $output; return 1; }
+
+    # Clone Github repository
+    typeset dir=$(mktemp -d) json=$dir/serviceworkers.json; git clone --quiet $url $dir ||
+    { rm -rf $dir; print -u2 -f '\E[31merror\E[0m %s: Failed to clone repository.' ${url#*github.com/}; return 1; }
+
+    # Generate target YAML structure
+    {   printf 'revision  : %(%F (%a) %R:%S)T\n'
+        print $'brief     : PWA service workers (based on PWAbuilder\'s scripts and on Workbox)'
+        print  'contents  :'
+
+        # Process all service worker definitions
+        integer i j count=$(jq -r .serviceworkers < $json | jq length); for (( i = 0, j = 1; i < count; ++ i, ++ j )); do
+
+            typeset name=$(jq -r .serviceworkers[$i].title       < $json)
+            print -f '  - name  : %-40s # id = %d\n' "$name" $j
+
+            typeset desc=$(jq -r .serviceworkers[$i].description < $json)
+            print "$desc" | fold -sw 118 | sed '1s/^/    desc  : /;2,$s/^/            /'
+
+            typeset file=dir/serviceWorker$j/pwabuilder-sw-register.js; [[ -f $file ]] && {
+                print $'    html  : |-\n            <script type="module">'
+                sed 's/^\(.\)/            \1/' $file
+                print $'            </script>\n'
+            }
+
+            typeset file=$dir/serviceWorker$j/pwabuilder-sw.js; [[ -f $file ]] && {
+                print '    main  : |-'
+                sed 's/^\(.\)/            \1/' $file
+                print $'\n'
+            }
+
+        done
+
+        # Mark end of file
+        print '\n# vim: sw=4'
+
+    } > ${output:-/dev/stdout}
+
+    # Cleanup.. we're done
+    rm -rf $dir
+
+}
+
+# w3_pwabuild_getswcode -o pwa-sw-dict.yaml
+w3_pwabuild_getswcode $@

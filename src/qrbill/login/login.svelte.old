@@ -1,0 +1,60 @@
+<script lang="ts">
+import { Icon, Col, Container, Row } from 'sveltestrap5';
+import { Button, Form, FormGroup, FormText, Input, Label } from 'sveltestrap5';
+import { Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText, CardTitle } from 'sveltestrap5';
+
+let uid = '';
+let upw = '';
+let udb = '';
+let persist = false;
+let focused = false;
+
+const on_change = (e: Event) => { value = (e.target as HTMLInputElement).value; }
+const on_input  = (e: Event) => { value = (e.target as HTMLInputElement).value; }
+</script>
+
+<Container>
+  <Row>
+    <Col sm="12" md={{ size: 6, offset: 3 }}>
+      <Card class="mb-3">
+        <CardHeader>
+          <CardTitle class="text-center">SAMinfo</CardTitle>
+        </CardHeader>
+        <CardBody>
+          <CardSubtitle class="text-center fs-1">
+            <Icon name="shield-lock" style="font-size: 6rem; padding-bottom: 4em" /><br>
+          </CardSubtitle>
+          <Form>
+            <FormGroup class="form-floating">
+              <Input id="uid" type="text" bind:value={uid} on:blur={() => (focused = false)} on:focus={() => (focused = true)}
+                placeholder="Votre nom d'utilisateur" on:change={on_change} on:input={on_input} required/>
+              <Label for="uid">Nom</Label>
+            </FormGroup>
+            <FormGroup class="form-floating">
+              <Input id="upw" type="text" bind:value={user.upw} on:blur={() => (focused = false)} on:focus={() => (focused = true)}
+                placeholder="Votre mot de passe" on:change={on_change} on:input={on_input} required/>
+              <Label for="upw">Mot de passe</Label>
+            </FormGroup>
+            <FormGroup class="form-floating">
+              <Input id="udb" type="text" bind:value={user.udb} on:blur={() => (focused = false)} on:focus={() => (focused = true)}
+                placeholder="Votre compte SAMinfo" on:change={on_change} on:input={on_input} required/>
+              <Label for="udb">Compte</Label>
+            </FormGroup>
+            <FormGroup class="form-floating">
+              <Input id="persist" type="checkbox" bind:value={user.persist} on:blur={() => (focused = false)} on:focus={() => (focused = true)}
+                on:change={on_change} on:input={on_input} label="Se souvenir de moi"/>
+            </FormGroup>
+            <FormGroup class="form-floating">
+              <button type="submit" class="btn btn-block btn-primary">Connexion</button>
+            </FormGroup>
+          </Form>
+        </CardBody>
+        <CardFooter>
+          <div id="messages"></div>
+          <!-- <a class="forgot" href="#">Mot de passe oublié ?</a> -->
+        </CardFooter>
+      </Card>
+    </Col>
+  </Row>
+</Container>
+

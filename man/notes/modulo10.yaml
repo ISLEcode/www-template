@@ -1,0 +1,39 @@
+revision  : 2020-12-15 (Tue) 09:37:26
+title     : Check digit generation by Modulo 10 recursive
+readme    : OPTIONAL_README_CONTENTS
+contents  :
+
+    The QR reference consists of 27 positions and is numerical. The last position (on the right) is occupied by a check digit (P).
+
+    The use of check digit generation in the reference prevents errors in the order entry by the debtor.
+
+    Modulo 10 recursive must be used to generate the check digit. The recursive schema for calculating the QR reference consists
+    of using Modulo10 to keep separating off the next digit of the 26 digit reference until the number only consists of one
+    digit.
+
+    The sequence of numbers to be checked is processed from left to right. For the first digit the carry-forward = 0.
+
+    The number to be checked corresponds to the column number, and the carryforward to the line number in the table. The combined
+    value of both produces the carry-forward for the next digit in the sequence.
+
+    ![Check digit matrix](qrbill-17.jpg)
+
+    ### Example
+
+    Input
+    :   Sequence of digits 21000000000313947143000901 (positions 1 to 26 of the 27-digit QR reference)
+
+    Rules
+    :   ![Check digit calculation example](qrbill-18.jpg)
+
+          - Commence with carry-over 0 and combine with 1st digit of row 2, resulting in a value or carry-over of 4.
+          - Carry-over 4 combined with 2nd digit of row 1 results in a combination or carry-over of 2.
+          - etc.
+          - Carry-over 7 combined with last digit of row 1 results in a combination or carry-over of 3.
+          - The value in the last column in the extension of carry-over 3 is the check digit = 7.
+
+    Output
+    :   Sequence of digits 21 00000 00003 13947 14300 09017 (positions 1 to 27 of the 27-digit QR reference)
+
+
+# __END__

@@ -1,0 +1,18 @@
+#! /bin/ksh
+
+
+function yaml2md {
+
+    eval "$(df-y2k -p yaml $1)"
+
+    # print "${yaml.title}"
+
+    integer i count=${#yaml.contents[@]}; for (( i = 0; i < count; ++ i )); do
+        nameref content=yaml.contents[$i]
+        printf '\n%#.*s %s\n\n' ${content.level} '######' "${content.name}"
+        print "${content.body}"
+    done
+
+}
+
+yaml2md "$@"

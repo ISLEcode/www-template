@@ -1,0 +1,2 @@
+// HTTP Store
+// https://gist.github.com/joshnuss/e4c4a4965f12b1d6012393a4ccdb7462

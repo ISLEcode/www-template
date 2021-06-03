@@ -1,0 +1,42 @@
+revision  : 2020-12-15 (Tue) 09:12:02
+title     : QR-bill Field name mappings
+readme    : We map here the names used in SAMinfo's GraphQL API to exchange QR-bill data with the names used in the Swiss payment
+            standards 2019 specifications published by Six (version 2.1, 30 september 2019).
+contents  :
+
+     qr-type     : QRType
+     qr-version  : Version
+     qr-coding   : Coding Type
+     account     : Account
+     cr-atype    : CR / AdressTyp
+     cr-name     : CR / Name
+     cr-addr1    : CR / Street or address line 1
+     cr-addr2    : CR / Building number or address line 2
+     cr-pcode    : CR / Postal code
+     cr-city     : CR / City
+     cr-country  : CR / Country
+     ucr-atype   : UCR / AdressTyp
+     ucr-name    : UCR / Name
+     ucr-addr1   : UCR / Street or address line 1
+     ucr-addr2   : UCR / Building number or address line 2
+     ucr-pcode   : UCR / Postal code
+     ucr-city    : UCR / City
+     ucr-county  : UCR / Country
+     amount      : Amount
+     currency    : Currency
+     ud-atype    : UD / AdressTyp
+     ud-name     : UD / Name
+     ud-addr1    : UD / Street or address line 1
+     ud-addr2    : UD / Building number or address line 2
+     ud-pcode    : UD / Postal code
+     ud-city     : UD / City
+     ud-country  : UD / Country
+     ref-type    : Reference type
+     ref-id      : Reference
+     umessage    : Unstructured message
+     trailer     : Trailer
+     bill-info   : Billing information
+     av1-params  : AV1 / Parameters
+     av2-params  : AV2 / Parameters
+
+# __END__

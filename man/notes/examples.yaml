@@ -1,0 +1,134 @@
+revision  : 2020-12-15 (Tue) 09:11:46
+title     : QR-bill examples
+readme    : |-
+
+            ![](qrbill-13.jpg)
+
+            The QR-bills shown in the following examples are schematic and not drawn to scale. The exact depictions are published
+            in the Style Guide [4]. The following abbreviations and symbols are used in the examples below:
+
+              --- - ----------------------- -------------------------------------------------------------------------------------
+              ¶   = CR + LF                 Or LF only.
+              CR  = Creditor
+              UCR = Ultimate creditor       Should be empty, intended for future use.
+              UD  = Ultimate debtor
+              APn = Alternative scheme n
+              --- - ----------------------- -------------------------------------------------------------------------------------
+
+contents  :
+
+  - name  : Data example for the QR code with two additional schemes and Billing information
+    scan  : qrbill-14.jpg
+    data  :
+      -   [ qrtype,       'SPC' ]
+      -   [ qr-version,   '0200' ]
+      -   [ qr-coding,    '1' ]
+      -   [ account,      'CH4431999123000889012' ]
+      -   [ cr-atype,     'S' ]
+      -   [ cr-name,      'Robert Schneider AG' ]
+      -   [ cr-addr1,     'Rue du Lac' ]
+      -   [ cr-addr2,     '1268' ]
+      -   [ cr-pcode,     '2501' ]
+      -   [ cr-city,      'Biel' ]
+      -   [ cr-country,   'CH' ]
+      -   [ ucr-atype,    '' ]
+      -   [ ucr-name,     '' ]
+      -   [ ucr-addr1,    '' ]
+      -   [ ucr-addr2,    '' ]
+      -   [ ucr-pcode,    '' ]
+      -   [ ucr-city,     '' ]
+      -   [ ucr-county,   '' ]
+      -   [ amount,       '1949.75' ]
+      -   [ currency,     'CHF' ]
+      -   [ ud-atype,     'S' ]
+      -   [ ud-name,      'Pia-Maria Rutschmann-Schnyder' ]
+      -   [ ud-addr1,     'Grosse Marktgasse' ]
+      -   [ ud-addr2,     '28' ]
+      -   [ ud-pcode,     '9400' ]
+      -   [ ud-city,      'Rorschach' ]
+      -   [ ud-country,   'CH' ]
+      -   [ ref-type,     'QRR' ]
+      -   [ ref-id,       '210000000003139471430009017' ]
+      -   [ umessage,     'Order of 15 June 2020' ]
+      -   [ trailer,      'EPD' ]
+      -   [ bill-info,    '//S1/10/10201409/11/200701/20/140.00053/30/102673831/31/200615/32/7.7/33/7.7:139.40/ 40/0:30' ]
+      -   [ av1-params,   'Name AV1: UV;UltraPay005;12345' ]
+      -   [ av2-params,   'Name AV2: XY;XYService;54321' ]
+
+  - name  : Data example for QR code without amount (e.g. donation) and without debtor
+    scan  : qrbill-15.jpg
+    data  :
+      -   [ qrtype,       'SPC' ]
+      -   [ qr-version,   '0200' ]
+      -   [ qr-coding,    '1' ]
+      -   [ account,      'CH5204835012345671000' ]
+      -   [ cr-atype,     'S' ]
+      -   [ cr-name,      'Better World Trust' ]
+      -   [ cr-addr1,     'P.O. Box' ]
+      -   [ cr-addr2,     '' ]
+      -   [ cr-pcode,     '3001' ]
+      -   [ cr-city,      'Bern' ]
+      -   [ cr-country,   'CH' ]
+      -   [ ucr-atype,    '' ]
+      -   [ ucr-name,     '' ]
+      -   [ ucr-addr1,    '' ]
+      -   [ ucr-addr2,    '' ]
+      -   [ ucr-pcode,    '' ]
+      -   [ ucr-city,     '' ]
+      -   [ ucr-county,   '' ]
+      -   [ amount,       '' ]
+      -   [ currency,     'CHF' ]
+      -   [ ud-atype,     '' ]
+      -   [ ud-name,      '' ]
+      -   [ ud-addr1,     '' ]
+      -   [ ud-addr2,     '' ]
+      -   [ ud-pcode,     '' ]
+      -   [ ud-city,      '' ]
+      -   [ ud-country,   '' ]
+      -   [ ref-type,     'NON' ]
+      -   [ ref-id,       '' ]
+      -   [ umessage,     '' ]
+      -   [ trailer,      'EPD' ]
+      -   [ bill-info,    '' ]
+      -   [ av1-params,   '' ]
+      -   [ av2-params,   '' ]
+
+  - name  : Data example for QR code with structured reference without additional information and without alternative scheme
+    scan  : qrbill-16.jpg
+    data  :
+      -   [ qrtype,       'SPC' ]
+      -   [ qr-version,   '0200' ]
+      -   [ qr-coding,    '1' ]
+      -   [ account,      'CH5800791123000889012' ]
+      -   [ cr-atype,     'S' ]
+      -   [ cr-name,      'Robert Schneider AG' ]
+      -   [ cr-addr1,     'Rue du Lac' ]
+      -   [ cr-addr2,     '1268' ]
+      -   [ cr-pcode,     '2501' ]
+      -   [ cr-city,      'Biel' ]
+      -   [ cr-country,   'CH' ]
+      -   [ ucr-atype,    '' ]
+      -   [ ucr-name,     '' ]
+      -   [ ucr-addr1,    '' ]
+      -   [ ucr-addr2,    '' ]
+      -   [ ucr-pcode,    '' ]
+      -   [ ucr-city,     '' ]
+      -   [ ucr-county,   'CH' ]
+      -   [ amount,       '199.95' ]
+      -   [ currency,     'CHF' ]
+      -   [ ud-atype,     'K' ]
+      -   [ ud-name,      'Pia-Maria Rutschmann-Schnyder' ]
+      -   [ ud-addr1,     'Grosse Marktgasse 28' ]
+      -   [ ud-addr2,     '9400 Rorschach' ]
+      -   [ ud-pcode,     '' ]
+      -   [ ud-city,      '' ]
+      -   [ ud-country,   'CH' ]
+      -   [ ref-type,     'SCOR' ]
+      -   [ ref-id,       'RF18539007547034' ]
+      -   [ umessage,     '' ]
+      -   [ trailer,      'EPD' ]
+      -   [ bill-info,    '' ]
+      -   [ av1-params,   '' ]
+      -   [ av2-params,   '' ]
+
+# __END__

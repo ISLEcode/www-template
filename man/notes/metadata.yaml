@@ -1,0 +1,38 @@
+revision  : 2020-12-15 (Tue) 09:12:05
+title     : YOUR_TITLE_HERE
+readme    : OPTIONAL_README_CONTENTS
+contents  :
+
+  - name  : Field contents and meta data
+    level : 0
+    body  : The following rules apply for payment instructions to financial institutions as well as to payments at post office
+            counters (branches and branches with partner organisations). They relate to their solutions for reading from the Swiss
+            QR Code and further processing. This especially applies for scanning solutions (physical payment instructions) as well
+            as for mobile end devices (M-banking). Producers of software solutions must adhere to these rules in order to enable
+            smooth processing.
+
+  - name  : Checking of field contents
+    level : 1
+    body  : |-
+            Before the further processing of the values read from the Swiss QR Code, individual field contents that are listed in
+            the Implementation Guidelines must be checked. This means that:
+
+              - The content must match a valid value; this applies for QRType, the version, the coding type and the currency.
+
+              - The general specifications according to part 4.2 «~Technical specifications» must be adhered to.
+
+              - The value must be syntactically correct; this applies for the amount (if entered).
+
+              - The permitted combinations of account with reference type (IBAN only with «~SCOR~» [Creditor Reference] or «~NON~»
+                [optional free text information]; QR-IBAN with «~QRR~» [QR reference]) must be used.
+
+  - name  : Meta data
+    level : 1
+    body  : |-
+            The following elements from the Swiss QR Code (data group header) will never be forwarded with the payment:
+
+              - QRType
+              - Version
+              - Coding Type.
+
+# __END__

@@ -1,0 +1,94 @@
+revision  : 2020-12-15 (Tue) 09:11:52
+title     : Glossary
+contents  :
+
+  - name  : QR-bill
+    desc  : |-
+            The «~QR-bill » is understood to mean  a bill with a payment part and receipt integrated in the form, and  a bill
+            with a separately enclosed payment part and receipt.
+
+            The following figure serves a sketch of two possible designs of a QR-bill with payment part, intended to improved
+            comprehension of the subsequent definitions.
+
+            ![Schematic depiction of a QR-bill with integrated payment part/receipt and with payment part/receipt as an
+            enclosure](qrbill-02.jpg)
+
+  - name  : Payment part with Swiss QR code and receipt
+    desc  : |-
+            The payment part of the QR-bill with receipt contains the information that is required to execute the payment in the
+            form of a QR code and also as readable information.
+
+            The receipt must be on the left of the payment part, regardless of whether it is integrated in the bill or on a
+            separate sheet of paper.
+
+            The payment part is in DIN-A6 landscape format (148 mm x 105 mm). The receipt to the left of the payment part measures
+            62 mm x 105 mm, so the two together measure 210 mm x 105 mm.
+
+  - name  : QR Code according to ISO 18004
+    desc  : |-
+            The QR Code is a two-dimensional barcode, in accordance with ISO 18004, based on the development of the company DENSO
+            WAVE INCORPORATED. «~QR Code » is a registered trademark of DENSO WAVE INCORPORATED.
+
+            The QR Code standard stipulates versions for the coding of various data volumes (from Version 1 to Version 40) with
+            correspondingly different storage capacities in the form of modules. The respective codeable data volume depends, on
+            the one hand, on the error correction level chosen, and on the other, on the data to be encoded (numeric,
+            alphanumeric, binary, Kanji).
+
+            A fixed number of modules is allocated to each version.
+
+  - name  : The term «~module » according to ISO 18004
+    desc  : A module designates the smallest information carrier in the QR Code, comparable with a data bit. In the QR Code the
+            modules correspond to the white and black dots of the code.
+
+  - name  : The term «~error correction level» according to ISO 18004
+    desc  : The QR Code has the ability to restore the data contained in the code if the code is damaged (e.g. through dirt,
+            folding, imprinting). The standard includes four error correction levels corresponding to different restoration
+            capacities (L = approx. 7%, M = approx. 15%, Q = approx. 25%, H = approx. 30%). The higher the error correction level
+            that is chosen, the lower the codeable data volume.
+
+  - name  : Swiss QR Code
+    desc  : |-
+            The Swiss QR Code complies with the specifications in this document and enables payments to be triggered by financial
+            institutions across all payment channels and at post office counters (at branches and branches of a partner company).
+            It is marked with a Swiss cross in the middle.
+
+            ![Swiss QR Code](qrbill-03.jpg)
+
+  - name  : DPI
+    desc  : The printer and scanner resolution are customarily specified in Dots per Inch (DPI).
+
+  - name  : IID
+    desc  : The IID (institution identification) is used in Switzerland and Liechtenstein to identify financial institutions as
+            participants in the Swiss RTGS systems. Every institution is assigned at least one IID.
+
+  - name  : QR-IID
+    desc  : The QR-IID is derived from the institutional identification (IID). QR-IIDs consist exclusively of numbers from 30000
+            to 31999. IBANs (QR-IBANs) based on these QRIIDs are used only for the new procedure with a QR reference in the
+            QR-bill (see also paragraph 2.11).
+
+  - name  : IBAN
+    desc  : The IBAN is the internationally standardised representation of a bank account number in accordance with the ISO 13616
+            standard.
+
+  - name  : QR-IBAN
+    desc  : For payments with a structured QR reference, the QR-IBAN must be used to indicate the account to be credited. The
+            formal structure of the QR-IBAN corresponds to the rules stipulated in ISO 13616 standard for IBAN. The payment
+            scheme with reference is recognized through a special financial institution identification (QR-IID). The values 30000
+        —   — 31999 are exclusively reserved for the QR-IID. Each legally independent financial institution participating in the
+            scheme is assigned one QR-IID. The QR-IBAN contains the QR-IID of the account-keeping financial institution for
+            identification of the scheme. Detailed information about the QR-IID and QR-IBAN can be found in the «~Technical
+            information on the QR-IID and QR-IBAN» document [6]. The latest version can be downloaded at www.paymentstandards.ch.
+
+  - name  : Customer references
+    desc  : |-
+            For payments with structured reference, the two following reference types are used.
+
+            QR reference
+            : The structure of the QR reference corresponds to that of the ISR reference (26 numerical characters followed by a
+              Modulo 10 recursive check digit, see Annex B «~Check digit generation by Modulo 10 recursive») and can be used by
+              the biller as a structured reference.
+
+            Creditor Reference
+            : Creditor Reference according to the ISO 11649 standard.
+
+# __END__

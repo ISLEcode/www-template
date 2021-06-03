@@ -1,0 +1,352 @@
+revision  : 2020-12-15 (Tue) 09:12:18
+title     : YOUR_TITLE_HERE
+readme    : OPTIONAL_README_CONTENTS
+contents  :
+
+  - name  : Header
+    elem  : Header
+    data  : [ QRCH, +Header ]
+    stat  :
+    desc  : Header Data. Contains basic information about the Swiss QR Code
+    defn  : Mandatory data group
+
+  - name  : QRType
+    elem  : QRType
+    data  : [ QRCH, +Header, ++QRType ]
+    stat  : M
+    desc  : Unambiguous indicator for the Swiss QR Code. Fixed value "SPC" (Swiss Payments Code)
+    defn  : Fixed length: three-digit, alphanumeric
+
+  - name  : Version
+    elem  : Version
+    data  : [ QRCH, +Header, ++Version ]
+    stat  : M
+    desc  : Contains version of the specifications (Implementation Guidelines) in use on the date on which the Swiss QR Code was
+            created. The first two positions indicate the main version, the following two positions the sub-version. Fixed value
+            of "0200" for Version 2.0
+    defn  : Fixed length: four-digit, numeric
+
+  - name  : Coding Type
+    elem  : Coding
+    data  : [ QRCH, +Header, ++Coding ]
+    stat  : M
+    desc  : Character set code. Fixed value 1 (indicates UTF-8 restricted to the Latin character set)
+    defn  : Fixed length: one-digit, numeric
+
+  - name  : Creditor information
+    elem  : CdtrInf
+    data  : [ QRCH, +CdtrInf ]
+    stat  :
+    desc  : Account / Payable to
+    defn  : Mandatory data group
+
+  - name  : IBAN
+    elem  : IBAN
+    data  : [ QRCH, +CdtrInf, ++IBAN ]
+    stat  : M
+    desc  : IBAN or QR-IBAN of the creditor.
+    defn  : Fixed length: 21 alphanumeric characters, only IBANs with CH or LI country code permitted.
+
+  - name  : Creditor
+    elem  : Cdtr
+    data  : [ QRCH, +CdtrInf, ++Cdtr ]
+    stat  :
+    desc  :
+    defn  : Mandatory data group
+
+  - name  : Address type
+    elem  : AdrTp
+    data  : [ QRCH, +CdtrInf, ++Cdtr, +++AdrTp ]
+    stat  : M
+    desc  : The address type is specified using a code. The following codes are defined:
+            'S' (structured address), "K" (combined address elements (2 lines)).
+    defn  : Fixed length: one-digit, alphanumeric
+
+  - name  : Name
+    elem  : Name
+    data  : [ QRCH, +CdtrInf, ++Cdtr, +++Name ]
+    stat  : M
+    desc  : The creditor's name or company according to the account name.
+            Comment: always matches the account holder
+    defn  : Maximum 70 characters permitted.
+            First name (optional, sending is recommended, if available) + last name or company name
+
+  - name  : Street or address line 1
+    elem  : StrtNmOrAdrLine1
+    data  : [ QRCH, +CdtrInf, ++Cdtr, +++StrtNmOrAdrLine1 ]
+    stat  : O
+    desc  : Structured address: Street/P.O. Box from the creditor's address.
+            Combined address elements: Address line 1 including street and building number or P.O. Box.
+    defn  : Maximum 70 characters permitted
+
+  - name  : Building number or address line 2
+    elem  : BldgNbOrAdrLine2
+    data  : [ QRCH, +CdtrInf, ++Cdtr, +++BldgNbOrAdrLine2 ]
+    stat  : O
+    desc  : Structured Address: Building number from creditor's address.
+            Combined address elements: Address line 2 including postal code and town from creditor's address.
+    defn  : Structured Address: max. 16 characters allowed.
+            Combined address elements: maximum 70 characters permitted.
+            Must be provided for address type "K".
+
+  - name  : Postal code
+    elem  : PstCd
+    data  : [ QRCH, +CdtrInf, ++Cdtr, +++PstCd ]
+    stat  : D
+    desc  : Postal code from creditor's address.
+    defn  : Maximum 16 characters permitted.
+            The postal code must be provided without a country code prefix.
+            Combined address elements: must not be provided.
+
+  - name  : Town
+    elem  : TwnNm
+    data  : [ QRCH, +CdtrInf, ++Cdtr, +++TwnNm ]
+    stat  : D
+    desc  : Town from creditor's address
+    defn  : Maximum 35 characters permitted.
+            Combined address elements: must not be provided.
+
+  - name  : Country
+    elem  : Ctry
+    data  : [ QRCH, +CdtrInf, ++Cdtr, +++Ctry ]
+    stat  : M
+    desc  : Country from creditor's address
+    defn  : Two-digit country code according to ISO 3166-1
+
+  - name  : Ultimate Creditor
+    elem  : UltmtCdtr
+    data  : [ QRCH, +UltmtCdtr ]
+    stat  :
+    desc  : In favour of.
+            Information about the ultimate creditor
+    defn  : Optional data group; may only be used in agreement with the creditor's financial institution This whole data group
+            must not be filled in for the time being (for Future Use)
+
+  - name  : Address type
+    elem  : AdrTp
+    data  : [ QRCH, +UltmtCdtr, ++AdrTp ]
+    stat  : X
+    desc  : The address type is specified using a code. The following codes are defined:
+            'S' (structured address), 'K' (combined address elements (2 lines)
+    defn  : Fixed length: one-digit, alphanumeric
+
+  - name  : Name
+    elem  : Name
+    data  : [ QRCH, +UltmtCdtr, ++Name ]
+    stat  : X
+    desc  : The ultimate creditor's name or company
+    defn  : Maximum 70 characters permitted First name (optional, sending is recommended, if available) + last name or company name
+
+  - name  : Street or address line 1
+    elem  : StrtNmOrAdrLine1
+    data  : [ QRCH, +UltmtCdtr, ++StrtNmOrAdrLine1 ]
+    stat  : X
+    desc  : Structured Address: Street/P.O. Box from ultimate creditor's address.
+            Combined address elements: Address line 1 including street and building number or P.O. Box.
+    defn  : Maximum 70 characters permitted
+
+  - name  : Building number or address line 2
+    elem  : BldgNbOrAdrLine2
+    data  : [ QRCH, +UltmtCdtr, ++BldgNbOrAdrLine2 ]
+    stat  : X
+    desc  : Structured Address: Building number from ultimate creditor's address.
+            Combined address elements: Address line 2 including postal code and town from ultimate creditor's address.
+    defn  : Structured Address: max. 16 characters allowed.
+            Combined address elements: maximum 70 characters permitted.k
+            Must be provided for address type "K".
+
+  - name  : Postal code
+    elem  : PstCd
+    data  : [ QRCH, +UltmtCdtr, ++PstCd ]
+    stat  : X
+    desc  : Postal code from ultimate creditor's address
+    defn  : Maximum 16 characters permitted.
+            The postal code is must be provided without a country code prefix.
+            Combined address elements: must not be provided.
+
+  - name  : Town
+    elem  : TwnNm
+    data  : [ QRCH, +UltmtCdtr, ++TwnNm ]
+    stat  : X
+    desc  : Town from ultimate creditor's address
+    defn  : Maximum 35 characters permitted.
+            Combined address elements: must not be provided
+
+  - name  : Country
+    elem  : Ctry
+    data  : [ QRCH, +UltmtCdtr, ++Ctry ]
+    stat  : X
+    desc  : Country of the ultimate creditor's address
+    defn  : Two-digit country code according to ISO 3166-1
+
+  - name  : Payment amount information
+    elem  : CcyAmt
+    data  : [ QRCH, +CcyAmt ]
+    stat  :
+    desc  :
+    defn  : Mandatory data group
+
+  - name  : Amount
+    elem  : Amt
+    data  : [ QRCH, +CcyAmt, ++Amt ]
+    stat  : O
+    desc  : The payment amount
+    defn  : The amount element is to be entered without leading zeroes, including decimal separators and two decimal places.
+            Decimal, maximum 12-digits permitted, including decimal separators. Only decimal points (".") are permitted as
+            decimal separators.
+
+  - name  : Currency
+    elem  : Ccy
+    data  : [ QRCH, +CcyAmt, ++Ccy ]
+    stat  : M
+    desc  : The payment currency, 3-digit alphanumeric currency code according to ISO 4217
+    defn  : Only CHF and EUR are permitted.
+
+  - name  : Ultimate Debtor
+    elem  : UltmtDbtr
+    data  : [ QRCH, +UltmtDbtr ]
+    stat  :
+    desc  : Payable by
+    defn  : Optional data group
+
+
+
+  - name  : Address type
+    elem  : AdrTp
+    data  : [ QRCH, +UltmtDbtr, ++AdrTp ]
+    stat  : D
+    desc  : The address type is specified using a code. The following codes are defined:
+            'S' (structured address), 'K' (combined address elements (2 lines)).
+    defn  : Fixed length: one-digit, alphanumeric.
+
+  - name  : Name
+    elem  : Name
+    data  : [ QRCH, +UltmtDbtr, ++Name ]
+    stat  : D
+    desc  : The ultimate debtor's name or company.
+    defn  : Maximum 70 characters permitted.
+            First name (optional, sending is recommended, if available) + last name or company name
+
+  - name  : Street or address line 1
+    elem  : StrtNmOrAdrLine1
+    data  : [ QRCH, +UltmtDbtr, ++StrtNmOrAdrLine1 ]
+    stat  : O
+    desc  : Structured Address: Street/P.O. Box from ultimate debtor's address.
+            Combined address elements: Address line 1 including street and building number or P.O. Box.
+    defn  : Maximum 70 characters permitted.
+
+  - name  : Building number or address line 2
+    elem  : BldgNbOrAdrLine2
+    data  : [ QRCH, +UltmtDbtr, ++BldgNbOrAdrLine2 ]
+    stat  : O
+    desc  : Structured Address: Building number from ultimate debtor's address.
+            Combined address elements: Address line 2 including postal code and town from ultimate debtor's address.
+    defn  : Structured Address: max. 16 characters allowed.
+            Combined address elements: maximum 70 characters permitted.
+            Must be provided for address type "K".
+
+  - name  : Postal code
+    elem  : PstCd
+    data  : [ QRCH, +UltmtDbtr, ++PstCd ]
+    stat  : D
+    desc  : Postal code from ultimate debtor's address.
+    defn  : Maximum 16 characters permitted.
+            The postal code is must be provided without a country code prefix.
+            Combined address elements: must not be provided.
+
+  - name  : Town
+    elem  : TwnNm
+    data  : [ QRCH, +UltmtDbtr, ++TwnNm ]
+    stat  : D
+    desc  : Town from ultimate debtor's address
+    defn  : Maximum 35 characters permitted.
+            Combined address elements: must not be provided.
+
+  - name  : Country
+    elem  : Ctry
+    data  : [ QRCH, +UltmtDbtr, ++Ctry ]
+    stat  : D
+    desc  : Country from ultimate debtor's address
+    defn  : Two-digit country code according to ISO 3166-1
+
+  - name  : Payment reference
+    elem  : RmtInf
+    data  : [ QRCH, +RmtInf ]
+    stat  :
+    desc  :
+    defn  : Mandatory data group
+
+
+
+
+  - name  : Reference type
+    elem  : Tp
+    data  : [ QRCH, +RmtInf, ++Tp ]
+    stat  : M
+    desc  : Reference type (QR, ISO). The following codes are permitted: QRR (QR reference), SCOR (Creditor Reference (ISO
+            11649)), NON (without reference).
+    defn  : Maximum four characters, alphanumeric.
+            Must contain the code QRR where a QR-IBAN is used; where the IBAN is used, either the SCOR or NON code can be entered.
+
+  - name  : Reference
+    elem  : Ref
+    data  : [ QRCH, +RmtInf, ++Ref ]
+    stat  : D
+    desc  : Note: The structured reference is either a QR reference or an ISO 11649 Creditor Reference
+    defn  : Maximum 27 characters, alphanumeric; must be filled if a QR-IBAN is used..
+            QR reference: 27 characters, numeric, check sum calculation according to Modulo 10 recursive (27th position of the
+            reference).
+            Creditor Reference (ISO 11649): max 25 characters, alphanumeric.
+            The element may not be filled for the NON reference type.
+            Banks do not distinguish between upper and lower case capitalization.
+
+  - name  : Additional information
+    elem  : AddInf
+    data  : [ QRCH, +RmtInf, ++AddInf ]
+    stat  :
+    desc  : Additional information can be used for the scheme with message and for the scheme with structured reference.
+    defn  : Unstructured message and Booking instructions may contain a common total of up to 140 characters
+
+  - name  : Unstructured message
+    elem  : Ustrd
+    data  : [ QRCH, +RmtInf, ++AddInf, +++Ustrd ]
+    stat  : O
+    desc  : Unstructured information can be used to indicate the payment purpose or for additional textual information about
+            payments with a structured reference.
+    defn  : Maximum 140 characters permitted
+
+  - name  : Trailer
+    elem  : Trailer
+    data  : [ QRCH, +RmtInf, ++AddInf, +++Trailer ]
+    stat  : M
+    desc  : Unambiguous indicator for the end of payment data. Fixed value "EPD" (End Payment Data).
+    defn  : Fixed length: three-digit, alphanumeric.
+
+  - name  : Bill information
+    elem  : StrdBkgInf
+    data  : [ QRCH, +RmtInf, ++AddInf, +++StrdBkgInf ]
+    stat  : O
+    desc  : Bill information contain coded information for automated booking of the payment.
+            The data is not forwarded with the payment.
+    defn  : Maximum 140 characters permitted.
+            Use of the information is not part of the standardization.
+            In the Annex you will find the version of Swico`s "Recommendations on the structure of information from the biller
+            for QR-bills" that is valid at the time of publication of these Implementation Guidelines.
+
+  - name  : Alternative schemes
+    elem  : AltPmtInf
+    data  : [ QRCH, +AltPmtInf ]
+    stat  :
+    desc  : Parameters and data of other supported schemes.
+    defn  : Optional data group with a variable number of elements.
+
+  - name  : Alternative scheme parameters
+    elem  : AltPmt
+    data  : [ QRCH, +AltPmtInf, ++AltPmt ]
+    stat  : A
+    desc  : Parameter character chain of the alternative scheme according to the syntax definition in the "Alternative scheme"
+            section
+    defn  : A maximum of two occurrences may be provided. Maximum 100 characters per occurrence permitted.
+
+
+# __END__

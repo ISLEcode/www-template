@@ -1,0 +1,45 @@
+revision  : 2020-12-15 (Tue) 09:12:15
+title     : YOUR_TITLE_HERE
+readme    : |-
+            This **reference** section enumerates all reference documents. Each entry in this array consists of four fields
+            indicating, in this order, the document's reference label, the document's type or schema, its title, and the
+            organisation that maintains it.
+contents  :
+
+  - id    : 1
+    type  : ISO 18004
+    title : ISO 18004 Third Edition of 2015-02-01 (Information technology — Automatic identification and data capture techniques
+            — QR Code bar code symbology specification)
+    from  : ISO
+
+  - id    : 2
+    type  : pain.001.001.03
+    title : XML Schema Customer Credit Transfer Initiation V03
+    from  : ISO
+
+  - id    : 3
+    type  : pain.001.001.03.ch.02
+    title : Swiss Implementation Guidelines for customer-bank messages for credit transfers in payment traffic
+    from  : SIX
+
+  - id    : 4
+    type  : Style Guide
+    title : Layout rules and recommendations for QR-bills
+    from  : SIX
+
+  - id    : 5
+    type  : Processing rules
+    title : Processing rules for QR-bills (Business Rules)
+    from  : SIX
+
+  - id    : 6
+    type  : QR-IID; QR-IBAN
+    title : Technical information about the QR-IID and QR-IBAN
+    from  : SIX
+
+  - id    : 7
+    type  : Bank Master
+    title : List of IIDs and QR IIDs of banks
+    from  : SIX
+
+# __END__

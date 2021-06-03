@@ -1,0 +1,51 @@
+#!/bin/ksh
+
+
+typeset -x DMG_FILE=android.dmg.sparseimage
+typeset -x DMG_PATH=./src
+typeset -x DMG_SIZE=40g
+typeset -x REPO_URL=https://storage.googleapis.com/git-repo-downloads/repo
+
+typeset -x ANDROID_MANIFEST=https://android.googlesource.com/platform/manifest
+typeset -x ANDROID_VERSION=lollipop
+typeset -x ANDROID_BRANCH=android-5.1.0_r1
+# Cf. https://source.android.com/source/build-numbers.html#source-code-tags-and-builds
+
+if [[ ! -f $DMG_FILE ]]; then
+    df_info "Creating an Android case-sensitive file system for cross-compiling"
+    hdiutil create -type SPARSE -fs 'Case-sensitive Journaled HFS+' \
+        -size $DMG_SIZE $DMG_FILE -volname $(basename $DMG_FILE .dmg.sparseimage) || exit $?
+    #[[ -f $DMG_FILE.sparseimage ]] && mv $DMG_FILE.sparseimage $DMG_FILE
+fi
+
+if [[ ! -d $DMG_PATH ]]; then
+    df_info "Mounting Android case-sensitive file-system"
+    hdiutil attach $DMG_FILE -mountpoint $DMG_PATH || exit $?
+fi
+
+if [[ ! -d $HOME/bin/repo ]]; then
+    [[ ! -d $HOME/bin ]] && mkdir $HOME/bin
+    curl $REPO_URL > $HOME/bin/repo && chmod a+x $HOME/bin/repo
+fi
+
+# Make sure we have /opt/local/bin as the first PATH iterator
+typeset -x PATH="/opt/local/bin:$(echo $PATH | tr ':' '\n' | grep -v '^/opt/local/bin$' | tr '\n' ':')"
+typeset -x PATH="$HOME/bin:$(echo $PATH | tr ':' '\n' | grep -v '^~/bin$' | grep -v "^$HOME/bin$" | tr '\n' ':')"
+
+# Make sur we have the right set of packages
+typeset pkg; for pkg in gmake libsdl git gnupg bison; do
+    port installed $pkg >/dev/null 2>&1 || POSIXLY_CORRECT=1 sudo port install $pkg
+done
+
+# set the number of open files to be 1024
+ulimit -S -n 1024
+
+[[ -d $DMG_PATH/$ANDROID_VERSION ]] || mkdir -p $DMG_PATH/$ANDROID_VERSION
+
+if [[ ! -d $DMG_PATH/$ANDROID_VERSION.repo ]]; then
+
+    (cd $DMG_PATH/$ANDROID_VERSION && repo init -u $ANDROID_MANIFEST -b $ANDROID_BRANCH && repo sync)
+
+fi
+
+# vim: nospell digraph

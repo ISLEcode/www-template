@@ -1,0 +1,496 @@
+revision          : 2021-05-26 (Wed) 02:11:30
+source            : 'http://demo.qr-invoice.ch/swagger-ui/index.html?configUrl=/api-docs/swagger-config'
+schemas           :
+
+  - name          : AdditionalInformation
+    data          :
+
+      - name      : unstructuredMessage
+        brief     : Unstructured message
+        desc      : Unstructured information can be used to indicate the payment purpose or for additional textual information
+                    about payments with a structured reference.
+        type      : string
+        length    : 0..140
+        example   : Bill No. 3139 for garden work and disposal of cuttings
+
+      - name      : billInformation
+        desc      : Bill information contain coded information for automated booking of the payment.
+                    The data is not forwarded with the payment.
+        type      : string
+        length    : 0..140
+        example   : //S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30
+
+      - name      : billInformationObject
+        desc      : Interface type, see SwicoS1v12 or RawBillInformation
+        isa       : BillInformation
+
+  - name          : AlternativeSchemes
+    data          :
+
+      - name      : alternativeSchemeParameters
+        brief     : Alternative scheme parameters
+        desc      : Parameter character chain of the alternative scheme according to the syntax definition in the “Alternative
+                    scheme” section. Can be currently delivered a maximum of two times.
+        type      : string
+        example   : 'Name AV1: UV;UltraPay005;12345'
+        length    : 0..100
+
+  - name          : BillInformation
+    desc          : Interface type, see SwicoS1v12 or RawBillInformation
+
+  - name          : Creditor
+    data          :
+
+      - name      : addressType
+        brief     : Address type
+        desc      : |
+                    The address type is specified using a code. The following codes are defined:
+                    "S" (structured address), and "K" (combined address elements, on 2 lines)
+        type      : string
+        length    : 1..1
+        example   : STRUCTURED
+        enum      : [ STRUCTURED, COMBINED ]
+
+      - name      : name
+        desc      : The creditor's name or company according to the account name (always matches the account holder).
+                    First name (optional, if available) + last name or company name
+        type      : string
+        length    : 1..70
+        example   : Robert Schneider AG
+
+      - name      : streetName
+        desc      : Street/P.O. box of the creditor, may not include any house or building number.
+        type      : string
+        length    : 1..70
+        example   : Rue du Lac
+
+      - name      : houseNumber
+        desc      : House number of the creditor\nMaximum 16 characters permitted
+        type      : string
+        length    : 1..16
+        example   : 1268/2/22
+
+      - name      : postalCode
+        desc      : Postal code of the creditor. The postal code is always to be entered without a country code prefix.
+        type      : string
+        length    : 1..16
+        example   : 2501
+
+      - name      : city
+        desc      : City of the creditor.
+        type      : string
+        length    : 1..35
+        example   : Biel
+
+      - name      : addressLine1
+        desc      : Address line 1 including street and building number or P.O. Box.
+        type      : string
+        length    : 1..70
+        example   : Rue du Lac 1268/2/22
+
+      - name      : addressLine2
+        desc      : Address line 2 including postal code and town from creditor’s address. Must be provided for address type "K".
+        type      : string
+        length    : 1..70
+        example   : 2501 Biel
+
+      - name      : country
+        desc      : Country of the creditor. Two-digit country code according to ISO 3166-1.
+        type      : string
+        length    : 2..2
+        example   : CH
+
+  - name          : CreditorInformation
+    data          :
+
+      - name      : iban
+        desc      : IBAN or QR-IBAN of the creditor. Fixed length of 21 alphanumeric characters, only IBANs with CH or LI
+                    country code permitted.
+        type      : string
+        length    : 21..21
+        example   : CH3908704016075473007
+
+      - name      : creditor
+        isa       : creditor
+
+      - name      : addressType
+        brief     : Address type
+        desc      : |
+                    The address type is specified using a code. The following codes are defined: "S" (structured address),
+                    "K" (combined address elements on 2 lines).
+        type      : string
+        length    : 1..1
+        example   : STRUCTURED
+        enum      : [ STRUCTURED, COMBINED ]
+
+      - name      : name
+        desc      : The creditor's name or company according to the account name. Always matches the account holder.
+                    First name (optional, if available) + last name or company name.
+        type      : string
+        length    : 1..70
+        example   : Robert Schneider AG
+
+      - name      : streetName
+        desc      : Street/P.O. box of the creditor, may not include any house or building number.
+        type      : string
+        length    : 1..70
+        example   : Rue du Lac
+
+      - name      : houseNumber
+        desc      : House number of the creditor.
+        type      : string
+        length    : 1..16
+        example   : 1268/2/22
+
+      - name      : postalCode
+        desc      : Postal code of the creditor. The postal code is always to be entered without a country code prefix.
+        type      : string
+        length    : 1..16
+        example   : 2501
+
+      - name      : city
+        desc      : City of the creditor.
+        type      : string
+        length    : 1..35
+        example   : Biel
+
+      - name      : addressLine1
+        desc      : Address line 1 including street and building number or P.O. Box.
+        type      : string
+        length    : 1..70
+        example   : Rue du Lac 1268/2/22
+
+      - name      : addressLine2
+        desc      : Address line 2 including postal code and town from creditor’s address. Must be provided for address type "K".
+        type      : string
+        length    : 1..70
+        example   : 2501 Biel
+
+      - name      : country
+        type      : string
+        length    : 2..2
+        example   : CH
+        desc      : Country of the creditor\nTwo-digit country code according to ISO 3166-1
+
+  - name          : PaymentAmountInformation
+    data          :
+
+      - name      : amount
+        desc      : The payment amount. The amount element is to be entered without leading zeroes, including decimal separators
+                    and two decimal places. Decimal, maximum 12-digits permitted, including decimal separators. Only decimal
+                    points ('.') are permitted as decimal separators.
+        type      : number
+        maximum   : 999999999
+        minimum   : 0
+        example   : 199.95
+
+      - name      : currency
+        desc      : The payment currency, 3-digit alphanumeric currency code according to ISO 4217.
+                    Only CHF and EUR are permitted.
+        type      : string
+        length    : 3..3
+        example   : CHF
+        enum      : [ CHF, EUR ]
+
+  - name          : PaymentReference
+    data          :
+
+      - name      : referenceType
+        desc      : |
+                    Reference type (QR, ISO). The following codes are permitted:
+                      - QRR  – QR reference
+                      - SCOR – Creditor Reference (ISO 11649)
+                      - NON  – without reference
+
+                    Maximum four characters, alphanumeric. Must contain the code QRR where a QR-IBAN is used; where the IBAN is
+                    used, either the SCOR or NON code can be entered.
+        type      : string
+        length    : 3..4
+        example   : SCOR
+        enum      : [ QRR, SCOR, NON ]
+
+      - name      : reference
+        brief     : Reference number.
+        desc      : |
+                    Structured payment reference
+
+                    The reference is either a QR reference or a Creditor Reference (ISO 11649)
+                    Maximum 27 characters, alphanumeric, must be filled if a QR-IBAN is used.
+
+                      - QR reference
+
+                        27 characters, numeric, check sum calculation according to Modulo 10 recursive
+                        (27th position of the reference)
+
+                      - Creditor Reference (ISO 11649)
+
+                        Max 25 characters, alphanumeric.
+                        The element may not be filled for the NON reference type.
+        type      : string
+        length    : 0..27
+        example   : RF18539007547034
+
+      - name      : additionalInformation
+        isa       : AdditionalInformation
+
+  - name          : QrInvoice
+    desc          : QrInvoice in JSON format
+    data          :
+
+      - name      : creditorInformation
+        isa       : CreditorInformation
+
+      - name      : ultimateCreditor
+        isa       : UltimateCreditor
+
+      - name      : paymentAmountInformation
+        isa       : PaymentAmountInformation
+
+      - name      : ultimateDebtor
+        isa       : UltimateDebtor
+
+      - name      : paymentReference
+        isa       : PaymentReference
+
+      - name      : alternativeSchemes
+        isa       : AlternativeSchemes
+
+  - name          : UltimateCreditor
+    data          :
+
+      - name      : addressType
+        brief     : Address type
+        desc      : |
+                    The address type is specified using a code. The following codes are defined:
+                    "S" (structured address), "K" (combined address elements on 2 lines)
+        type      : string
+        length    : 1..1
+        example   : STRUCTURED
+
+      - name      : name
+        desc      : Name or company of the ultimate creditor. First name (optional, if available) and last name or company name.
+        type      : string
+        length    : 1..70
+        example   : Robert Schneider Services Switzerland AG
+
+      - name      : streetName
+        desc      : Street/P.O. box of the ultimate creditor; may not include any house or building number.
+        type      : string
+        length    : 1..70
+        example   : Rue du Lac
+
+      - name      : houseNumber
+        desc      : House number of the ultimate creditor.
+        type      : string
+        length    : 1..16
+        example   : 1268/3/1
+
+      - name      : postalCode
+        desc      : Postal code of the ultimate creditor; is always to be entered without a country code prefix.
+        type      : string
+        length    : 1..16
+        example   : 2501
+
+      - name      : city
+        desc      : City of the ultimate creditor.
+        type      : string
+        length    : 1..35
+        example   : Biel
+
+      - name      : addressLine1
+        desc      : Address line 1 including street and building number or P.O. Box.
+        type      : string
+        length    : 1..70
+        example   : Rue du Lac 1268/3/1
+
+      - name      : addressLine2
+        desc      : Address line 2 including postal code and town from ultimate creditor’s address.
+                    Must be provided for address type "K".
+        type      : string
+        length    : 1..70
+        example   : 2501 Biel
+
+      - name      : country
+        desc      : Country of the ultimate creditor. Two-digit country code according to ISO 3166-1.
+        type      : string
+        length    : 2..2
+        example   : CH
+
+  - name          : UltimateDebtor
+    data          :
+
+      - name      : addressType
+        brief     : Address type.
+        desc      : |
+                    The address type is specified using a code. The following codes are defined:
+                    "S" (structured address), "K" (combined address elements on 2 lines)
+        type      : string
+        length    : 1..1
+        example   : STRUCTURED
+
+      - name      : name
+        desc      : Name or company of the ultimate debtor; first name (optional, if available) and last name or company name.
+        type      : string
+        length    : 1..70
+        example   : Pia-Maria Rutschmann-Schnyder
+
+      - name      : streetName
+        desc      : Street/P.O. Box of the ultimate debtor; may not include any house or building number.
+        type      : string
+        length    : 1..70
+        example   : Grosse Marktgasse
+
+      - name      : houseNumber
+        desc      : House number of the ultimate debtor.
+        type      : string
+        length    : 1..16
+        example   : 28
+
+      - name      : postalCode
+        desc      : Postal code of the ultimate debtor; is always to be entered without a country code prefix.
+        type      : string
+        length    : 1..16
+        example   : 9400
+
+      - name      : city
+        desc      : City of the ultimate debtor.
+        type      : string
+        length    : 1..35
+        example   : Rorschach
+
+      - name      : addressLine1
+        desc      : Address line 1 including street and building number or P.O. Box.
+        type      : string
+        length    : 1..70
+        example   : Rue du Lac 1268/3/1
+
+      - name      : addressLine2
+        desc      : Address line 2 including postal code and town from ultimate creditor’s address.
+                    Must be provided for address type "K".
+        type      : string
+        length    : 1..70
+        example   : 2501 Biel
+
+      - name      : country
+        desc      : Country of the ultimate debtor. Two-digit country code according to ISO 3166-1.
+        type      : string
+        length    : 2..2
+        example   : CH
+
+  - name          : SwicoS1v12
+    data          :
+
+      - name      : billInformationType
+        desc      : A unique identifier of the current BillInformation Subtype
+        type      : string
+        example   : SwicoS1v12
+
+      - name      : invoiceReference
+        desc      : See Tag 10 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : string
+        example   : 10201409
+
+      - name      : invoiceDate
+        desc      : See Tag 11 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : string
+        format    : ($ date)
+        example   : 2019-05-12
+
+      - name      : customerReference
+        desc      : See Tag 20 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : string
+        example   : 1400.000-53
+
+      - name      : uidNumber
+        desc      : See Tag 30 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : string
+        example   : 106017086
+
+      - name      : vatDateStart
+        desc      : See Tag 31 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : string
+        format    : ($ date)
+        example   : 2018-05-08
+
+      - name      : vatDateEnd
+        desc      : See Tag 31 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : string
+        format    : ($ date)
+        example   : 2018-05-10
+
+      - name      : vatDetails
+        isa       : SwicoS1v12VatDetails
+
+      - name      : importTaxes
+        isa       : SwicoS1v12ImportTaxPosition
+
+      - name      : paymentConditions
+        isa       : SwicoS1v12PaymentCondition
+
+  - name          : SwicoS1v12ImportTaxPosition
+    data          :
+
+      - name      : taxPercentage
+        desc      : See Tag 33 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : number
+        example   : 7.7
+
+      - name      : taxAmount
+        desc      : See Tag 33 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : number
+        example   : 1000
+
+  - name          : SwicoS1v12PaymentCondition
+    data          :
+
+      - name      : eligiblePaymentPeriodDays
+        desc      : See Tag 40 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : integer
+        format    : ($ int32)
+        example   : 10
+
+      - name      : cashDiscountPercentage
+        desc      : See Tag 40 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : number
+        example   : 2
+
+  - name          : SwicoS1v12VatDetails
+    data          :
+
+      - name      : taxPercentage
+        desc      : See Tag 32 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : number
+        example   : 7.7
+
+      - name      : taxedNetAmount
+        desc      : See Tag 32 of Swico Syntax Definition S1 v1.2 - http://swiss-qr-invoice.org/
+        type      : number
+        example   : 185.65
+
+  - name          : country
+    data          :
+
+      - name      : code
+        desc      : The alpha-2 value
+        type      : string
+        example   : CH
+
+      - name      : english
+        desc      : English name
+        type      : string
+        example   : Switzerland
+
+      - name      : german
+        desc      : German name
+        type      : string
+        example   : Schweiz
+
+      - name      : french
+        desc      : French name
+        type      : string
+        example   : Suisse
+
+      - name      : italian
+        desc      : Italian name
+        type      : string
+        example   : Svizzera

@@ -1,0 +1,110 @@
+#! /bin/ksh
+
+function w3_sslcertinfo {
+typeset usage=$'[-]
+[+NAME?w3 sslcertinfo - check SSL certificates]
+[+DESCRIPTION?This utility is simply a wrapper around the OpenSSL binary. It uses \vs_client\v to get certificate information
+from remote hosts, or \vx509\v for local certificate files. It can parse out some of the OpenSSL output or just dump all of it as
+text.]
+[10:all-info?Print all output, including boring things like Modulus and Exponent.]
+[11:alt?Print Subject Alternative Names. These will be typically be additional hostnames that the certificate is valid for.]
+[12:cn?Print commonName from Subject. This is typically the host for which the certificate was issued.]
+[14:end?Print certificate expiration date. For additional functionality related to certificate expiration, take a look at this
+script: "http://prefetch.net/code/ssl-cert-check".]
+[15:dates?Print start and end dates of when the certificate is valid.]
+[f:file?Use a local certificate file for input.]:[FILE]
+[h:host?Fetch the certificate from this remote host.]:[HOSTNAME]
+[n:name?Specify a specific domain name (Virtual Host) along with the request. This value will be used as the \b-servername\b in
+the s_client command. This is for TLS SNI (Server Name Indication).]:[DOMAIN]
+[i:issuer?Print the certificate issuer.]
+[20:most-info?Print almost everything. Skip boring things like Modulus and Exponent.]
+[21:option?Pass any openssl option through to openssl to get its raw output.]:[OPTIONS]
+[p:port?Use this port when conneting to remote host. If ommitted, port defaults to 443.]#[PORT]
+[23:subject?Print the certificate Subject -- typically address and org name.]
+[+EXAMPLES]{
+[+1.?Print a list of all hostnames that the certificate used by amazon.com is valid for.][+\
+         w3 sslcertinfo --host amazon.com --alt
+         DNS:uedata.amazon.com
+         DNS:amazon.com
+         DNS:amzn.com
+         DNS:www.amzn.com
+         DNS:www.amazon.com]
+[+2.?Print issuer of certificate used by smtp.gmail.com. Fetch certficate info over port 465.][+\
+         w3 sslcertinfo --host smtp.gmail.com --port 465 --issuer
+         issuer           =
+         countryName      = US
+         organizationName = Google Inc
+         commonName       = Google Internet Authority G2]
+[+3.?Print valid dates for the certificate, using a local file as the source of certificate data. Dates are formatted using the
+date command and display time in your local timezone instead of GMT.][+\
+         w3 sslcertinfo --file /path/to/file.crt --dates
+         valid-from: 2014-02-04 16:00:00 PST
+         valid-upto: 2017-02-04 15:59:59 PST]
+[+4.?Print certificate serial number. This script doesn\'t have a special option to parse out the serial number, so will use the
+generic --option flag to pass \b-serial\b through to openssl.][+\
+         w3 sslcertinfo --host gmail.com --option -serial
+         serial=4BF004B4DDC9C2F8]'
+
+    whence -q openssl || { print -u2 '\E[32merror\E[0m cannot locate openssl(1) binary.'; return 1; }
+
+    typeset -C rc=(
+        typeset args                    # Arguments passed over to openssl(1)
+        typeset file                    # Local file certificate
+        typeset host=localhost          # Hostname for remote lookups
+        integer grep=0                  # Filtering mode of openssl(1) output
+        typeset name                    # Server name
+        integer port=443                # Remote host's port
+    )
+    typeset debug source
+
+    while getopts "$usage" option; do case $option in
+    f)  rc.file="$OPTARG" rc.mode=1 ;;
+    h)  rc.host="$OPTARG" rc.mode=2 ;;
+    i)  rc.args='-issuer -nameopt multiline' ;;
+    n)  rc.name="-servername $OPTARG" ;;
+    p)  rc.port="$OPTARG" ;;
+
+    10) rc.args='-text' ;;
+    11) rc.grep=1 ;;
+    12) rc.args='-subject -nameopt multiline' rc.grep=2 ;;
+    14) rc.args='-enddate' rc.grep=3 ;;
+    15) rc.args='-dates' rc.grep=3 ;;
+    20) rc.args='-text -certopt no_header,no_version,no_serial,no_signame,no_pubkey,no_sigdump,no_aux' ;;
+    21) rc.args="$OPTARG" ;;
+    23) rc.args='-subject -nameopt multiline' ;;
+    esac; done
+
+    [[ -n ${rc.args} ]] || rc.args='-text -certopt no_header,no_version,no_serial,no_signame,no_pubkey,no_sigdump,no_aux'
+
+    (( rc.mode > 0 )) || { print -u2 '\E[32merror\E[0m missing certificate source (use --file or --host).'; return 1; }
+
+    case ${rc.mode} in
+    1)  # Local
+        [[ -n ${rc.file} ]] || { print -u2 '\E[32merror\E[0m missing certificate file.'; return 1; }
+        openssl x509 -in ${rc.file} -noout ${rc.args} ;;
+
+    2)  # Remote
+        [[ -n ${rc.host} ]] || { print -u2 '\E[32merror\E[0m missing remote host value.'; return 1; }
+        [[ -n ${rc.port} ]] || { (( debug == 1 )) && print -u2 '\E[33mwarning\E[0m defaulting to port 443.'; port=443; }
+        print | openssl s_client ${rc.name} -connect ${rc.host}:${rc.port} 2>/dev/null | openssl x509 -noout ${rc.args}
+        ;;
+    esac | case ${rc.grep} in
+    1)  # Enumerate all domains covered by the SSL certificate
+        sed -n $'/Subject Alternative Name:/{n; s/ //g; s/DNS://g; p;}' | tr ',' '\n' ;;
+
+    2)  # Output issuer information
+        sed 's/^/xxx/;s/[[:isspace:]]*=[[:isspace:]]*/: /' ;;
+
+    3)  # Output certificate's validity period
+        eval $(sed 's/\(.*\)=\(.*\)/printf "valid-\1: %(%F %T %Z)T\\n" "\2";/;s/notBefore/from/;s/notAfter/upto/' -) ;;
+
+    *)  # Passthrough
+        cat ;;
+
+    esac
+
+    print -- "MODE ${rc.grep}"
+
+}
+
+w3_sslcertinfo $@

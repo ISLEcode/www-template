@@ -1,0 +1,20 @@
+revision  : 2020-12-15 (Tue) 09:08:10
+brief     : QR-bill bookmarks
+tags      : QR-bill, payment, SAMinfo
+bookmarks :
+
+  - desc  : ISO
+    href  : https://www.iso20022.org
+    tags  : ISO, ISO20022, standard
+
+  - desc  : SIX
+    href  :
+          - https://www.iso-payments.ch
+          - https://www.sepa.ch
+          - https://www.six-group.com/interbank-clearing
+    tags  : SEPA
+
+  - desc  : Harmonisation of swiss payments
+    href  : https://www.paymentstandards.ch
+
+# vim: fdm=indent sw=4 syn=yaml

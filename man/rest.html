@@ -1,0 +1,5065 @@
+# http://demo.qr-invoice.ch/swagger-ui/index.html?configUrl=/api-docs/swagger-config
+# The QR Invoice REST API provides various services for creation and processing of Swiss QR Invoices.
+# Product Version: 1.10
+
+# Example Data
+# Various example data that can be used as example input to other services
+example-data  :
+
+  - GET       :
+    path      : /v2/examples/creditor-reference
+    desc      : Creditor Reference
+    params    :
+    responses :
+
+      - code  : 200
+        desc  : Creditor Reference
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+  - GET       :
+    path      : /v2/examples/iban
+    desc      : IBAN
+    params    :
+    responses :
+
+      - code  : 200
+        desc  : IBAN
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+  - GET       :
+    path      : /v2/examples/qr-iban
+    desc      : QR-IBAN
+    params    :
+    responses :
+
+      - code  : 200
+        desc  : QR-IBAN
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+  - GET       :
+    path      : /v2/examples/qr-invoice/blank
+    desc      : QrInvoice - Example without Amount and Debtor (blank)
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : QrInvoice
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+</span>
+  - GET       :
+    path      : /v2/examples/qr-invoice/combined-address
+    desc      : QrInvoice - Example with combined address
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : QrInvoice
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+</span>
+  - GET       :
+    path      : /v2/examples/qr-invoice/with-creditor-reference
+    desc      : QrInvoice - Example with Creditor Reference
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : QrInvoice
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+</span>
+  - GET       :
+    path      : /v2/examples/qr-invoice/with-qr-reference
+    desc      : QrInvoice - Example with QR Reference
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : QrInvoice
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+</span>
+  - GET       :
+    path      : /v2/examples/qr-invoice/without-amount
+    desc      : QrInvoice - Example without Amount
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : QrInvoice
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+</span>
+  - GET       :
+    path      : /v2/examples/qr-invoice/without-reference
+    desc      : QrInvoice - Example without Reference Number
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : QrInvoice
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+</span>
+  - GET       :
+    path      : /v2/examples/qr-reference
+    desc      : QR Reference
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : QR Reference
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+  - GET       :
+    path      : /v2/examples/swicos1v12
+    desc      : Swico S1 v1.2
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Swico S1 v1.2
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+  - GET       :
+    path      : /v2/examples/swiss-payments-code/blank
+    desc      : Swiss Payments Code - Example without Amount and Debtor (blank)
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Swiss Payments Code (SPC)
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+  - GET       :
+    path      : /v2/examples/swiss-payments-code/with-creditor-reference
+    desc      : Swiss Payments Code - Example with Creditor Reference
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Swiss Payments Code (SPC)
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+  - GET       :
+    path      : /v2/examples/swiss-payments-code/with-qr-reference
+    desc      : Swiss Payments Code - Example with QR Reference
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Swiss Payments Code (SPC)
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+  - GET       :
+    path      : /v2/examples/swiss-payments-code/without-amount
+    desc      : Swiss Payments Code - Example without Amount
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Swiss Payments Code (SPC)
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+  - GET       :
+    path      : /v2/examples/swiss-payments-code/without-reference
+    desc      : Swiss Payments Code - Example without Reference Number
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Swiss Payments Code (SPC)
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+</div>
+</div>
+</span>
+<div class="opblock-tag-section is-open">
+<h4 class="opblock-tag no-desc" id="operations-tag-\31 0_Payment_Part_\&amp;_Receipt_\(QR_Bill\)" data-tag="10 Payment Part &amp; Receipt (QR Bill)" data-is-open="true">
+<a class="nostyle" href="#/10%20Payment%20Part%20&amp;%20Receipt%20(QR%20Bill)">
+<span>10 Payment Part &amp; Receipt (QR Bill)
+</a>
+</h4>
+<div class="no-margin">
+  - POST      :
+    path      : /v2/payment-part-receipt
+    desc      : Create Payment Part &amp; Receipt
+    params    :
+<div class="parameters-container">
+<div class="table-container">
+<table class="parameters">
+<thead>
+
+<th class="col_header parameters-col_name">Name
+</th>
+<th class="col_header parameters-col_description">Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr data-param-name="Accept-Language" data-param-in="header">
+<td class="parameters-col_description">
+<p>Locale</p>
+<p>Available values : de, fr, en, it</p>
+<div class="parameter__default renderedMarkdown">
+<p>Default value : de</p>
+</div>
+<select class="" disabled="">
+	--
+	de
+	fr
+	en
+	it
+</select>
+</td>
+</tr>
+<tr data-param-name="fontFamily" data-param-in="query">
+<td class="parameters-col_description">
+<p>Font Family</p>
+<p>Available values : HELVETICA, ARIAL, FRUTIGER, LIBERATION_SANS</p>
+</div>
+<div class="parameter__default renderedMarkdown">
+<p>Default value : LIBERATION_SANS</p>
+</div>
+<select class="" disabled="">
+	--
+	HELVETICA
+	ARIAL
+	FRUTIGER
+	LIBERATION_SANS
+</select>
+</td>
+</tr>
+<tr data-param-name="fontsEmbedded" data-param-in="query">
+<td class="parameters-col_description">
+<p>Embed Fonts in PDF</p><div class="parameter__default renderedMarkdown">
+<p>Default value : true</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="pageSize" data-param-in="query">
+<td class="parameters-col_description">
+<p>Page Size</p>
+<p>Available values : A4, A5, DIN_LANG, DIN_LANG_CROPPED</p>
+</div>
+<div class="parameter__default renderedMarkdown">
+<p>Default value : DIN_LANG</p>
+</div>
+<select class="" disabled="">
+	--
+	A4
+	A5
+	DIN_LANG
+	DIN_LANG_CROPPED
+</select>
+</td>
+</tr>
+<tr data-param-name="resolution" data-param-in="query">
+<td class="parameters-col_description">
+<p>Output Resolution</p>
+<p>Available values : LOW_150_DPI, MEDIUM_300_DPI, HIGH_600_DPI</p>
+</div>
+<div class="parameter__default renderedMarkdown">
+<p>Default value : MEDIUM_300_DPI</p>
+</div>
+<select class="" disabled="">
+	--
+	LOW_150_DPI
+	MEDIUM_300_DPI
+	HIGH_600_DPI
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLines" data-param-in="query">
+<td class="parameters-col_description">
+<p>If a line should be printed to mark the payment parts and receipts boundary. This should be true in all cases except the invoice is printed to perforated paper.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : true</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLinesMargins" data-param-in="query">
+<td class="parameters-col_description">
+<p>If the boundary lines should include a margin and not extend to the border of the page. Printers usually are unable to print the lines completely otherwise.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLineScissors" data-param-in="query">
+<td class="parameters-col_description">
+<p>If scissors should be printed on the boundary lines. Only to be set to true if parameter boundaryLines is set to true.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : true</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLineSeparationText" data-param-in="query">
+<td class="parameters-col_description">
+<p>If a separation label should be printed above the payment part. This can be used as an alternative or in addition to boundaryLineScissors.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="additionalPrintMargin" data-param-in="query">
+<td class="parameters-col_description">
+<p>If an additional print margin (1mm) should be added to the left, right and bottom of the payment part &amp; receipt. If set, 6mm instead of 5mm print margin is used. This may be needed some printers and print services</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	application/json
+</div>
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The payment part in the requested output format.
+        media : application/pdf
+	image/png
+	image/gif
+	image/jpeg
+	image/bmp
+	image/tiff
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/payment-part-receipt/append
+    desc      : Create Payment Part &amp; Receipt and append it to a PDF on a new page
+    params    :
+<div class="parameters-container">
+<div class="table-container">
+<table class="parameters">
+<thead>
+
+<th class="col_header parameters-col_name">Name
+</th>
+<th class="col_header parameters-col_description">Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr data-param-name="Accept-Language" data-param-in="header">
+<td class="parameters-col_description">
+<p>Locale</p>
+<p>Available values : de, fr, en, it</p>
+<div class="parameter__default renderedMarkdown">
+<p>Default value : de</p>
+</div>
+<select class="" disabled="">
+	--
+	de
+	fr
+	en
+	it
+</select>
+</td>
+</tr>
+<tr data-param-name="fontFamily" data-param-in="query">
+<td class="parameters-col_description">
+<p>Font Family</p>
+<p>Available values : HELVETICA, ARIAL, FRUTIGER, LIBERATION_SANS</p>
+</div>
+<div class="parameter__default renderedMarkdown">
+<p>Default value : LIBERATION_SANS</p>
+</div>
+<select class="" disabled="">
+	--
+	HELVETICA
+	ARIAL
+	FRUTIGER
+	LIBERATION_SANS
+</select>
+</td>
+</tr>
+<tr data-param-name="fontsEmbedded" data-param-in="query">
+<td class="parameters-col_description">
+<p>Embed Fonts in PDF</p><div class="parameter__default renderedMarkdown">
+<p>Default value : true</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLines" data-param-in="query">
+<td class="parameters-col_description">
+<p>If a line should be printed to mark the payment parts and receipts boundary. This should be true in all cases except the invoice is printed to perforated paper.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : true</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLinesMargins" data-param-in="query">
+<td class="parameters-col_description">
+<p>If the boundary lines should include a margin and not extend to the border of the page. Printers usually are unable to print the lines completely otherwise.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLineScissors" data-param-in="query">
+<td class="parameters-col_description">
+<p>If scissors should be printed on the boundary lines. Only to be set to true if parameter boundaryLines is set to true.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : true</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLineSeparationText" data-param-in="query">
+<td class="parameters-col_description">
+<p>If a separation label should be printed above the payment part. This can be used as an alternative or in addition to boundaryLineScissors.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="additionalPrintMargin" data-param-in="query">
+<td class="parameters-col_description">
+<p>If an additional print margin (1mm) should be added to the left, right and bottom of the payment part &amp; receipt. If set, 6mm instead of 5mm print margin is used. This may be needed some printers and print services</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	multipart/form-data
+</div>
+<div class="opblock-description-wrapper">
+<div class="table-container">
+<table>
+<tbody>
+<tr class="parameters" data-property-name="QrInvoice">
+<td class="parameters-col_description">
+<p>QrInvoice in JSON format</p></td>
+</tr>
+<tr class="parameters" data-property-name="pdf">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</div>
+</td>
+<td class="parameters-col_description">
+<p>PDF file to be appended to</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The PDF with the payment part &amp; receipt appended.
+        media : application/pdf
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+  - POST      :
+    path      : /v2/payment-part-receipt/merge
+    desc      : Create Payment Part &amp; Receipt and merge it with a PDF
+    params    :
+<div class="parameters-container">
+<div class="table-container">
+<table class="parameters">
+<thead>
+
+<th class="col_header parameters-col_name">Name
+</th>
+<th class="col_header parameters-col_description">Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr data-param-name="Accept-Language" data-param-in="header">
+<td class="parameters-col_description">
+<p>Locale</p>
+<p>Available values : de, fr, en, it</p>
+<div class="parameter__default renderedMarkdown">
+<p>Default value : de</p>
+</div>
+<select class="" disabled="">
+	--
+	de
+	fr
+	en
+	it
+</select>
+</td>
+</tr>
+<tr data-param-name="fontFamily" data-param-in="query">
+<td class="parameters-col_description">
+<p>Font Family</p>
+<p>Available values : HELVETICA, ARIAL, FRUTIGER, LIBERATION_SANS</p>
+</div>
+<div class="parameter__default renderedMarkdown">
+<p>Default value : LIBERATION_SANS</p>
+</div>
+<select class="" disabled="">
+	--
+	HELVETICA
+	ARIAL
+	FRUTIGER
+	LIBERATION_SANS
+</select>
+</td>
+</tr>
+<tr data-param-name="fontsEmbedded" data-param-in="query">
+<td class="parameters-col_description">
+<p>Embed Fonts in PDF</p><div class="parameter__default renderedMarkdown">
+<p>Default value : true</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLines" data-param-in="query">
+<td class="parameters-col_description">
+<p>If a line should be printed to mark the payment parts and receipts boundary. This should be true in all cases except the invoice is printed to perforated paper.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : true</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLinesMargins" data-param-in="query">
+<td class="parameters-col_description">
+<p>If the boundary lines should include a margin and not extend to the border of the page. Printers usually are unable to print the lines completely otherwise.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLineScissors" data-param-in="query">
+<td class="parameters-col_description">
+<p>If scissors should be printed on the boundary lines. Only to be set to true if parameter boundaryLines is set to true.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : true</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="boundaryLineSeparationText" data-param-in="query">
+<td class="parameters-col_description">
+<p>If a separation label should be printed above the payment part. This can be used as an alternative or in addition to boundaryLineScissors.</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="additionalPrintMargin" data-param-in="query">
+<td class="parameters-col_description">
+<p>If an additional print margin (1mm) should be added to the left, right and bottom of the payment part &amp; receipt. If set, 6mm instead of 5mm print margin is used. This may be needed some printers and print services</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+</div>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="onPage" data-param-in="query">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</div>
+</td>
+<td class="parameters-col_description">
+<p>Page number on which to place the payment part receipt</p><div class="parameter__default renderedMarkdown">
+<p>Default value : 1</p>
+</div>
+<input type="text" class="" title="" placeholder="onPage - Page number on which to place the payment part receipt" disabled="" value="1">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	multipart/form-data
+</div>
+<div class="opblock-description-wrapper">
+<div class="table-container">
+<table>
+<tbody>
+<tr class="parameters" data-property-name="QrInvoice">
+<td class="parameters-col_description">
+<p>QrInvoice in JSON format</p></td>
+</tr>
+<tr class="parameters" data-property-name="pdf">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</div>
+</td>
+<td class="parameters-col_description">
+<p>PDF file to be merged</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The merged payment part as PDF.
+        media : application/pdf
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</div>
+</div>
+</span>
+<div class="opblock-tag-section is-open">
+<h4 class="opblock-tag no-desc" id="operations-tag-\31 1_Swiss_QR_Code" data-tag="11 Swiss QR Code" data-is-open="true">
+<a class="nostyle" href="#/11%20Swiss%20QR%20Code">
+<span>11 Swiss QR Code
+</a>
+</h4>
+<div class="no-margin">
+  - POST      :
+    path      : /v2/swiss-qr-code
+    desc      : Create Swiss QR Code
+    params    :
+<div class="parameters-container">
+<div class="table-container">
+<table class="parameters">
+<thead>
+
+<th class="col_header parameters-col_name">Name
+</th>
+<th class="col_header parameters-col_description">Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr data-param-name="resolution" data-param-in="query">
+<td class="parameters-col_description">
+<p>Output Resolution.</p>
+<p>Available values : LOW_150_DPI, MEDIUM_300_DPI, HIGH_600_DPI</p>
+<div class="parameter__default renderedMarkdown">
+<p>Default value : MEDIUM_300_DPI</p>
+</div>
+<select class="" disabled="">
+	--
+	LOW_150_DPI
+	MEDIUM_300_DPI
+	HIGH_600_DPI
+</select>
+</td>
+</tr>
+<tr data-param-name="size" data-param-in="query">
+<td class="parameters-col_description">
+<p>Desired QR Code size (in pixels). This is an alternative to Output Resolution. This is only relevant for raster graphics (e.g. PNG). Please note that it is only a hint.</p><input type="text" class="" title="" placeholder="size - Desired QR Code size (in pixels). This is an alternative to Output Resolution. This is only relevant for raster graphics (e.g. PNG). Please note that it is only a hint." disabled="" value="500">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	application/json
+</div>
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The QR code in the requested output format.
+        media : application/pdf
+	image/png
+	image/gif
+	image/jpeg
+	image/bmp
+	image/tiff
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/swiss-qr-code/parse
+    desc      : Parse / extract Swiss QR Code from document (Returns first code if multiple present)
+    params    :
+<div class="parameters-container">
+<div class="table-container">
+<table class="parameters">
+<thead>
+
+<th class="col_header parameters-col_name">Name
+</th>
+<th class="col_header parameters-col_description">Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr data-param-name="expandBillInformation" data-param-in="query">
+<td class="parameters-col_description">
+<p>If true, bill information will be expanded as object if present</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	multipart/form-data
+</div>
+<div class="opblock-description-wrapper">
+<div class="table-container">
+<table>
+<tbody>
+<tr class="parameters" data-property-name="file">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</div>
+</td>
+<td class="parameters-col_description">
+<p>QR bill to parse. Supported are PDFs and raster graphics such as JPEG and PNG.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The parsed QR Invoice structure
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/swiss-qr-code/parseAll
+    desc      : Parse / extract all Swiss QR Code from document in an array
+    params    :
+<div class="parameters-container">
+<div class="table-container">
+<table class="parameters">
+<thead>
+
+<th class="col_header parameters-col_name">Name
+</th>
+<th class="col_header parameters-col_description">Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr data-param-name="expandBillInformation" data-param-in="query">
+<td class="parameters-col_description">
+<p>If true, bill information will be expanded as object if present</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	multipart/form-data
+</div>
+<div class="opblock-description-wrapper">
+<div class="table-container">
+<table>
+<tbody>
+<tr class="parameters" data-property-name="file">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</div>
+</td>
+<td class="parameters-col_description">
+<p>QR bill to parse. Supported are PDFs and raster graphics such as JPEG and PNG.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The parsed QR Invoices structure
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/swiss-qr-code/validate
+    desc      : Validate file containing a single Swiss QR Code
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	multipart/form-data
+<div class="opblock-description-wrapper">
+<div class="table-container">
+<table>
+<tbody>
+<tr class="parameters" data-property-name="file">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</div>
+</td>
+<td class="parameters-col_description">
+<p>QrInvoice</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The validation result
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</div>
+</div>
+</span>
+<div class="opblock-tag-section is-open">
+<h4 class="opblock-tag no-desc" id="operations-tag-\31 2_Swiss_Payments_Code" data-tag="12 Swiss Payments Code" data-is-open="true">
+<a class="nostyle" href="#/12%20Swiss%20Payments%20Code">
+<span>12 Swiss Payments Code
+</a>
+</h4>
+<div class="no-margin">
+  - POST      :
+    path      : /v2/swiss-payments-code
+    desc      : Create Swiss Payments Code
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	application/json
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The raw Swiss Payments Code (SPC)
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/swiss-payments-code/parse
+    desc      : Parse Swiss Payments Code
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+string
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The QrInvoice Object
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`{
+creditorInformation:
+{
+iban:
+<span class="token-string">"CH3908704016075473007"
+,
+creditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/2/22"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/2/22"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+}
+,
+ultimateCreditor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Robert Schneider Services Switzerland AG"
+</span>
+,
+streetName:
+<span class="token-string">"Rue du Lac"
+</span>
+,
+houseNumber:
+<span class="token-string">"1268/3/1"
+</span>
+,
+postalCode:
+<span class="token-string">"2501"
+</span>
+,
+city:
+<span class="token-string">"Biel"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentAmountInformation:
+{
+amount:
+199.95,currency:
+<span class="token-string">"CHF"
+</span>
+}
+,
+ultimateDebtor:
+{
+addressType:
+<span class="token-string">"STRUCTURED"
+</span>
+,
+name:
+<span class="token-string">"Pia-Maria Rutschmann-Schnyder"
+</span>
+,
+streetName:
+<span class="token-string">"Grosse Marktgasse"
+</span>
+,
+houseNumber:
+<span class="token-string">"28"
+</span>
+,
+postalCode:
+<span class="token-string">"9400"
+</span>
+,
+city:
+<span class="token-string">"Rorschach"
+</span>
+,
+addressLine1:
+<span class="token-string">"Rue du Lac 1268/3/1"
+</span>
+,
+addressLine2:
+<span class="token-string">"2501 Biel"
+</span>
+,
+country:
+<span class="token-string">"CH"
+</span>
+}
+,
+paymentReference:
+{
+referenceType:
+<span class="token-string">"SCOR"
+</span>
+,
+reference:
+<span class="token-string">"RF18539007547034"
+</span>
+,
+additionalInformation:
+{
+unstructuredMessage:
+<span class="token-string">"Bill No. 3139 for garden work and disposal of cuttings"
+</span>
+,
+billInformation:
+<span class="token-string">"//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30"
+</span>
+,
+billInformationObject:
+{
+}
+}
+}
+,
+alternativeSchemes:
+{
+alternativeSchemeParameters:
+[
+<span class="token-string">"Name AV1: UV;UltraPay005;12345"
+</span>
+]
+}
+}`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/swiss-payments-code/validate
+    desc      : Validates the given Swiss Payments Code
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+string
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The validation result
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</div>
+</div>
+</span>
+<div class="opblock-tag-section is-open">
+<h4 class="opblock-tag no-desc" id="operations-tag-\32 0_IBAN" data-tag="20 IBAN" data-is-open="true">
+<a class="nostyle" href="#/20%20IBAN">
+<span>20 IBAN
+</a>
+</h4>
+<div class="no-margin">
+  - POST      :
+    path      : /v2/iban/format
+    desc      : Format an IBAN. Works for QR-IBAN too.
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">CH3908704016075473007
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Valid IBAN
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/iban/normalize
+    desc      : Normalize an IBAN. Works for QR-IBAN too.
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">CH3908704016075473007
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Normalized IBAN
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/iban/validate
+    desc      : Validate an IBAN
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">CH3908704016075473007
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : IBAN is valid
+        media : */*
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/qr-iban/validate
+    desc      : Validate a QR IBAN. QR IBANs are regular IBANs. The only special thing is that the IID (institutional identification) is in the QR-IID range. QR-IIDs consist exclusively of numbers from 30000 to 31999.
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">CH44
+<span class="token-not-formatted">3199
+</span>
+<span class="token-not-formatted">9123
+</span>
+<span class="token-not-formatted">0008
+</span>
+<span class="token-not-formatted">8901
+</span>
+<span class="token-not-formatted">2
+</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : QR-IBAN  is valid
+        media : */*
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+</div>
+</div>
+</span>
+<div class="opblock-tag-section is-open">
+<h4 class="opblock-tag no-desc" id="operations-tag-\32 1_QR_Reference" data-tag="21 QR Reference" data-is-open="true">
+<a class="nostyle" href="#/21%20QR%20Reference">
+<span>21 QR Reference
+</a>
+</h4>
+<div class="no-margin">
+  - POST      :
+    path      : /v2/qr-reference/create
+    desc      : Create a QR reference with an optional customer ID. If the passed QR reference is missing checksum, it is calculated and appended.
+    params    :
+<div class="parameters-container">
+<div class="table-container">
+<table class="parameters">
+<thead>
+
+<th class="col_header parameters-col_name">Name
+</th>
+<th class="col_header parameters-col_description">Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr data-param-name="formatQrReference" data-param-in="query">
+<td class="parameters-col_description">
+<p>If true, QR reference is formatted in response</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+<tr data-param-name="customerId" data-param-in="query">
+<td class="parameters-col_description">
+<p>Optional customer ID as prefix to the reference</p><div class="parameter__default renderedMarkdown">
+<p>Default value :</p>
+</div>
+<input type="text" class="" title="" placeholder="customerId - Optional customer ID as prefix to the reference" disabled="" value="">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+</div>
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">123
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Valid QR reference including checksum
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/qr-reference/format
+    desc      : Format a QR reference
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">000000000000000001234567894
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Valid QR reference
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/qr-reference/modulo10recursive
+    desc      : Calculate Check Digit by Modulo 10 recursive
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">123
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Check Digit for Input
+        media : text/plain
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/qr-reference/normalize
+    desc      : Normalize a QR reference
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">00
+<span class="token-not-formatted">00000
+</span>
+<span class="token-not-formatted">00000
+</span>
+<span class="token-not-formatted">00000
+</span>
+<span class="token-not-formatted">12345
+</span>
+<span class="token-not-formatted">67894
+</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Normalized QR reference
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/qr-reference/validate
+    desc      : Validate a QR reference
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">00
+<span class="token-not-formatted">00000
+</span>
+<span class="token-not-formatted">00000
+</span>
+<span class="token-not-formatted">00000
+</span>
+<span class="token-not-formatted">12345
+</span>
+<span class="token-not-formatted">67894
+</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Valid QR reference
+        media : */*
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+</div>
+</div>
+</span>
+<div class="opblock-tag-section is-open">
+<h4 class="opblock-tag no-desc" id="operations-tag-\32 2_Creditor_Reference" data-tag="22 Creditor Reference" data-is-open="true">
+<a class="nostyle" href="#/22%20Creditor%20Reference">
+<span>22 Creditor Reference
+</a>
+</h4>
+<div class="no-margin">
+  - POST      :
+    path      : /v2/creditor-reference/create
+    desc      : Create a creditor reference. If the passed creditor reference is missing prefix and checksum, it is calculated and appended.
+    params    :
+<div class="parameters-container">
+<div class="table-container">
+<table class="parameters">
+<thead>
+
+<th class="col_header parameters-col_name">Name
+</th>
+<th class="col_header parameters-col_description">Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr data-param-name="formatCreditorReference" data-param-in="query">
+<td class="parameters-col_description">
+<p>If true, creditor reference is formatted in response</p><div class="parameter__default renderedMarkdown">
+<p>Default value : false</p>
+<select class="" disabled="">
+	--
+	true
+	false
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+</div>
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">42
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Valid creditor reference including checksum
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/creditor-reference/format
+    desc      : Format a Creditor Reference
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">RF451234512345
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Valid Creditor Reference
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/creditor-reference/modulo97
+    desc      : Calculate Check Digits using Modulo 97 if the given input would be added to creditor reference RF&lt;checkdigits&gt;&lt;input&gt;
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">42
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Check Digits for Input
+        media : text/plain
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/creditor-reference/normalize
+    desc      : Normalize a Creditor Reference
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">RF451234512345
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Normalized Creditor Reference
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/creditor-reference/validate
+    desc      : Validate a creditor reference number
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">RF45
+<span class="token-not-formatted">1234
+</span>
+<span class="token-not-formatted">5123
+</span>
+<span class="token-not-formatted">45
+</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Creditor reference is valid
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+</div>
+</div>
+</span>
+<div class="opblock-tag-section is-open">
+<h4 class="opblock-tag" id="operations-tag-\32 3_Country_Codes" data-tag="23 Country Codes" data-is-open="true">
+<a class="nostyle" href="#/23%20Country%20Codes">
+<span>23 Country Codes
+</a>
+<p>According to ISO 3166-1 alpha-2</p></h4>
+<div class="no-margin">
+  - GET       :
+    path      : /v2/country
+    desc      : List Countries
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : List of Countries according to ISO 3166-1 alpha-2
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`[
+{
+code:
+<span class="token-string">"CH"
+,
+english:
+<span class="token-string">"Switzerland"
+</span>
+,
+german:
+<span class="token-string">"Schweiz"
+</span>
+,
+french:
+<span class="token-string">"Suisse"
+</span>
+,
+italian:
+<span class="token-string">"Svizzera"
+</span>
+}
+]`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+</span>
+  - GET       :
+    path      : /v2/country/codes
+    desc      : List Country Codes
+    params    :
+<p>No parameters</p>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : List of Country Codes according to ISO 3166-1 alpha-2
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`[
+<span class="token-string">"string"
+]`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+</span>
+  - POST      :
+    path      : /v2/country/validate
+    desc      : Validate a Country Code against list of ISO 3166-1 alpha-2
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+<span class="token-not-formatted">CH
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Valid Country Code
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+</div>
+</div>
+</span>
+<div class="opblock-tag-section is-open">
+<h4 class="opblock-tag no-desc" id="operations-tag-\33 0_Bill_Information" data-tag="30 Bill Information" data-is-open="true">
+<a class="nostyle" href="#/30%20Bill%20Information">
+<span>30 Bill Information
+</a>
+</h4>
+<div class="no-margin">
+  - POST      :
+    path      : /v2/bill-information/parse
+    desc      : Parse Bill Information including optional Swico information
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+string
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The parsed Bill Information
+        media : application/json
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+  - POST      :
+    path      : /v2/bill-information/parse/raw
+    desc      : Parse Raw Bill Information
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+string
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The parsed Bill Information
+        media : application/json
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+  - POST      :
+    path      : /v2/bill-information/swicos1v12/create
+    desc      : Serialize a SwicoS1v12 into Bill Information string
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	application/json
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+{
+billInformationType:
+<span class="token-string">"SwicoS1v12"
+,
+invoiceReference:
+<span class="token-string">"10201409"
+</span>
+,
+invoiceDate:
+<span class="token-string">"2019-05-12"
+</span>
+,
+customerReference:
+<span class="token-string">"1400.000-53"
+</span>
+,
+uidNumber:
+<span class="token-string">"106017086"
+</span>
+,
+vatDateStart:
+<span class="token-string">"2018-05-08"
+</span>
+,
+vatDateEnd:
+<span class="token-string">"2018-05-10"
+</span>
+,
+vatDetails:
+[
+{
+taxPercentage:
+7.7,taxedNetAmount:
+185.<span class="token-not-formatted">65
+</span>
+}
+]
+,
+importTaxes:
+[
+{
+taxPercentage:
+7.7,taxAmount:
+<span class="token-not-formatted">1000
+</span>
+}
+]
+,
+paymentConditions:
+[
+{
+eligiblePaymentPeriodDays:
+10,cashDiscountPercentage:
+<span class="token-not-formatted">2
+</span>
+}
+]
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The Bill Information string
+        media : text/plain
+        eg    : Accept
+        type  : string
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/bill-information/swicos1v12/parse
+    desc      : Parse Bill Information as SwicoS1v12
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	text/plain
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+string
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The parsed Bill Information
+        media : application/json
+`Accept`
+<div class="model-example">
+<div>
+<div>
+`{
+billInformationType:
+<span class="token-string">"SwicoS1v12"
+,
+invoiceReference:
+<span class="token-string">"10201409"
+</span>
+,
+invoiceDate:
+<span class="token-string">"2019-05-12"
+</span>
+,
+customerReference:
+<span class="token-string">"1400.000-53"
+</span>
+,
+uidNumber:
+<span class="token-string">"106017086"
+</span>
+,
+vatDateStart:
+<span class="token-string">"2018-05-08"
+</span>
+,
+vatDateEnd:
+<span class="token-string">"2018-05-10"
+</span>
+,
+vatDetails:
+[
+{
+taxPercentage:
+7.7,taxedNetAmount:
+185.<span class="token-not-formatted">65
+</span>
+}
+]
+,
+importTaxes:
+[
+{
+taxPercentage:
+7.7,taxAmount:
+<span class="token-not-formatted">1000
+</span>
+}
+]
+,
+paymentConditions:
+[
+{
+eligiblePaymentPeriodDays:
+10,cashDiscountPercentage:
+<span class="token-not-formatted">2
+</span>
+}
+]
+}`
+</div>
+</div>
+</div>
+</td>
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+  - POST      :
+    path      : /v2/bill-information/swicos1v12/validate
+    desc      : Validate a SwicoS1v12 object
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	application/json
+<div class="opblock-description-wrapper">
+<div>
+<div class="model-example">
+<div>
+<div class="highlight-code">
+<pre class="body-param__example microlight">
+{
+billInformationType:
+<span class="token-string">"SwicoS1v12"
+,
+invoiceReference:
+<span class="token-string">"10201409"
+</span>
+,
+invoiceDate:
+<span class="token-string">"2019-05-12"
+</span>
+,
+customerReference:
+<span class="token-string">"1400.000-53"
+</span>
+,
+uidNumber:
+<span class="token-string">"106017086"
+</span>
+,
+vatDateStart:
+<span class="token-string">"2018-05-08"
+</span>
+,
+vatDateEnd:
+<span class="token-string">"2018-05-10"
+</span>
+,
+vatDetails:
+[
+{
+taxPercentage:
+7.7,taxedNetAmount:
+185.<span class="token-not-formatted">65
+</span>
+}
+]
+,
+importTaxes:
+[
+{
+taxPercentage:
+7.7,taxAmount:
+<span class="token-not-formatted">1000
+</span>
+}
+]
+,
+paymentConditions:
+[
+{
+eligiblePaymentPeriodDays:
+10,cashDiscountPercentage:
+<span class="token-not-formatted">2
+</span>
+}
+]
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : Valid Swico S1 v1.2 data
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+</span>
+</div>
+</div>
+</span>
+<div class="opblock-tag-section is-open">
+<h4 class="opblock-tag no-desc" id="operations-tag-\39 0_PDF" data-tag="90 PDF" data-is-open="true">
+<a class="nostyle" href="#/90%20PDF">
+<span>90 PDF
+</a>
+</h4>
+<div class="no-margin">
+  - POST      :
+    path      : /v2/pdf/append
+    desc      : Append
+    params    :
+<p>No parameters</p>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	multipart/form-data
+<div class="opblock-description-wrapper">
+<div class="table-container">
+<table>
+<tbody>
+<tr class="parameters" data-property-name="file">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</div>
+</td>
+<td class="parameters-col_description">
+<p>Base PDF file</p></td>
+</tr>
+<tr class="parameters" data-property-name="file2">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</div>
+</td>
+<td class="parameters-col_description">
+<p>PDF file which should be appended to the base file</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The appended PDF file
+        media : application/pdf
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+  - POST      :
+    path      : /v2/pdf/merge
+    desc      : Merge
+    params    :
+<div class="parameters-container">
+<div class="table-container">
+<table class="parameters">
+<thead>
+
+<th class="col_header parameters-col_name">Name
+</th>
+<th class="col_header parameters-col_description">Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr data-param-name="onPage" data-param-in="query">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</td>
+<td class="parameters-col_description">
+<p>Page number on which to place the payment part receipt</p><div class="parameter__default renderedMarkdown">
+<p>Default value : 1</p>
+</div>
+<input type="text" class="" title="" placeholder="onPage - Page number on which to place the payment part receipt" disabled="" value="1">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="opblock-section opblock-section-request-body">
+<div class="opblock-section-header">
+<h4>Request body</h4>
+	multipart/form-data
+</div>
+<div class="opblock-description-wrapper">
+<div class="table-container">
+<table>
+<tbody>
+<tr class="parameters" data-property-name="file">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</div>
+</td>
+<td class="parameters-col_description">
+<p>Base PDF file</p></td>
+</tr>
+<tr class="parameters" data-property-name="file2">
+<td class="parameters-col_name">
+<div class="parameter__type">
+</div>
+</td>
+<td class="parameters-col_description">
+<p>PDF file (single page) which should get merged onto the first document</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+      - code  : 200
+        desc  : The merged PDF file
+        media : application/pdf
+        eg    : Accept
+        type  : {}
+
+      - code  : 400
+        desc  : Bad request
+
+      - code  : 401
+        desc  : Unauthorized
+
+      - code  : 403
+        desc  : Forbidden
+
+      - code  : 406
+        desc  : Not acceptable - please check content negotiation. Either 'Content-Type'- or 'Accept'-Header might not match this endpoint.
+
+      - code  : 422
+        desc  : Unprocessable entity - invalid or unsupported data.
+
+# Authentication
+auth          :
+
+  - HEAD      :
+    path      : /apikey
+    desc      : Check if API key is valid
+    params    :
+<div class="parameters-container">
+<div class="table-container">
+<table class="parameters">
+<thead>
+
+<th class="col_header parameters-col_name">Name
+</th>
+<th class="col_header parameters-col_description">Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr data-param-name="api_key" data-param-in="query">
+<td class="parameters-col_name">
+<div class="parameter__name required">
+<span>&nbsp;*
+</td>
+<td class="parameters-col_description">
+<input type="text" class="" title="" placeholder="api_key" disabled="" value="">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="responses-wrapper">
+    responses :
+
+      - code  : 200
+        desc  : The API Key exists and is valid
+
+      - code  : 401
+        desc  : The API Key does not exist or is invalid
+
+# Deprecated QR Invoice Operations v1
+deprecated    :
+
+  - POST      :
+    path      : /qr-invoice/payment-part
+    desc      : Create the Payment Part &amp; Receipt from the given parameters
+
+  - POST      :
+    path      : /qr-invoice/swiss-payments-code
+    desc      : Create the Swiss Payments Code from the given parameters
+
+  - POST      :
+    path      : /qr-invoice/swiss-qr-code
+    desc      : Create the Swiss QR Code from the given parameters

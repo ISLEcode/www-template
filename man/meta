@@ -1,0 +1,24 @@
+#! /bin/ksh
+# Cf. https://askubuntu.com/questions/27381/how-to-edit-pdf-metadata-from-command-line
+
+typeset file=$1
+
+whence -q exiftool || { print -u2 'missing dependency: exiftool'; exit 1; }
+whence -q pdfinfo  || { print -u2 'missing dependency: pdftool';  exit 1; }
+whence -q qpdf     || { print -u2 'missing dependency: qpdf';     exit 1; }
+
+# Delete all metadata (this doesn't fully delete the metadata which remains in the PDF file)
+exiftool -quiet -overwrite_original -all:all="" $file
+
+# Use exiftool -PDF-update:all= file.pdf to confirm that there is still old metadata present;
+exiftool -quiet -PDF-update:all= $file
+
+# Linearise the file
+#qpdf --linearize $file
+
+# exiftool -PDF-update:all= $file
+
+# confirm that the file has been purged of all metadata by looking at the PDF dictionary
+pdfinfo -meta $file
+
+# vim: spelllang=en_gb

@@ -1,0 +1,67 @@
+revision  : 2020-12-21 (Mon) 17:19:02
+title     : YOUR_TITLE_HERE
+readme    : OPTIONAL_README_CONTENTS
+
+manifest  : # upto 40 points
+
+  - desc  : Web Manifest properly attached
+    upto  :
+
+  - desc  : display property utilized
+    upto  :
+
+  - desc  : Lists icons for add to home screen
+    upto  :
+
+  - desc  : Contains name property
+    upto  :
+
+  - desc  : Contains short_name property
+    upto  :
+
+  - desc  : Designates a start_url
+    upto  :
+
+  - desc  : Has custom splash screen
+    href  : https://web.dev/splash-screen
+    info  : |-
+            - The `name` property must be set to the name of the PWA.
+            - The `background_color` property is set to a valid CSS colour value.
+            - The `icons` array must specify an icon that is at least 512x512 pixels.
+            - The specified `icon` exists and is in PNG format.
+
+  - desc  : Sets a theme color for the address bar.
+    href  : https://web.dev/themed-omnibox
+    info  : |-
+            - The `theme_color` property is set to a valid CSS colour value.
+            - This theme colour is also provided as an meta tag named `theme-color` in the HTML page.
+
+  - desc  : Registers a service worker that controls page and 'start_url'
+    href  : https://web.dev/service-worker
+
+security  : # upto 20 points
+
+  - desc  : Uses HTTPS URL
+    upto  : 10
+
+  - desc  : Valid SSL certificate is used
+    upto  : 5
+
+  - desc  : No "mixed" content on page
+    upto  : 5
+
+worker    : # upto 40 points
+
+  - desc  : Has a Service Worker
+    upto  :
+
+  - desc  : Works offline
+    upto  :
+
+  - desc  : Service Worker has the correct scope
+    upto  :
+
+  - desc  : Service Worker has a pushManager registration (optional)
+    upto  :
+
+# vim: sw=4
