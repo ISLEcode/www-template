@@ -15,6 +15,8 @@ import DeveloperInfo                 from './form/developer.svelte';
 import BrandBar                      from './layout/brandbar.svelte';
 import Footer                        from './layout/footer.svelte';
 import { qrbill }                    from './store/qrbills';
+import Tags                          from './widget/Tags.svelte';
+
 
 qrbill .data = null;
 
@@ -37,6 +39,7 @@ let clists = get_clists ();
 </script>
 
 <BrandBar />
+<Tags />
 
 <Container>
 
