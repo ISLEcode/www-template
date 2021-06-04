@@ -30,8 +30,7 @@ function handleUpdate(event) { isOpen = event.detail.isOpen; }
         <DropdownToggle nav caret><Icon name="person-fill"/> {user}</DropdownToggle>
         <DropdownMenu end>
           <DropdownItem>
-            <Input type="checkbox" bind:checked={$qrbill.ux.show_devtab}
-              label="Activer le mode « Dévelopeur »"/>
+            <Input type="checkbox" bind:checked={$qrbill.ux.show_devtab} label="Mode expert"/>
           </DropdownItem>
           <DropdownItem divider />
           <DropdownItem>Se déconnecter</DropdownItem>
