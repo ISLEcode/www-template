@@ -38,10 +38,8 @@ let clists = get_clists ();
 
 </script>
 
-<BrandBar />
-<Tags />
-
 <Container>
+  <BrandBar />
 
 
   {#if !$qrbill.data }
