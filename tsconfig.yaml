@@ -1,15 +1,17 @@
 # Cf. https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
-revision                              : 2021-05-19 (Wed) 14:14:07
+revision                              : 2021-06-03 (Thu) 18:29:57
 extends                               : '@tsconfig/svelte/tsconfig.json' # Cf. https://www.npmjs.com/package/@tsconfig/svelte
-#ompilerOptions                       :
+compilerOptions                       :
 #   moduleResolution                  : node
 #   module                            : es2020
-#   lib                               : [ es2020 ]
-#   target                            : es2019
+    lib                               : [ dom, dom.iterable, es2018, es2019, es2020, esnext ]
+    target                            : es2017
 #   importsNotUsedAsValues            : error   # svelte-preprocess cannot figure out whether you have a value or a type, so
 #                                               # tell TypeScript to enforce using `import type` instead of `import` for Types.
 #   isolatedModules                   : true
-#   resolveJsonModule                 : true
+    removeComments                    : true
+    resolveJsonModule                 : true
+    types                             : [ 'node', 'jest' ]
 #   sourceMap                         : true    # To have warnings/errors of the Svelte compiler at the correct position
 #                                               # enable source maps by default.
 #   esModuleInterop                   : true
@@ -23,6 +25,6 @@ extends                               : '@tsconfig/svelte/tsconfig.json' # Cf. h
 #       '$service-worker'             : [ .svelte/build/runtime/service-worker ]
 #       '$lib/*'                      : [ src/lib/* ]
 include                               : [ src/**/*.d.ts, src/**/*.js, src/**/*.ts, src/**/*.svelte ]
-exclude                               : [ node_modules/*, __sapper__/*, docs/* ]
+exclude                               : [ _in/*, src/**/*.test.ts, node_modules/*, __sapper__/*, docs/* ]
 
 # __END__

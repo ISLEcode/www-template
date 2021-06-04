@@ -1,4 +1,4 @@
-revision:    2021-05-20 (Thu) 08:23:11
+revision:    2021-06-03 (Thu) 18:20:50
 name:        my-app
 description: ISLEcode Svelte template
 version:     1.0.0
@@ -34,6 +34,12 @@ devDependencies:
     sveltestrap4:                npm:sveltestrap@^4.0.0     # Bootstrap 4 components (https://sveltestrap.js.org/)
     bootstrap5:                    npm:bootstrap@^5.0.0     # Bootstrap 5 UI framework
     sveltestrap5:                npm:sveltestrap@^5.0.0     # Bootstrap 5 components (https://sveltestrap.js.org/)
+    bootstrap-icons:                             ^1.5.0
+    jest:                                        ^27.0.4    # Delightful JavaScript testing
+    '@types/jest':                               ^26.0.23   # TypeScript definitions for Jest
+    ts-jest:                                     ^27.0.2    # Write Jest tests in TypeScript (has sourcemap support)
+
+    jsqr:                                        ^1.4.0     # QR code reading library.
 
 #   github-buttons:                              ^2.15.0    # Ready made GitHub buttons (https://buttons.github.io)
 #   husky:                                       ^4.3.8     # Improve your commits (https://typicode.github.io/husky)
@@ -111,4 +117,6 @@ devDependencies:
 #   vite:                                        ^2.1.5     # Web dev build tool (https://github.com/vitejs/vite)
 #
     sirv-cli:                                    ^1.0.0     # Serving static files (https://github.com/lukeed/sirv)
+#    '@zxing/library':                            ^0.18.5    # Multi-format 1D/2D barcode image processing library
 
+    webrtc-adapter:                              ^8.0.0     # Shim to insulate apps from spec changes and prefix differences.

@@ -1,4 +1,5 @@
 import commonjs         from '@rollup/plugin-commonjs';
+import json from "@rollup/plugin-json";
 import css              from 'rollup-plugin-css-only';
 import livereload       from 'rollup-plugin-livereload';
 import { mdsvex }       from "mdsvex";
@@ -61,6 +62,8 @@ function build (bundle, source) {
                 }
             }),
 
+            json ({ compact: true }),
+
             // Extract any component CSS out into a separate file (better for performance)
             css ({ output: bundle + '.css' }),
 
@@ -92,11 +95,13 @@ function build (bundle, source) {
 
 
 export default [
-    build ('bundle',     'src/main.ts'),
-    build ('markdown',   'src/markdown.ts'),
-    build ('router',     'src/router.ts'),
-    build ('typescript', 'src/typescript.ts'),
-    build ('bootstrap5', 'src/samples/bs5/index.ts')
+    // build ('bundle',     'src/main.ts'),
+    // build ('markdown',   'src/markdown.ts'),
+    // build ('router',     'src/router.ts'),
+    // build ('qrbill',        'src/qrbill.ts'),
+    build ('sampler',       'src/qrbill/sampler.ts')
+    // build ('typescript', 'src/typescript.ts'),
+    // build ('bootstrap5', 'src/samples/bs5/index.ts')
 ];
 
 // __END__

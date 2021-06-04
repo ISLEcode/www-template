@@ -1,8 +1,10 @@
-#! @revision 2021-05-20 (Thu) 08:22:48
+#! @revision 2021-06-03 (Thu) 18:10:59
 #! @brief Svelte template Makefile
 # @{ Setup
 
 SHELL = /bin/ksh
+HOME_URL = /docs/sampler.html
+
 export PATH := $(PATH):$(PWD)/node_modules/.bin
 
 all: help
@@ -84,7 +86,10 @@ prod: preflight www
 
 www:
 	@$(H_ITEM) 'Populating static files'
-	@[[ -d docs ]] || mkdir docs
+	@[[ -d docs ]] || mkdir docs; true
+	@[[ -d docs/zip/app/js       ]] || mkdir -p docs/zip/app/js; true
+	@[[ -d docs/zip/app/js/fonts ]] || cp -R node_modules/bootstrap-icons/font/fonts docs/zip/app/js; true
+	@[[ -f docs/zip/app/js/bootstrap.min.css.map ]] || cp node_modules/bootstrap5/dist/css/bootstrap.min.css.map docs/zip/app/js/
 	@(cd www; tar cf - *) | (cd docs; tar xf -)
 
 # @}
@@ -97,12 +102,23 @@ check: build
 
 
 # @}
+# @{ Testing
+
+.PHOTY: test
+
+test:
+	@jest
+
+# @}
 # @{ Preview
 
 .PHONY: preflight start watch
 
 preview: preflight
 	@sirv docs --single --no-clear
+
+open: preflight
+	@typeset -l url=http://localhost/$(PWD:$(HOME)/%=%)$(HOME_URL); open $$url
 
 start: preview
 
