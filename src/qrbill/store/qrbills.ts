@@ -61,8 +61,8 @@ export const qrbill = writable ({
         country:        null,
     },
     ux:                 {               // User interface and extra functionality
-        editable:       true,           // Make QRcode data editable (excepte amout, currency and iban)
-        show_devtab:    true,           // Enable development mode
+        editable:       false,          // Make QRcode data editable (excepte amout, currency and iban)
+        show_devtab:    false,          // Enable development mode
         show_debtor:    false,          // Toggle visibility of debtor tab
         show_qrdata:    false,          // In developer mode, show the raw QRcode data
         edit_qrdata:    false,          // In developer mode, allow editing the QRcode data
