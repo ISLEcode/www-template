@@ -1,5 +1,5 @@
 import commonjs         from '@rollup/plugin-commonjs';
-import json from "@rollup/plugin-json";
+import json             from "@rollup/plugin-json";
 import css              from 'rollup-plugin-css-only';
 import livereload       from 'rollup-plugin-livereload';
 import { mdsvex }       from "mdsvex";
@@ -43,9 +43,7 @@ function build (bundle, source) {
 
             svelte ({
                 extensions: [ '.svx', '.md' ],
-                preprocess: mdsvex({
-                    extensions: [ '.svx', '.md' ],
-                })
+                preprocess: mdsvex({ extensions: [ '.svx', '.md' ] })
             }),
 
             svelte ({
@@ -71,7 +69,6 @@ function build (bundle, source) {
             resolve ({ browser: true, dedupe: ['svelte'] }),
             commonjs(),
 
-            // typescript({ sourceMap: !production, inlineSources: !production }),
             // typescript ({ sourceMap: !production, inlineSources: !production }),
             // TODO typescript ({ tsconfig: production? "./tsconfig.prod.json" : "./tsconfig.json",})
             typescript ({ tsconfig: './tsconfig.json' }),
@@ -95,13 +92,12 @@ function build (bundle, source) {
 
 
 export default [
-    // build ('bundle',     'src/main.ts'),
-    // build ('markdown',   'src/markdown.ts'),
-    // build ('router',     'src/router.ts'),
-    // build ('qrbill',        'src/qrbill.ts'),
-    build ('sampler',       'src/qrbill/sampler.ts')
-    // build ('typescript', 'src/typescript.ts'),
-    // build ('bootstrap5', 'src/samples/bs5/index.ts')
+//  build ('bundle',        'src/main.ts'),
+    build ('sampler',       'src/qrbill/sampler.ts'),
+//  build ('markdown',      'src/samples/markdown.ts'),
+//  build ('router',        'src/samples/router.ts'),
+//  build ('typescript',    'src/samples/typescript.ts'),
+//  build ('bootstrap5',    'src/samples/bs5/index.ts'),
 ];
 
 // __END__

@@ -1,14 +1,14 @@
-export type Id = number;
-export type Uuid = string;
+export type ID = number;
+export type UUID = string;
 
 export interface OptionSet {
-  id: Id;
+  id: ID;
   name: string;
   description?: string;
 }
 
 export interface UOptionSet {
-  uuid: Uuid;
+  uuid: UUID;
   name: string;
   description?: string;
 }

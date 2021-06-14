@@ -3,6 +3,7 @@ import { Button, Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText,
          Form, FormGroup, FormText, Icon, Input, Label, Row } from 'sveltestrap5';
 import { qrbill } from '../store/qrbills';
 import VATRates from './options/vatrates.svelte';
+import Orders   from './options/orders.svelte';
 
 let input_ok = '';
 
@@ -38,72 +39,66 @@ console .log ($qrbill);
 
   <CardBody>
 
-
     {#if $qrbill.orders.length == 0}
       <Button color="success" on:click={add_order}>Ajouter un mandat</Button>
     {:else}
-      {#if remainder > 0}
-        <p class="text-right lead">Reste à ventiler: {remainder}</p>
+
+      {#each $qrbill.orders as order}
+
+        <Row>
+          <Col class="col-12 col-md-4">
+            <FormGroup class="form-floating">
+              <Input id="order-name" class="{input_ok}" type="select" bind:value={order.name}>
+                <Orders />
+              </Input>
+              <Label for="order-name">Mandat</Label>
+              <div class="invalid-feedback"></div>
+            </FormGroup>
+          </Col>
+
+          <Col class="col-12 col-md-2">
+            <FormGroup class="form-floating">
+              <Input id="order-vat" class="{input_ok}" type="select" bind:value={order.vat}><VATRates /></Input>
+              <Label for="order-vat">TVA</Label>
+              <div class="invalid-feedback"></div>
+            </FormGroup>
+          </Col>
+
+          <Col class="col-12 col-md-2">
+            <FormGroup class="form-floating">
+              <Input id="order-amountx" readonly class="{input_ok}" type="number" bind:value={order.amountx}
+                placeholder="123.22" />
+              <Label class="form-control-plaintext" for="order-amountx">Montant HT</Label>
+              <div class="invalid-feedback"></div>
+            </FormGroup>
+          </Col>
+
+          <Col class="col-12 col-md-2">
+            <FormGroup class="form-floating">
+              <Input id="order-amount" class="{input_ok}" type="number" bind:value={order.amount}
+                on:change={order.amountx = (order.amount * 0.077) .toFixed (2)}
+                placeholder="1024.36" />
+              <Label for="order-amount">Montant TTC</Label>
+              <div class="invalid-feedback"></div>
+            </FormGroup>
+          </Col>
+
+          <Col class="col-12 col-md-1">
+            <FormGroup class="form-floating">
+              <Button color="danger"  on:click={del_order (order.id)}>-</Button>
+              <Button color="success" on:click={add_order}>+</Button>
+            </FormGroup>
+          </Col>
+
+        </Row>
+
+      {/each}
+
+      {#if remainder != 0}
+        <p class="text-right lead">Reste à ventiler: {remainder .toFixed (2)}</p>
       {/if}
+
     {/if}
-
-    {#each $qrbill.orders as order}
-
-      <Row>
-        <Col class="col-12 col-md-4">
-          <FormGroup class="form-floating">
-            <Input id="order-name" class="{input_ok}" type="select" bind:value={order.name}>
-              <option>1000 - Caisse</option>
-              <option>1010 - Poste</option>
-              <option>1020 - Banque</option>
-            </Input>
-            <Label for="order-name">Mandat</Label>
-            <div class="invalid-feedback"></div>
-          </FormGroup>
-        </Col>
-
-        <Col class="col-12 col-md-2">
-          <FormGroup class="form-floating">
-            <Input id="order-vat" class="{input_ok}" type="select" bind:value={order.vat}><VATRates /></Input>
-            <Label for="order-vat">TVA</Label>
-            <div class="invalid-feedback"></div>
-          </FormGroup>
-        </Col>
-
-        <Col class="col-12 col-md-2">
-          <FormGroup class="form-floating">
-            <Input id="order-amountx" class="{input_ok}" type="number" bind:value={order.amountx}
-              placeholder="123.22" />
-            <Label for="order-amountx">Montant HT</Label>
-            <div class="invalid-feedback"></div>
-          </FormGroup>
-        </Col>
-
-        <Col class="col-12 col-md-2">
-          <FormGroup class="form-floating">
-            <Input id="order-amount" class="{input_ok}" type="number" bind:value={order.amount}
-              placeholder="1024.36" />
-            <Label for="order-amount">Montant TTC</Label>
-            <div class="invalid-feedback"></div>
-          </FormGroup>
-        </Col>
-
-        <Col class="col-12 col-md-1">
-          <FormGroup class="form-floating">
-            <Input id="order-percent" type="checkbox" bind:value={order.ispercent} label="%"/>
-          </FormGroup>
-        </Col>
-
-        <Col class="col-12 col-md-1">
-          <FormGroup class="form-floating">
-            <Button color="danger"  on:click={del_order (order.id)}>-</Button>
-            <Button color="success" on:click={add_order}>+</Button>
-          </FormGroup>
-        </Col>
-
-      </Row>
-
-    {/each}
 
   </CardBody>
 </Card>

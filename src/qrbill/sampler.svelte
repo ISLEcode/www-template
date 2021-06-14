@@ -1,9 +1,9 @@
 <script lang="ts">
 import '../../node_modules/bootstrap5/dist/css/bootstrap.min.css';
 import '../../node_modules/bootstrap-icons/font/bootstrap-icons.css';
-import { setContext }                from 'svelte';
+import { onMount }                from 'svelte';
 import { Icon, Col, Container, Row } from 'sveltestrap5';
-import { TabContent, TabPane }       from 'sveltestrap5';
+import { Alert, TabContent, TabPane }       from 'sveltestrap5';
 import Camera                        from './form/camera.svelte';
 import Creditor                      from './form/creditor.svelte';
 import UCreditor                     from './form/ucreditor.svelte';
@@ -14,40 +14,57 @@ import SplitOrders                   from './form/split-orders.svelte';
 import DeveloperInfo                 from './form/developer.svelte';
 import BrandBar                      from './layout/brandbar.svelte';
 import Footer                        from './layout/footer.svelte';
+import { qrdata2array } from '../lib/stdlib/qrbill';
 import { qrbill }                    from './store/qrbills';
 import Tags                          from './widget/Tags.svelte';
+import { get }                       from 'svelte/store';
+import rc from './prefs'
 
-
-qrbill .data = null;
-
-// setContext ('qrbill', qrbill);
+rc .sync()
 
 /*
-const get_clists = async () => {
-    const response = await fetch('http://localhost/sandbox/sam/mobile/tmp/rest-2/docs/api/index.php/clists');
-    const data = await response.json();
-
-    console.log (data);
-    if (response.ok) return data;
-    throw new Error(data);
-}
-
-let clists = get_clists ();
-//const handleClick = () => { countries = get_clists (); }
+onMount (() => $rc.prefs.maintenance = `
+<h4 class="alert-heading text-capitalize">Avertissement</h4>
+L\'applicatiion SAMinfo QRcode est actuellement en maintenance.
+Elle devrait être très prochainement réactivée.`)
 */
+
+$qrbill .data = null;
+    // $qrbill .data = 'SPC\n0200\n1\nCH9300762011623852957\nS\nThomas LeClaire\nRue examplaire\n22a\n1000\nLausanne\nCH\n\n\n\n\n\n\n\n25.90\nCHF\n\n\n\n\n\n\n\nNON\n\n\nEPD\n\n'
+    // qrdata2array ($qrbill.data, $qrbill, $rc.prefs)
+
+// setContext ('qrbill', qrbill);
 
 </script>
 
 <Container>
   <BrandBar />
 
+  <!-- Mode 1: Maintenance
+  -->
 
-  {#if !$qrbill.data }
+  {#if $rc.prefs.maintenance }
+    <Row>
+      <Col>
+        <Alert color="warning">
+          {@html $rc.prefs.maintenance}
+        </Alert>
+      </Col>
+    </Row>
+
+  <!-- Mode 2: QRcode scanner
+  -->
+
+  {:else if !$qrbill.data && !$rc.prefs.use_samples}
     <Row>
       <Col><Camera/></Col>
     </Row>
 
+  <!-- Mode 3: QRcode data validation
+  -->
+
   {:else}
+
     <TabContent pills>
 
       <TabPane tabId="payment-tab" tab="Paiement" class="mt-2" active>
@@ -58,7 +75,7 @@ let clists = get_clists ();
 
       <TabPane tabId="creditor-tab" tab="Bénéficiaire" class="mt-2">
         <Row>
-          {#if $qrbill.ux.use_ucreditor}
+          {#if $rc.prefs.use_ucreditor}
             <Col class="col-12 col-md-6"><Creditor  /></Col>
             <Col class="col-12 col-md-6"><UCreditor /></Col>
           {:else}
@@ -67,7 +84,7 @@ let clists = get_clists ();
         </Row>
       </TabPane>
 
-      {#if $qrbill.ux.show_debtor}
+      {#if $rc.prefs.show_debtor}
         <TabPane tabId="debtor-tab" tab="Débiteur" class="mt-2">
           <Row>
             <Col><Debtor/></Col>
@@ -91,7 +108,7 @@ let clists = get_clists ();
         </TabPane>
       {/if}
 
-      {#if $qrbill.ux.show_devtab}
+      {#if $rc.prefs.show_devtab}
         <TabPane tabId="developer-tab" tab="Dévelopeur" class="mt-2">
           <Row>
             <Col><DeveloperInfo/></Col>
@@ -102,6 +119,4 @@ let clists = get_clists ();
     </TabContent>
   {/if}
 
-  <Footer />
 </Container>
-

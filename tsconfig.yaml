@@ -1,5 +1,5 @@
 # Cf. https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
-revision                              : 2021-06-03 (Thu) 18:29:57
+revision                              : 2021-06-13 (Sun) 12:34:50
 extends                               : '@tsconfig/svelte/tsconfig.json' # Cf. https://www.npmjs.com/package/@tsconfig/svelte
 compilerOptions                       :
 #   moduleResolution                  : node

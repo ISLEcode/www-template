@@ -5,14 +5,20 @@ export const qrbill = writable ({
     validated:          false,          // Toggle by user once the payment has been validated
     accounts:           [],             // Break bill down into multiple accounts
     creditor:           {               // The creditor's record
+        // QRR Data:
         iban:           null,
-        name:           null,
+        name:           null,           // The creditor's name (from the QRcode)
         addrtype:       'S',            // Address kind
         addr1:          null,
         addr2:          null,
         postcode:       null,
         location:       null,
         country:        null,
+        // Complementary data:
+        id:             null,           // Supplier ID (or `+` if new supplier)
+        label:          null,           // The creditor's designation label (as it should be stored in SAMinfo)
+        suffix:         null,           // Suffix to append to the creditor's designation label (optional)
+        update:         false           // Indicates that payment details should be updated for this supplier on the backend
     },
     data:               null,           // Raw QR code data
     debtor:             {               // The debtor's record (aka `suppliers` in SAMinfo)
@@ -33,7 +39,7 @@ export const qrbill = writable ({
         billinfo:       null,
         currency:       null,
         date:           null,
-        delay:          null,
+        delay:          null,           // Delay in days
         duedate:        null,
         extra1:         null,
         extra2:         null,
@@ -43,7 +49,6 @@ export const qrbill = writable ({
         reftype:        null,
         splitaccounts:  false,
         splitorders:    false,
-        supplier:       null,
         vatcode:        null,
         vatless:        false           // Indicates whether amount is with or without VAT (TODO is this needed?)
     },
@@ -59,15 +64,6 @@ export const qrbill = writable ({
         postcode:       null,
         location:       null,
         country:        null,
-    },
-    ux:                 {               // User interface and extra functionality
-        editable:       false,          // Make QRcode data editable (excepte amout, currency and iban)
-        show_devtab:    false,          // Enable development mode
-        show_debtor:    false,          // Toggle visibility of debtor tab
-        show_qrdata:    false,          // In developer mode, show the raw QRcode data
-        edit_qrdata:    false,          // In developer mode, allow editing the QRcode data
-        use_ucreditor:  false,          // Indicate whether ucreditor functionality is in use
-        use_ucrediban:  false,          // QRBill doesn't provision IBAN for ultimate creditor
     }
 
 });

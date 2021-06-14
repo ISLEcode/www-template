@@ -1,4 +1,4 @@
-import Page from './samples/markdown.svelte';
+import Page from './markdown.svelte';
 
 const page = new Page ({ target: document.body, props: { name: 'world' } });
 

@@ -1,23 +1,13 @@
 <script lang="ts">
-const get_suppliers = async () => {
-    const response = await fetch('http://localhost/sandbox/sam/mobile/tmp/rest-2/docs/api/index.php/suppliers');
-    const data = await response.json();
+import  { qrbill    } from '../../store/qrbills'
+import rc from '../../prefs'
 
-    if (response.ok) return data;
-    throw new Error(data);
-}
-
-let promise = get_suppliers ();
+// {#if supplier.iban == $qrbill.creditor.iban}
 </script>
 
-{#await promise}
-  <p>Loading...</p>
-{:then data}
-  {#each data as supplier (supplier.id)}
-    <option value="{supplier.id}">{supplier.name}</option>
-  {/each}
-  <option value="+">Nouveau fournisseur</option>
-{:catch error}
-  <p>{error}</p>
-{/await}
+<option value="" data-delay=1 selected></option>
+<option value="+" data-delay=10>Nouveau fournisseur</option>
+{#each $rc.suppliers as supplier (supplier.id)}
+  <option value="{supplier.id}">{supplier.name}{#if supplier.keyword}&nbsp;- ({supplier.keyword}){/if}</option>
+{/each}
 

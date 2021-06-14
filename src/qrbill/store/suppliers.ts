@@ -1,3 +1,8 @@
+import { writable } from 'svelte/store'
+
+let suppliers = writable ({})
+
+/*
 import { lstore } from './lstore'
 
 const default_suppliers = [{ id: 'CH', label: 'Suisse' }];
@@ -13,3 +18,4 @@ export function del_supplier (id) { suppliers .update ((all) => all .filter ((su
 export function set_supplier (id, label) {
    suppliers .update ((all) => all .map ((supplier) => supplier .id === id ? { ...supplier, label: label } : { ...supplier }))
 }
+*/

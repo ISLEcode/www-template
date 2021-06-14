@@ -1,4 +1,4 @@
-import Page from './samples/typescript.svelte';
+import Page from './typescript.svelte';
 
 const page = new Page ({ target: document.body, props: { name: 'world' } });
 

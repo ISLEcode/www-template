@@ -1,0 +1,30 @@
+- [ ] Add class `text-muted` to all LABEL elements so that the label is muted and not assimilated to the input's value
+
+
+https://gist.github.com/ScottPhillips/1721489
+https://stackoverflow.com/questions/38943771/how-to-insert-part-of-url-via-htaccess
+https://www.askapache.com/htaccess/ultimate-htaccess-file-sample/
+https://www.askapache.com/htaccess/apache-authentication-in-htaccess/#require-password-for-single-file
+https://www.askapache.com/htaccess/using-http-headers-with-htaccess/#privacy-p3p-header-in-apache
+https://www.askapache.com/htaccess/#Main_Server_Config_Examples
+https://www.infoq.com/news/2020/10/svelte-simple-repl-summit-2020/
+
+
+Service worker
+https://discord.com/channels/457912077277855764/457912077277855766/852515724195004416
+
+Offline
+https://github.com/Myrmod/SvelteKit-offline
+
+Antony
+https://discord.com/channels/457912077277855764/457912077277855766/852521930070556673
+https://discord.com/channels/457912077277855764/457912077277855766/852572075852169316
+
+Select-Autocomplete
+https://github.com/snapappointments/bootstrap-select (BS 5 compatible, uses jQuery)
+https://github.com/rob-balfre/svelte-select (419 commits)
+http://simple-svelte-autocomplete.surge.sh (standalone, one component)
+
+DocSearch
+https://www.algolia.com/blog/product/algolia-vs-open-source-search/
+https://github.com/typesense/typesense#api-clients

@@ -2,6 +2,7 @@
 import { Icon, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'sveltestrap5';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input } from 'sveltestrap5';
 import { qrbill } from '../store/qrbills';
+import rc from '../prefs';
 // import { user } from './store.ts';
 
 let isOpen = false;
@@ -14,12 +15,16 @@ function handleUpdate(event) { isOpen = event.detail.isOpen; }
 //const unUser = User.subscribe(v => user = v);
 
 </script>
+
 <Navbar color="light" light expand="md">
+
   <NavbarBrand href="/">
     <a class="navbar-brand" href="qrbill.html">
       <img src="zip/app/img/saminfo-logo.png" alt="SAMinfo logo" height="32">
     </a>
-    </NavbarBrand>
+  </NavbarBrand>
+
+  {#if !$rc.prefs.maintenance}
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
   <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
     <Nav class="ms-auto" navbar>
@@ -30,7 +35,7 @@ function handleUpdate(event) { isOpen = event.detail.isOpen; }
         <DropdownToggle nav caret><Icon name="person-fill"/> {user}</DropdownToggle>
         <DropdownMenu end>
           <DropdownItem>
-            <Input type="checkbox" bind:checked={$qrbill.ux.show_devtab} label="Mode expert"/>
+            <Input type="checkbox" bind:checked={$rc.prefs.show_devtab} label="Mode expert"/>
           </DropdownItem>
           <DropdownItem divider />
           <DropdownItem>Se déconnecter</DropdownItem>
@@ -38,4 +43,6 @@ function handleUpdate(event) { isOpen = event.detail.isOpen; }
       </Dropdown>
     </Nav>
   </Collapse>
+  {/if}
+
 </Navbar>

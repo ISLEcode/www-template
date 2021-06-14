@@ -1,4 +1,4 @@
-#! @revision 2021-06-03 (Thu) 18:10:59
+#! @revision 2021-06-14 (Mon) 10:27:02
 #! @brief Svelte template Makefile
 # @{ Setup
 
@@ -6,6 +6,13 @@ SHELL = /bin/ksh
 HOME_URL = /docs/sampler.html
 
 export PATH := $(PATH):$(PWD)/node_modules/.bin
+
+WWW_FOLDER  = qrcode
+WWW_SOURCES = .env* composer.* docs lib vendor
+WWW_TARBALL = website.tgz
+WWW_TOPDIR  = /var/sandbox
+WWW_USEROWN = centurion:ait-wheel
+WWW_WEBSITE = https://dusaasp1.isle.plus/qrcode/
 
 all: help
 
@@ -126,6 +133,30 @@ watch: preview
 
 # @}
 # @{ Deploy
+
+deploy: prod tarball
+	@$(H_ITEM) 'Building distribution tarball'
+	@umask  0007; scp $(WWW_TARBALL) centos8:
+	@ssh centos8 'umask 0007; \
+		cd $(WWW_TOPDIR); \
+		sudo tar xf ~/$(WWW_TARBALL) -m; \
+		sudo chown -R $(WWW_USEROWN) $(WWW_FOLDER); \
+		sudo cat $(WWW_FOLDER)/sql/testdata.sql | mysql -uroot -p'Widenius1995!'; \
+		rm ~/$(WWW_TARBALL)'
+
+MYSQLDUMP = mysqldump --single-transaction -u root --databases --add-drop-database
+tarball: $(WWW_SOURCES)
+	@$(H_ITEM) 'Deploying build to production'
+	@[[ -d $(WWW_FOLDER)  ]] && rm -rf $(WWW_FOLDER); true
+	@[[ -f $(WWW_TARBALL) ]] && rm -rf $(WWW_TARBALL); true
+	@umask 0007; mkdir -p $(WWW_FOLDER)/sql
+	@umask 0007; cp -R $(WWW_SOURCES) $(WWW_FOLDER)/
+	@umask 0007; cd $(WWW_FOLDER); cp .env.centos8 .env; cd docs; mv sampler.html index.html
+	@echo "umask 0007; $(MYSQLDUMP) gp_config gp_patinfo > $(WWW_FOLDER)/sql/testdata.sql"
+	@umask 0007; tar zcf $(WWW_TARBALL) $(WWW_FOLDER)
+
+website:
+	@open -g $(WWW_WEBSITE)
 
 postdeploy:
 	@rm -fr ./build/_redirects

@@ -1,7 +1,13 @@
+/docs/
 /node_modules/
 /public/build/
+/vendor/
 
 .DS_Store
-docs
 tsconfig.json
 package.json
+src/**/*.js
+src/**/*.js.map
+
+
+composer.lock

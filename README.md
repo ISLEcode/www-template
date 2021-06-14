@@ -3,6 +3,9 @@ TODO HTTP support (https://stackoverflow.com/a/53489924)
 TODO Test HTTP/2 and SSL with sirv (https://www.npmjs.com/package/sirv-cli)
 -->
 
+https://dusaasp1.isle.plus/qrcode/
+
+
 # Svelte app
 
 This is a customised project template for [Svelte]. It lives at https://github.com/ISLEcode/www-template and was forked from

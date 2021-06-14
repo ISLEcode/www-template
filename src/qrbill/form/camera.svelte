@@ -4,7 +4,9 @@ import { onMount } from 'svelte';
 import { Icon, Col, Container, Row } from 'sveltestrap5';
 import { Button, ButtonGroup, Form, FormGroup, FormText, Input, Label } from 'sveltestrap5';
 import { Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText, CardTitle } from 'sveltestrap5';
-import { qrbill  } from '../store/qrbills';
+import { qrbill } from '../store/qrbills';
+import rc from '../prefs';
+import { qrdata2array  } from '../../lib/stdlib/qrbill';
 import jsQR from 'jsQR';
 
 // Use facingMode: environment to attempt to get the front camera on phones
@@ -22,7 +24,7 @@ let canvas;
 let video;
 let video_height;
 let video_width;
-let prompt = '🎥 Unable to access video stream (please make sure you have a webcam enabled)';
+let prompt = 'Impossibel d\'accèder à un flux vidéo (assurez vous que votre caméra est activée)';
 
 function tick () {
 
@@ -57,40 +59,9 @@ function tick () {
             hide_message = true;
             hide_data    = false;
             $qrbill.data = code.data;
+            stop_camera ();
 
-            let ary =  code.data.split ("\n");
-
-            $qrbill .creditor  .iban      = ary[ 3]; // Mandatory
-            $qrbill .creditor  .addrtype  = ary[ 4]; // Mandatory
-            $qrbill .creditor  .name      = ary[ 5]; // Mandatory
-            $qrbill .creditor  .addr1     = ary[ 6]; // Optional
-            $qrbill .creditor  .addr2     = ary[ 7]; // Optional
-            $qrbill .creditor  .postcode  = ary[ 8]; // Mandatory
-            $qrbill .creditor  .location  = ary[ 9]; // Mandatory
-            $qrbill .creditor  .country   = ary[10]; // Mandatory
-            $qrbill .ucreditor .addrtype  = ary[11]; // For future use
-            $qrbill .ucreditor .name      = ary[12]; // For future use
-            $qrbill .ucreditor .addr1     = ary[13]; // For future use
-            $qrbill .ucreditor .addr2     = ary[14]; // For future use
-            $qrbill .ucreditor .postcode  = ary[15]; // For future use
-            $qrbill .ucreditor .location  = ary[16]; // For future use
-            $qrbill .ucreditor .country   = ary[17]; // For future use
-            $qrbill .payment   .amount    = ary[18]; // Optional
-            $qrbill .payment   .currency  = ary[19]; // Mandatory
-            $qrbill .debtor    .addrtype  = ary[20]; // Mandatory
-            $qrbill .debtor    .name      = ary[21]; // Mandatory
-            $qrbill .debtor    .addr1     = ary[22]; // Optional
-            $qrbill .debtor    .addr2     = ary[23]; // Optional
-            $qrbill .debtor    .postcode  = ary[24]; // Mandatory
-            $qrbill .debtor    .location  = ary[25]; // Mandatory
-            $qrbill .debtor    .country   = ary[26]; // Mandatory
-            $qrbill .payment   .reftype   = ary[27]; // Mandatory
-            $qrbill .payment   .reference = ary[28]; // Mandatory
-            $qrbill .payment   .moreinfo  = ary[29]; // Optional
-            // Trailer, following fields are optional
-            $qrbill .payment   .billinfo  = ary[31]; // Optional
-            $qrbill .payment   .extra1    = ary[32]; // Optional
-            $qrbill .payment   .extra2    = ary[33]; // Optional
+            qrdata2array (code.data, $qrbill, $rc.prefs);
 
             return;
 
@@ -125,7 +96,6 @@ function onsuccess (stream) {
 function onerror (error) { console .log ('navigator.getUserMedia: ', error) }
 
 function start_camera () {
-console .log ('starting camera');
 
     if (!window.stream) return;
     if (ctx) window .stream .getTracks() .forEach (track => track.enabled = true)
@@ -137,7 +107,6 @@ console .log ('starting camera');
 }
 
 function stop_camera () {
-console .log ('stopping camera');
     if (!window.stream) return;
     window .stream .getTracks() .forEach (track => track.enabled = false)
     video .srcObject = null;
@@ -150,7 +119,7 @@ onMount (() => { navigator .mediaDevices .getUserMedia (constraints) .then (onsu
 <Card class="mb-3">
   <CardHeader>
     <CardTitle>
-      <Icon name="camera-video-fill" /> QR code
+      <Icon name="camera-video-fill" /> Scannez votre QR code maintenant
     </CardTitle>
   </CardHeader>
   <CardBody>
@@ -164,7 +133,8 @@ onMount (() => { navigator .mediaDevices .getUserMedia (constraints) .then (onsu
     <Row>
       <Col>
         <div id="qr-container" hidden="{hide_container}">
-          <div id="qr-message" hidden="{hide_message}">No QR code detected.</div>
+          <div id="qr-message" hidden="{hide_message}">Pas de QR code détecté. Tenez votre facture à moins de 50 cm; évitez
+            les reflets ou autres pertubations lumineuses.</div>
           <div hidden="{hide_data}"><b>Data:</b> {$qrbill.data}</div>
         </div>
       </Col>
