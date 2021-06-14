@@ -1,0 +1,31 @@
+SPC
+0200
+1
+CH5800791123000889012
+S
+Compagnie d'assurance forme&alerte
+Am Wasser
+1
+3000
+Berne
+CH
+
+
+
+
+
+
+
+211.00
+CHF
+S
+Sarah Beispiel
+Mustergasse
+1
+3600
+Thoune
+CH
+SCOR
+RF240191230100405JSH0438
+Prime mensuelle juillet 2020
+EPD
