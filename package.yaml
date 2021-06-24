@@ -1,4 +1,4 @@
-revision:    2021-06-03 (Thu) 18:20:50
+revision:    2021-06-15 (Tue) 11:14:27
 name:        my-app
 description: ISLEcode Svelte template
 version:     1.0.0
@@ -41,6 +41,7 @@ devDependencies:
 
     jsqr:                                        ^1.4.0     # QR code reading library.
 
+    graphql:                                     ^15.5.0    # Implementation of Facebook's GraphQL query language for APIs
 #   github-buttons:                              ^2.15.0    # Ready made GitHub buttons (https://buttons.github.io)
 #   husky:                                       ^4.3.8     # Improve your commits (https://typicode.github.io/husky)
 #   lint-staged:                                 ^10.5.4    # Linter for Git staged files (https://github.com/okonet/lint-staged)
@@ -92,7 +93,8 @@ devDependencies:
 
     svelte:                                      ^3.37.0    # Cybernetically enhanced apps (https://github.com/sveltejs/svelte)
     svelte-check:                                ^1.0.46    # - Svelte linter (https://github.com/sveltejs/language-tools)
-#   svelte-loader:                               ^2.13.6    # - Webpack loader (https://github.com/sveltejs/svelte-loader)
+    svelte-loader:                               ^2.13.6    # - Webpack loader (https://github.com/sveltejs/svelte-loader)
+                                                            #   (Storybook dependency we should probably get rid of)
     svelte-preprocess:                           ^4.6.9     # - Preprocessor (https://github.com/sveltejs/svelte-preprocess)
     svelte-spa-router:                           ^3.0.4     # - UA router (https://github.com/ItalyPaleAle/svelte-spa-router)
 
@@ -109,7 +111,7 @@ devDependencies:
     tslib:                                       ^2.0.1     # - Typescript runtime library (https://github.com/Microsoft/tslib)
 #   '@types/aws-lambda':                         ^8.10.73   # - AWS Lambda (https://github.com/DefinitelyTyped/DefinitelyTyped)
 #   '@types/compression':                        ^1.7.0     # - Compression (https://github.com/DefinitelyTyped/DefinitelyTyped)
-#   '@types/node':                               ^14.11.1   # - NodeJS (https://github.com/DefinitelyTyped/DefinitelyTyped)
+    '@types/node':                               ^14.11.1   # - NodeJS (https://github.com/DefinitelyTyped/DefinitelyTyped)
 #   '@types/polka':                              ^0.5.1     # - Micro web server (https://github.com/lukeed/polka)
 #
 #   unist-util-visit:                            ^2.0.3     # Visit nodes (https://github.com/syntax-tree/unist-util-visit)

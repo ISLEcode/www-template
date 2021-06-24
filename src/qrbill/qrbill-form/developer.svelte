@@ -3,8 +3,11 @@ import { Icon, Col, Container, Row } from 'sveltestrap5';
 import { Badge, Button, Form, FormGroup, FormText, Input, Label } from 'sveltestrap5';
 import { Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText, CardTitle } from 'sveltestrap5';
 import { qrbill } from '../store/qrbills';
-import { qrdata2array, qrbill2sql  } from '../../lib/stdlib/qrbill';
+import { qrdata2array, qrbill2ary, qrbill2sql  } from '../../lib/stdlib/qrbill';
 import rc from '../prefs';
+
+let input;
+$: input = qrbill2ary ($qrbill, $rc)
 
 function qrupdate   () { qrdata2array ($qrbill.data, $qrbill, $rc.prefs) }
 
@@ -12,7 +15,7 @@ function reset () {
     $qrbill.data = null
     if (!$rc.prefs.use_samples) return
     $rc.prefs.use_samples = false
-    location.reload()
+//    location.reload()
 }
 
 let sqlcommand; $: sqlcommand = qrbill2sql ($qrbill, $rc.prefs)
@@ -24,6 +27,7 @@ function use_sample () {
 let sample_id = 0
 let samples = [
     /* none  */ null,
+    /* pm-01 */ "SPC\n0200\n1\nCH9330000001800100053\nS\nSanitas Grundversicherungen AG\nSanitas Hauptsitz\n\n8004\nZürich\nCH\n\n\n\n\n\n\n\n75.70\nCHF\nS\nPatrick Mamin\nSous le Chêne\n16A\n2043\nBoudevilliers\nCH\nQRR\n101628244324001203697800006\nFacture de primes 1628244324 27.05.2021 / Numéro de client 12.03697-8\nEPD\n\n",
     /* 01-de */ "SPC\n0200\n1\nCH6431961000004421557\nS\nKrankenkasse fit&munter\nAm Wasser\n1\n3000\nBern\nCH\n\n\n\n\n\n\n\n1"
               + "11.00\nCHF\nS\nSarah Beispiel\nMustergasse\n1\n3600\nThun\nCH\nQRR\n000008207791225857421286694\nMonatsprämie "
               + "Juli 2020\nEPD\n\n",
@@ -270,9 +274,15 @@ let samples = [
             label="Auto-détection du NPA et du lieu à partir de l'adresse #2 (pour les adresses suisses uniquement)"/>
 
           <Input type="checkbox" bind:checked={$rc.prefs.auto_reference}
-            label="Auto-détection de la référence de la facture à partir de la référence QRR (si elle existe)" />
+            label="Renseigner la référence de la facture à partir des informations supplémentaires (si elles existent)" />
 
           <p class="lead mt-3">Interface utilisateur</p>
+
+          <Input type="checkbox" bind:checked={$rc.prefs.auto_hidesupplier}
+            label="N'afficher le libellé et les mots clés que pour la saisie d'un nouveau fournisseur"/>
+
+          <Input type="checkbox" bind:checked={$rc.prefs.edit_amount}
+            label="Autoriser la modification du montant du mandat"/>
 
           <Input type="checkbox" bind:checked={$rc.prefs.show_splits}
             label="Autoriser la ventilation du montant part compte et/ou mandat"/>
@@ -280,11 +290,16 @@ let samples = [
           <Input type="checkbox" bind:checked={$rc.prefs.editable}
             label="Autoriser la modification des données QR code (excepté le montant, la devise et l'IBAN du bénéficiaire)"/>
 
-          <Input type="checkbox" bind:checked={$rc.prefs.use_ucreditor}
-            label="Autoriser la saisie du bénéficiaire final"/>
-            {#if $rc.prefs.use_ucreditor}
-              <Input type="checkbox" class="mx-4" bind:checked={$rc.prefs.use_ucrediban}
-                label="Autoriser la saisie d'un IBAN pour le bénéficiaire final"/>
+          <Input type="checkbox" bind:checked={$rc.prefs.show_creditor}
+            label="Afficher les données relatives au bénéficiaire"/>
+
+            {#if $rc.prefs.show_creditor}
+              <Input type="checkbox" class="mx-4" bind:checked={$rc.prefs.use_ucreditor}
+                label="Autoriser la saisie du bénéficiaire final"/>
+              {#if $rc.prefs.use_ucreditor}
+                <Input type="checkbox" class="mx-4" bind:checked={$rc.prefs.use_ucrediban}
+                  label="Autoriser la saisie d'un IBAN pour le bénéficiaire final"/>
+              {/if}
             {/if}
 
           <Input type="checkbox" bind:checked={$rc.prefs.show_debtor}
@@ -342,224 +357,161 @@ let samples = [
               </thead>
               <tbody>
 
-                <tr valign="top">
-                  <td><tt>BVR_Type</tt></td>
-                  <td>Codé en dur</td>
-                  <td>QR</td>
+                <tr>
+                  <td><tt>qrr_typeqrcode</tt></td>
+                  <td><tt>bill_kind</tt></td>
+                  <td>{input['bill_kind']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_Date</tt></td>
-                  <td><code>qrbill.payment.date</code></td>
-                  <td>{$qrbill.payment.date}</td>
+                <tr>
+                  <td><tt>qrr_nodocument</tt></td>
+                  <td><tt>bill_id</tt></td>
+                  <td>{input['bill_id']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_DelaiPaiement</tt></td>
-                  <td><code>qrbill.payment.delay</code></td>
-                  <td>{$qrbill.payment.delay}</td>
+                <tr>
+                  <td><tt>qrr_motif</tt></td>
+                  <td><tt>bill_subject</tt></td>
+                  <td>{input['bill_subject']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_DateEcheance</tt></td>
-                  <td><code>qrbill.payment.duedate</code></td>
-                  <td>{$qrbill.payment.duedate}</td>
+                <tr>
+                  <td><tt>qrr_reference</tt></td>
+                  <td><tt>bill_reference</tt></td>
+                  <td>{input['bill_reference']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_MontantHT</tt></td>
-                  <td><code>qrbill.payment.amount</code><br />
-                      <code>qrbill.payment.vatcode</code></td>
-                  <td><b>TODO</b> Calculer à partir de
-                      <tt>BVR_MontantOriginal</tt>  (<b>{$qrbill.payment.amount}</b>) et de
-                      <tt>BVR_CodeCategorieTVA</tt> (<b>{$qrbill.payment.vatcode}</b>)
-                      <br><span class="text-secondary">Ne peux pas être calculé sur le poste client car on ne récupère pas,
-                      pour l'instant, les taux de TVA.</span></td>
+                <tr>
+                  <td><tt>qrr_noprojet</tt></td>
+                  <td><tt>bill_order</tt></td>
+                  <td>{input['bill_order']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_MontantTTC</tt></td>
-                  <td><code>qrbill.payment.amount</code><br />
-                      <code>qrbill.payment.currency</code></td>
-                  <td><b>TODO</b> Calculer à partir de
-                      <tt>BVR_MontantOriginal</tt>  (<b>{$qrbill.payment.amount}</b>) et de
-                      <tt>BVR_NoMonnaie</tt> (<b>{$qrbill.payment.currency}</b>)
-                      <br><span class="text-secondary">Ne peux pas être calculé sur le poste client car on ne récupère pas,
-                      pour l'instant, les taux de change.</span></td>
+                <tr>
+                  <td><tt>qrr_nocompte</tt></td>
+                  <td><tt>bill_account</tt></td>
+                  <td>{input['bill_account']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_MontantOriginal</tt></td>
-                  <td><code>qrbill.payment.amount</code></td>
-                  <td>{$qrbill.payment.amount} <span class="text-secondary">(dans la devise du QRcode)</span></td>
+                <tr>
+                  <td><tt>qrr_montantoriginal</tt></td>
+                  <td><tt>bill_amount</tt></td>
+                  <td>{input['bill_amount']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_TVAMontant</tt></td>
-                  <td><code>qrbill.payment.amount</code><br />
-                      <code>qrbill.payment.vatcode</code></td>
-                  <td><b>TODO</b> Calculer à partir de
-                      <tt>BVR_MontantOriginal</tt>  (<b>{$qrbill.payment.amount}</b>) et de
-                      <tt>BVR_CodeCategorieTVA</tt> (<b>{$qrbill.payment.vatcode}</b>)
-                      <br><span class="text-secondary">Ne peux pas être calculé sur le poste client car on ne récupère pas,
-                      pour l'instant, les taux de TVA.</span></td>
-                </tr>
-                <tr valign="top">
-                  <td><tt>BVR_TVATaux</tt></td>
-                  <td><code>qrbill.payment.vatcode</code></td>
-                  <td><b>TODO</b> Calculer à partir de
-                      <tt>BVR_CodeCategorieTVA</tt> (<b>{$qrbill.payment.vatcode}</b>)
-                      <br><span class="text-secondary">Donnée non rapatriée sur le poste client, pour l'instant.</span></td>
+                <tr>
+                  <td><tt>qrr_codemonnaie</tt></td>
+                  <td><tt>bill_currency</tt></td>
+                  <td>{input['bill_currency']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_CodeCategorieTVA</tt></td>
-                  <td><code>qrbill.payment.vatcode</code></td>
-                  <td>{$qrbill.payment.vatcode}</td>
+                <tr>
+                  <td><tt>qrr_nocategorietva</tt></td>
+                  <td><tt>bill_vatcode</tt></td>
+                  <td>{input['bill_vatcode']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_NoMonnaie</tt></td>
-                  <td><code>qrbill.payment.currency</code></td>
-                  <td><b>SQL</b> SELECT NoMonnaie WHERE MON_LibelleCourt = `<b>{$qrbill.payment.currency}</b>`)</td>
+                <tr>
+                  <td><tt>qrr_date</tt></td>
+                  <td><tt>bill_date</tt></td>
+                  <td>{input['bill_date']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_NoCompte</tt></td>
-                  <td><code>qrbill.payment.account</code></td>
-                  <td>{$qrbill.payment.account}</td>
+                <tr>
+                  <td><tt>qrr_delai</tt></td>
+                  <td><tt>bill_delay</tt></td>
+                  <td>{input['bill_delay']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BV_NoCompteCCP</tt></td>
-                  <td><code>qrbill.creditor.iban</code></td>
-                  <td><b>SQL</b> RIGHT(`<b>{$qrbill.creditor.iban}</b>`, 10)</td>
+                <tr>
+                  <td><tt>qrr_dateecheance</tt></td>
+                  <td><tt>bill_duedate</tt></td>
+                  <td>{input['bill_duedate']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_NoCompteBanque</tt></td>
-                  <td><code></code></td>
-                  <td></td>
+                <tr>
+                  <td><tt>qrr_data</tt></td>
+                  <td><tt>bill_rawdata</tt></td>
+                  <td>{input['bill_rawdata']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_NoRef</tt></td>
-                  <td><code>qrbill.payment.billid</code></td>
-                  <td>{$qrbill.payment.billid}</td>
+
+                <tr>
+                  <td><tt>fournisseur_id</tt></td>
+                  <td><tt>creditor_id</tt></td>
+                  <td>{input['creditor_id']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_Code</tt></td>
-                  <td><code>qrbill.payment.billid</code></td>
-                  <td>{$qrbill.payment.billid}</td>
+                <tr>
+                  <td><tt>fournisseur_maj</tt></td>
+                  <td><tt>creditor_update</tt></td>
+                  <td>{input['creditor_update']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_Motif</tt></td>
-                  <td>{$qrbill.payment.billinfo}</td>
-                  <td>{$qrbill.payment.billinfo}</td>
+                <tr>
+                  <td><tt>fournisseur_nom</tt></td>
+                  <td><tt>creditor_name</tt></td>
+                  <td>{input['creditor_name']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_EnFaveurDeChamp1</tt></td>
-                  <td><code>qrbill.creditor.iban</code></td>
-                  <td><b>SQL</b> RIGHT('<b>{$qrbill.creditor.iban}</b>', 10)</td>
+                <tr>
+                  <td><tt>fournisseur_label</tt></td>
+                  <td><tt>creditor_label</tt></td>
+                  <td>{input['creditor_label']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_NoEntreprise</tt></td>
-                  <td><code>qrbill.creditor.id</code></td>
-                  <td>{$qrbill.creditor.id}</td>
+                <tr>
+                  <td><tt>fournisseur_motcle</tt></td>
+                  <td><tt>creditor_suffix</tt></td>
+                  <td>{input['creditor_suffix']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_NoContact</tt></td>
-                  <td><code>qrbill.payment.account</code></td>
-                  <td>{$qrbill.payment.account}</td>
+                <tr>
+                  <td><tt>fournisseur_contact</tt></td>
+                  <td><tt>creditor_contact</tt></td>
+                  <td>{input['creditor_contact']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_NoProjet</tt></td>
-                  <td><code>qrbill.payment.order</code></td>
-                  <td>{$qrbill.payment.order}</td>
+                <tr>
+                  <td><tt>fournisseur_iban</tt></td>
+                  <td><tt>creditor_iban</tt></td>
+                  <td>{input['creditor_iban']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_NoDocument</tt></td>
-                  <td><code></code></td>
-                  <td></td>
+                <tr>
+                  <td><tt>fournisseur_ledger</tt></td>
+                  <td><tt>creditor_ledger</tt></td>
+                  <td>{input['creditor_ledger']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_EnFaveurDeChamp2</tt></td>
-                  <td><code>qrbill.creditor.name</code></td>
-                  <td>{$qrbill.creditor.name}</td>
+                <tr>
+                  <td><tt>fournisseur_addr1</tt></td>
+                  <td><tt>creditor_addr1</tt></td>
+                  <td>{input['creditor_addr1']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_EnFaveurDeChamp3</tt></td>
-                  <td><code>qrbill.creditor.addr1</code></td>
-                  <td>{$qrbill.creditor.addr1}</td>
+                <tr>
+                  <td><tt>fournisseur_addr2</tt></td>
+                  <td><tt>creditor_addr2</tt></td>
+                  <td>{input['creditor_addr2']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_EnFaveurDeChamp4</tt></td>
-                  <td><code>qrbill.creditor.addr2</code></td>
-                  <td>{$qrbill.creditor.addr2}</td>
+                <tr>
+                  <td><tt>fournisseur_lieu</tt></td>
+                  <td><tt>creditor_location</tt></td>
+                  <td>{input['creditor_location']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_EnFaveurDeChamp5</tt></td>
-                  <td><code>qrbill.creditor.postcode</code></td>
-                  <td>{$qrbill.creditor.postcode}</td>
+                <tr>
+                  <td><tt>fournisseur_npa</tt></td>
+                  <td><tt>creditor_postcode</tt></td>
+                  <td>{input['creditor_postcode']}</td>
                 </tr>
 
-                <tr valign="top">
-                  <td><tt>BVR_EnFaveurDeChamp6</tt></td>
-                  <td><code>qrbill.creditor.location</code></td>
-                  <td>{$qrbill.creditor.location}</td>
-                </tr>
-
-                <tr valign="top">
-                  <td><tt>BVR_VersementPourChamp1</tt></td>
-                  <td><code>qrbill.creditor.name</code></td>
-                  <td>{$qrbill.creditor.name}</td>
-                </tr>
-
-                <tr valign="top">
-                  <td><tt>BVR_VersementPourChamp2</tt></td>
-                  <td><code>qrbill.creditor.addr1</code></td>
-                  <td>{$qrbill.creditor.addr1}</td>
-                </tr>
-
-                <tr valign="top">
-                  <td><tt>BVR_VersementPourChamp3</tt></td>
-                  <td><code>qrbill.creditor.postcode</code></td>
-                  <td>{$qrbill.creditor.postcode}</td>
-                </tr>
-
-                <tr valign="top">
-                  <td><tt>BVR_VersementPourChamp4</tt></td>
-                  <td><code>qrbill.creditor.location</code></td>
-                  <td>{$qrbill.creditor.location}</td>
-                </tr>
-
-                <tr valign="top">
-                  <td><tt>BVR_NoIBAN</tt></td>
-                  <td><code>qrbill.creditor.iban</code></td>
-                  <td>{$qrbill.creditor.iban}</td>
-                </tr>
-
-                <tr valign="top">
-                  <td><tt>BVR_NoClearing</tt></td>
-                  <td><code>qrbill.creditor.iban</code></td>
-                  <td><b>SQL</b> TRIM(LEADING '0' FROM SUBSTRING('<b>{$qrbill.creditor.iban}</b>', 5, 9))</td>
-                </tr>
-
-                <tr valign="top">
-                  <td><tt>BVR_QRJson</tt></td>
-                  <td><code>qrbill.data</code></td>
-                  <td>{$qrbill.data}</td>
+                <tr>
+                  <td><tt>fournisseur_pays</tt></td>
+                  <td><tt>creditor_country</tt></td>
+                  <td>{input['creditor_country']}</td>
                 </tr>
 
               </tbody>

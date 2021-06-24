@@ -1,5 +1,6 @@
 <?php namespace SAM\API;
 
+use \SAM\Database\MySQL;
 use \SAM\Protocol\HTTP;
 use \SAM\Protocol\HTTPStatusCode;
 
@@ -8,10 +9,24 @@ abstract class Entity {
     private $db;
     private $verb;
     protected $map;
+    protected $token;       // The JWT token as-is
+    protected $session;     // The decoded JWT token
 
     public function __construct ($db, $verb = null) {
 
-        $this->db   = $db;
+        if (isset ($db)) $this->db = $db; else foreach (getallheaders() as $key => $value) {
+
+            if ($key <> 'Authorization') continue;
+
+            $this ->token   = substr ($value, 7);
+            $this ->session = JWT::decode ($this ->token, 'sam-jwt', array('HS256'));
+
+            setenv ('DB_DATABASE', $this ->session ->data ->dbname);
+            $this->db   = (new MySQL (true)) ->connect ();
+
+        }
+
+        // TODO assert that we have a DB connection
 
         if (empty ($verb)) $verb = $_SERVER['REQUEST_METHOD'];
         $this->verb = $verb;
@@ -25,7 +40,7 @@ abstract class Entity {
         switch ($this->verb) {
             case 'GET':  $this ->getall ();
             case 'POST': $this ->on_post ();
-            default:     $this ->respond (404, 'Invalid request');
+            default:     $this ->respond (405, 'Invalid request');
         }
     }
 
@@ -39,30 +54,21 @@ abstract class Entity {
         $input = (array) json_decode (file_get_contents ('php://input'), TRUE);
 
         // Make sure we have an SQL statement associated to this `create` request
-        if (!array_key_exists ('create', $this ->map))  $this ->respond (405);
-        if (strlen (trim ($this ->map['create'])) == 0) $this ->respond (405);
+        // if (!array_key_exists ('create', $this ->map))  $this ->respond (405);
+        // if (strlen (trim ($this ->map['create'])) == 0) $this ->respond (405);
 
         // Construct the actual SQL statement that we will be submitting
         $sql = $this -> post_prepare ($this ->map['create'], $input);
 
-/*
-        // Make sure we can prepare an SQL statement for execution
-        $run = $this ->db ->stmt_init ();
-        if (!$run ->prepare ($sql)) $this ->respond (550);
+        // Enact the query and collect its response
+        $set = $this ->db ->query ($sql);
+        $out = $set ->fetch_row();
 
-        // Enact the constructure SQL statement(s)
-        // TODO This needs to be revisited
-        $run -> execute ();
-        $set = $run ->get_result ();
-        $run ->free_result ();
-        $out = $set ->fetch_all (MYSQLI_ASSOC);
-        $this ->db ->close();
-*/
-
-        $out = $this -> post_respond ($sql, $input);
+error_log (json_encode(['app' => 'SAMmobile', 'api' => 'QRBill.POST', 'sql' => $sql, 'set' => $set, 'output' => $out ], true));
 
         // We're done... respond to caller
-        $this ->respond (200, null, null, $out);
+        $this ->db ->close();
+        $this ->respond (200, 'QRBill created successfully', null, $out);
 
     }
 
@@ -93,24 +99,23 @@ abstract class Entity {
         $label  = \SAM\Protocol\HTTP::getlabel ($code);
         header ("$prefix $code $label");
 
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            header('Access-Control-Allow-Origin: *');
+            header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
+            header('Access-Control-Allow-Headers: token, Content-Type');
+            header('Access-Control-Max-Age: 1728000');
+            header('Content-Length: 0');
+            header('Content-Type: text/plain');
+            die();
+        }
+
         // TODO This should not be hardcoded
-        // header ('Access-Control-Allow-Origin: *');
         // header ('Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE');
         // header ('Access-Control-Max-Age: 3600');
         // header ('Access-Control-Allow-Headers: *');
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
-        header('Access-Control-Allow-Headers: token, Content-Type');
-        header('Access-Control-Max-Age: 1728000');
-        header('Content-Length: 0');
-        header('Content-Type: text/plain');
-        die();
-    }
-
-    header('Access-Control-Allow-Origin: *');
-    header('Content-Type: application/json');
+        header('Content-Type: application/json');
 
 
         // Output all provided headers

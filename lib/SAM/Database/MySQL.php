@@ -1,13 +1,13 @@
-<?php namespace \SAM\Database;
+<?php namespace SAM\Database;
 
 class MySQL {
 
     private $handle = null;
 
-    public function __construct () {
+    public function __construct ($config = false) {
 
         $dbhost = getenv ('DB_HOST');
-        $dbname = getenv ('DB_DATABASE');
+        $dbname = $config ? 'gp_config' : getenv ('DB_DATABASE');
         $dbport = getenv ('DB_PORT');
         $userid = getenv ('DB_USERNAME');
         $userpw = getenv ('DB_PASSWORD');

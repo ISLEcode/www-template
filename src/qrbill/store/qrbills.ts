@@ -9,15 +9,19 @@ export const qrbill = writable ({
         iban:           null,
         name:           null,           // The creditor's name (from the QRcode)
         addrtype:       'S',            // Address kind
-        addr1:          null,
-        addr2:          null,
-        postcode:       null,
-        location:       null,
-        country:        null,
+        addr1:          null,           // Street or address line 1
+        addr2:          null,           // Street number or address line 1
+        postcode:       null,           // ZIP code
+        location:       null,           // City or geographic location
+        country:        null,           // Country alpha-2 code present in QRcode, not handled by SAMinfo
         // Complementary data:
-        id:             null,           // Supplier ID (or `+` if new supplier)
-        label:          null,           // The creditor's designation label (as it should be stored in SAMinfo)
-        suffix:         null,           // Suffix to append to the creditor's designation label (optional)
+        contact:        0,              // Useless data passed through as is (why?)
+        id:             0,              // Supplier ID (or `+` if new supplier)
+        label:          '',             // The creditor's designation label (as it should be stored in SAMinfo)
+        ledger:         0,              // The credito's banking details (binds to the unique creditor ID)
+        multiaccounts:  0,              // TODO Cf. hasmanyaccounts
+        organisation:   0,              // Creditor's unique organisation ID within SAMinfo
+        suffix:         '',             // Suffix to append to the creditor's designation label (optional)
         update:         false           // Indicates that payment details should be updated for this supplier on the backend
     },
     data:               null,           // Raw QR code data

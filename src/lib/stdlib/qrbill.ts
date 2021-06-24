@@ -1,95 +1,77 @@
 
 export const qrbill2ary = (qrbill: any, prefs: any): any => {
 
-    let bill_account    = qrbill .payment .account          || 0
-    let bill_amount     = qrbill .payment .amount           || 0
-    let bill_currency   = qrbill .payment .currency         || 'CHF'
-    let bill_date       = qrbill .payment .date    .replace (/\D/g, '')
-    let bill_delay      = qrbill .payment .delay            || 1
-    let bill_duedate    = qrbill .payment .duedate .replace (/\D/g, '')
-    let bill_billid     = qrbill .payment .billid           || ''
-    let bill_moreinfo   = qrbill .payment .moreinfo         || ''
-    let bill_order      = qrbill .payment .order            || 0
-    let bill_reference  = qrbill .payment .reference        || ''
-    let bill_vatcode    = qrbill .payment .vatcode          || '0'
-
-    let who_id          = qrbill .creditor .id         || 0
-    let who_update      = qrbill .payment .updatesupplier   || 0
-    let who_suffix      = qrbill .creditor .suffix         || ''
-
     return {
-        qrr_typeqrcode      : 'QRR',
-        qrr_code            : '',
-        qrr_codemonnaie     : bill_currency,
-        qrr_date            : bill_date,
-        qrr_dateecheance    : bill_duedate,
-        qrr_delai           : bill_delay,
-        qrr_montantoriginal : bill_amount,
-        qrr_motif           : bill_moreinfo,
-        qrr_nocategorietva  : bill_vatcode,
-        qrr_nocompte        : bill_account,
-        qrr_nodocument      : bill_billid,
-        qrr_noprojet        : bill_order,
-        qrr_reference       : bill_reference,
-        fournisseur_addr1   : qrbill.creditor.addr1,
-        fournisseur_addr2   : qrbill.creditor.addr2,
-        fournisseur_iban    : qrbill.creditor.iban,
-        fournisseur_id      : who_id,
-        fournisseur_lieu    : qrbill.creditor.location,
-        fournisseur_maj     : who_update,
-        fournisseur_motcle  : who_suffix,
-        fournisseur_nom     : qrbill.creditor.name,
-        fournisseur_npa     : qrbill.creditor.postcode,
-        qrr_data            : qrbill.data,
+
+        bill_kind           : 'QRR',
+        bill_id             : qrbill .payment .billid           || '',
+        bill_subject        : qrbill .payment .moreinfo         || '',
+        bill_reference      : qrbill .payment .reference        || '',
+        bill_order          : qrbill .payment .order            || 0,
+        bill_account        : qrbill .payment .account          || 0,
+        bill_amount         : qrbill .payment .amount           || 0,
+        bill_currency       : qrbill .payment .currency         || 'CHF',
+        bill_vatcode        : qrbill .payment .vatcode          || '0',
+        bill_date           : qrbill .payment .date    .replace (/\D/g, ''),
+        bill_delay          : qrbill .payment .delay            || 1,
+        bill_duedata        : qrbill .payment .duedate .replace (/\D/g, ''),
+        bill_rawdata        : qrbill.data,
+
+        creditor_id         : qrbill .creditor .organisation || 0,
+        creditor_update     : qrbill .creditor .update ? 1 : 0,
+        creditor_name       : qrbill .creditor .name    || '',
+        creditor_label      : qrbill .creditor .label   || '',
+        creditor_suffix     : qrbill .creditor .suffix  || '',
+        creditor_contact    : qrbill .creditor .contact || 0,
+        creditor_iban       : qrbill .creditor .iban,
+        creditor_ledger     : qrbill .creditor .id || 0,
+        creditor_addr1      : qrbill .creditor .addrtype == 'S'
+                            ? qrbill .creditor .addr1 + ', ' + qrbill .creditor .addr2
+                            : qrbill .creditor .addr1,
+        creditor_addr2      : qrbill .creditor .addrtype == 'S'
+                            ? ''
+                            : qrbill .creditor .addr2,
+        creditor_postcode   : qrbill .creditor .postcode,
+        creditor_location   : qrbill .creditor .location,
+        creditor_country    : qrbill .creditor .country,
+
     }
 
 }
 
 export const qrbill2sql = (qrbill: any, prefs: any): string => {
 
-    let bill_account    = qrbill .payment .account          || 0
-    let bill_amount     = qrbill .payment .amount           || 0
-    let bill_date       = qrbill .payment .date    .replace (/\D/g, '')
-    let bill_delay      = qrbill .payment .delay            || 1
-    let bill_duedate    = qrbill .payment .duedate .replace (/\D/g, '')
-    let bill_id         = qrbill .payment .billid           || ''
-    let bill_order      = qrbill .payment .order            || 0
-    let bill_reference  = qrbill .payment .reference        || ''
-    let bill_vatcode    = qrbill .payment .vatcode          || '0'
+    const sql = qrbill2ary (qrbill, prefs);
 
-    let who_id          = qrbill .creditor .id         || 0
-    let who_update      = qrbill .payment .updatesupplier   || 0
-    let who_suffix      = qrbill .creditor .suffix         || ''
+    return `SELECT f_ins_qrbill(
+    '${sql.bill_kind}',
+    '${sql.bill_id}',
+    '${sql.bill_subject}',
+    '${sql.bill_reference}',
+    '${sql.bill_order}',
+    '${sql.bill_account}',
+    ${sql.bill_amount},
+    '${sql.bill_currency}',
+    '${sql.bill_vatcode}',
+    ${sql.bill_date},
+    ${sql.bill_delay},
+    ${sql.bill_duedata},
+    '${sql.bill_rawdata}',
 
-    return `SELECT '' INTO v_qrr_code;
-    SELECT  ${bill_date} INTO v_qrr_date;
-    SELECT  ${bill_duedate} INTO v_qrr_dateecheance;
-    SELECT  ${bill_delay} INTO v_qrr_delai;
-    SELECT  ${bill_amount} INTO v_qrr_montantoriginal;
-    SELECT '${bill_vatcode}' INTO v_qrr_nocategorietva;
-    SELECT  ${bill_account} INTO v_qrr_nocompte;
-    SELECT '${bill_id}' INTO v_qrr_nodocument;
-    SELECT '${bill_order}' INTO v_qrr_noprojet;
-    SELECT '${bill_reference}' INTO v_qrr_reference;
-    SELECT 'QRR' INTO v_qrr_typeqrcode;
-
-    SELECT '${who_id}' INTO v_fournisseur_id;
-    SELECT '${qrbill.creditor.iban}' INTO v_fournisseur_iban;
-    SELECT '${qrbill.creditor.addr1}' INTO v_fournisseur_addr1;
-    SELECT '${qrbill.creditor.addr2}' INTO v_fournisseur_addr2;
-    SELECT '${qrbill.creditor.location}' INTO v_fournisseur_lieu;
-    SELECT '${qrbill.creditor.name}' INTO v_fournisseur_nom;
-    SELECT '${qrbill.creditor.postcode}' INTO v_fournisseur_npa;
-
-    SELECT '${who_suffix}' INTO v_fournisseur_motcle;
-    SELECT  ${who_update} INTO v_fournisseur_maj;`
-
-    // Not displayed because not currently used
-    // SELECT '${qrbill.payment.currency}' INTO v_qrr_codemonnaie;
-    // SELECT '${qrbill.payment.moreinfo}' INTO v_qrr_motif;
-
-    // Not displayed to preserve on-screen estate
-    // SELECT '${qrbill.data}' INTO v_qrr_data;
+    ${sql.creditor_id},
+    ${sql.creditor_update},
+    '${sql.creditor_name}',
+    '${sql.creditor_label}',
+    '${sql.creditor_suffix}',
+    ${sql.creditor_contact},
+    '${sql.creditor_iban}',
+    ${sql.creditor_ledger},
+    '${sql.creditor_addr1}',
+    '${sql.creditor_addr2}',
+    '${sql.creditor_postcode}',
+    '${sql.creditor_location}',
+    '${sql.creditor_country}'
+    );`
 
 }
 
@@ -106,6 +88,9 @@ export const qrdata2array = (data: string, bill: any, prefs: any) => {
     creditor .postcode = ary[ 8] // Mandatory
     creditor .location = ary[ 9] // Mandatory
     creditor .country  = ary[10] || 'CH' // Mandatory
+
+    // By default (i.e. for a new creditor) the label is set to the name
+    creditor .label = creditor .name
 
     if (prefs.auto_location && creditor.postcode == '' && creditor.location == '') {
         result = creditor .addr2 .match (/^(\d\d\d\d) (.*)/)
@@ -154,13 +139,73 @@ export const qrdata2array = (data: string, bill: any, prefs: any) => {
     payment .extra1    = ary[32] // Optional
     payment .extra2    = ary[33] // Optional
 
-    if (prefs.auto_reference && payment.reftype == 'QRR' && payment.reference)
-        payment .billid = payment.reference
+    if (prefs.auto_reference && payment.moreinfo)
+        payment .billid = payment.moreinfo
 
     payment .date      = new Date () .toJSON () .slice (0, 10)
-    payment .duedate   = payment .date
-    payment .delay     = 1
+    payment .delay     = 30
     payment .vatcode   = '0'
+
+    // TODO This is a blunt copy of `update_duedate` in `payment.svelte`... avoid redundant code!
+    let date = new Date (payment. date)
+    let duedate = new Date ();
+    duedate .setDate (date .getDate() + payment .delay)
+    payment .duedate = duedate .toLocaleDateString ('fr-CA', {year: 'numeric', month: '2-digit', day: '2-digit'});
 
 }
 
+// Automatic CREDITOR match if
+// 1. Same IBAN and only 1 result
+// 2. Same IBAN and many results
+//      a) match first non-zero digits of creditor's QRR reference with supplier's reference_id (show list)
+//      b) otherwise display all
+// 3. Un-matched IBAN then new supplier
+
+//! @fn     match_suppliers
+//! @brief  Enumerate all suppliers matching a given IBAN and reference
+//! @param  suppliers   The list of suppliers considered as input
+//! @param  iban        The IBAN identification against which suppliers should be checked
+//! @param  reference   A reference ID use to uniquely identify a given supplier
+//! @return An array with the records of all matched suppliers
+//! @note   If both the IBAN and the reference are matched we return a singleton result set
+//!         (i.e. no subsequent checking is done to look for additional matching records)
+//!         -> Redo logic
+
+export const match_suppliers = (suppliers, iban, reference) => {
+
+    // Make sure we have something to process
+    let rs = [{ id: 0, ĺabel: 'Nouveau fournisseur' } ];
+
+    return rs
+
+    /*
+    // Make sure we have suppliers to process
+    if (!suppliers .length) return rs
+
+    // Make sure we have a filter to apply
+    if (!iban) return [ rs, ...suppliers ]; // IMPOSSIBLE CASE
+
+    // Strip leading zeros from reference and keep track of resulting string length
+    let refid  = reference .replace ('^/0\+/', '')
+    let length = refid.length
+
+    // TODO
+    // Apply the filter -- single match if both iban and reference match
+    suppliers .forEach ((item, input) => {
+
+        // Ignore all non-matched IBANs
+        if (!(input.iban && input.iban.length > 0 && iabn && iban.length > 0 && input .iban == iban)) continue
+
+        // If we match both the IBAN and the reference, we have a unique result (don't match any futher)
+        // if (input.reference_id.length && reference.length && reference .indexOf (input .reference_id) == 0) return [ input, rs ];
+
+        // Append matched IBAN to result set
+        rs .push (input)
+
+    })
+
+    // We're done, return result set
+    return rs
+    */
+
+}

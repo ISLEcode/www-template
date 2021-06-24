@@ -1,5 +1,45 @@
 - [ ] Add class `text-muted` to all LABEL elements so that the label is muted and not assimilated to the input's value
+- [ ] Rename `bill_id` (this is free form subject/label/info field which can be empty)
+- [ ] Allow `bill_id` to be pre-filled with any of the QR form's text fields (by option or on-screen)
+- [ ] Offer auto-complete functionality on all select elements
+- [ ] Correct date calculations (invalid locale)
+- [ ] Reload page (and log) when scanner freezes.
+- [ ] Use tags instead of plain input field
+- [ ] When adding/changing the suffix of a supplier, make sure it doesn't already exist
+- [ ] Align benificiary/debtor tabs to the payment tab (i.e. dispatch inputs into their own svelte files)
+- [x] Upon new supplier, update MUST be toggled on
+- [ ] SQL dump doesn't propagate gp_config._user table modification
+- [ ] Duedate is sent as undefined
 
+Input mask/Number formatting
+https://github.com/xnimorz/svelte-input-mask
+
+Date/Time
+https://www.skypack.dev/blog/2021/02/the-best-javascript-date-libraries/
+https://blog.logrocket.com/javascript-date-libraries/
+
+Non-persistent
+https://svelte.dev/repl/22d8c178f6434874b9c281bb6041d286?version=3.23.0
+
+Backend
+https://tahazsh.com/fullstack-app-with-svelte-and-node-part-7
+
+Authentication
+https://www.swyx.io/svelte-auth/
+https://aws.amazon.com/amplify/hosting/#One-click_custom_domain_setup
+https://aws.amazon.com/amplify/authentication/
+https://docs.amplify.aws
+https://www.nielsvandermolen.com/authentication-example-svelte-sapper/
+https://github.com/arlac77/svelte-session-manager
+https://framework7.io/svelte/login-screen.html
+https://javascript.plainenglish.io/a-svelte-application-with-authentication-and-storage-f4a41a73bd5d
+
+Backend QRcode generation
+https://github.com/stapelberg/qrbill (Go)
+
+Validation
+https://github.com/nexys-admin/qrbill/blob/master/src/lib/validate.ts
+https://github.com/boessu/SwissQRBill/blob/master/src/main/java/ch/braincell/pay/qrbill/val/QRRContent.java
 
 https://gist.github.com/ScottPhillips/1721489
 https://stackoverflow.com/questions/38943771/how-to-insert-part-of-url-via-htaccess
@@ -9,12 +49,37 @@ https://www.askapache.com/htaccess/using-http-headers-with-htaccess/#privacy-p3p
 https://www.askapache.com/htaccess/#Main_Server_Config_Examples
 https://www.infoq.com/news/2020/10/svelte-simple-repl-summit-2020/
 
+QRCode writer
+https://github.com/nexys-admin/qrbill/tree/master/src/ui
+
+Swiss clearing codes
+https://www.six-group.com/en/products-services/banking-services/interbank-clearing/online-services/download-bank-master.html
+https://github.com/nexys-admin/swiss-banks
+
+Zefix lookup
+https://github.com/nexys-admin/zefix
+
+CH cantons & communes
+https://www.bfs.admin.ch/bfs/fr/home/bases-statistiques/repertoire-officiel-communes-suisse.assetdetail.16924990.html
+
+Payroll
+https://github.com/nexys-admin/payroll-switzerland/
+
+Translations
+https://github.com/sprain/php-swiss-qr-bill/blob/master/src/PaymentPart/Translation/Translation.php
 
 Service worker
 https://discord.com/channels/457912077277855764/457912077277855766/852515724195004416
 
 Offline
 https://github.com/Myrmod/SvelteKit-offline
+
+SAMinfo API
+https://github.com/swico/ebill-swp-api
+
+Bookmarks
+https://github.com/swico/qr-bill
+https://github.com/swico/www.swiss-qr-invoice.org (website of previous)
 
 Antony
 https://discord.com/channels/457912077277855764/457912077277855766/852521930070556673

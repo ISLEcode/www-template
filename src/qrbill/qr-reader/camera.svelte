@@ -30,7 +30,7 @@ function tick () {
 
     prompt = '⌛ Loading video...'
 
-    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+    if (video && video.readyState === video.HAVE_ENOUGH_DATA) {
 
         hide_prompt    = true;
         hide_canvas    = false;
@@ -60,9 +60,7 @@ function tick () {
             hide_data    = false;
             $qrbill.data = code.data;
             stop_camera ();
-
             qrdata2array (code.data, $qrbill, $rc.prefs);
-
             return;
 
         }
@@ -149,5 +147,4 @@ onMount (() => { navigator .mediaDevices .getUserMedia (constraints) .then (onsu
     </Row>
   </CardBody>
 </Card>
-
 
